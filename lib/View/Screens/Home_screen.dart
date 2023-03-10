@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 30),
+                            padding: const EdgeInsets.only(left: 35),
                             child: Column(
                               children: [
                                 Text('Hi there',

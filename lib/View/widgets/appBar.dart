@@ -18,7 +18,7 @@ class  Appbar extends StatelessWidget {
       child: Stack(
           children: <Widget>[
             Positioned(
-                top: -60,
+                top: -70,
                 left: -50,
                 child: Transform.rotate(
                   angle: 15 * (math.pi / 180),
@@ -36,7 +36,7 @@ class  Appbar extends StatelessWidget {
                   ),
                 )
             ), Positioned(
-                top: -60,
+                top: -70,
                 left: MediaQuery
                     .of(context)
                     .size

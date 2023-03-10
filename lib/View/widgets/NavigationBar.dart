@@ -18,13 +18,19 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85.0,
+      height: 85,
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.5),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.transparent, Colors.white],
+          stops: [0.3, 0.2],
+        ),
+      //  color: Colors.white.withOpacity(0.5),
         /*boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 5.0,
+            color: Colors.white54,
+            blurRadius: 2.0,
             spreadRadius: 2.0,
           ),
         ],*/
@@ -38,19 +44,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                _buildNavItem(Icons.archive, selectedIndex == 1
+                _buildNavItem(AssetImage('Assets/iconArchieve.png'), selectedIndex == 1
                     ? 'Archive'
                     : selectedIndex == 2
                     ? 'Archive'
                     : '', 0),
-                SizedBox(width: 50),
-                _buildNavItem(Icons.home, selectedIndex == 1
+                _buildNavItem(AssetImage('Assets/iconHome.png'), selectedIndex == 1
                     ? ''
                     : selectedIndex == 2
                     ? 'Home'
                     : 'Home', 1),
-                SizedBox(width: 50),
-                _buildNavItem(Icons.person, selectedIndex == 1
+                _buildNavItem(AssetImage('Assets/iconProfile.png'), selectedIndex == 1
                     ? 'Profile'
                     : selectedIndex == 2
                     ? ''
@@ -60,9 +64,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
           isActive ?
           Positioned(
-            left: 0,
-            right: 0,
-            bottom: 15,
+            left: 20,
+            right: 20,
+            bottom: 25,
             child: AnimatedAlign(
               alignment: selectedIndex == 1
                   ? Alignment.center
@@ -72,21 +76,30 @@ class CustomBottomNavigationBar extends StatelessWidget {
               duration: Duration(milliseconds: 300),
               curve: Curves.easeOut,
               child: Container(
-                height: 70.0,
-                width: 70.0,
+                height: 60.0,
+                width: 60.0,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color.fromRGBO(12, 62, 117, 1),
                 ),
-                child: IconButton(
+                child:Image.asset(selectedIndex == 1
+                    ? "Assets/iconHome.png"
+                    : selectedIndex == 2
+                    ? "Assets/iconProfile.png"
+                    : "Assets/iconArchieve.png",width: 30,height: 30,
+                color: Colors.white,)
+
+
+                /*IconButton(
                   icon: Icon(selectedIndex == 1
                       ? Icons.home
                       : selectedIndex == 2
                       ? Icons.person
-                      : Icons.archive),
+                      : Icons.archive,
+                  size: 40),
                   color: Colors.white,
                   onPressed: () {},
-                ),
+                ),*/
               ),
             ),
           ):SizedBox()
@@ -96,18 +109,18 @@ class CustomBottomNavigationBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index) {
+  Widget _buildNavItem(AssetImage icon, String label, int index) {
     return GestureDetector(
       onTap:()=>controller.changePage(index),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
+          ImageIcon(
             icon,
+            size: 50,
             color: selectedIndex == index ? Colors.blue : Color.fromRGBO(
                 12, 62, 117, 1),
           ),
-          SizedBox(height: 5),
           Text(
             label,
             style: TextStyle(

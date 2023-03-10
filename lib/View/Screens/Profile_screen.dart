@@ -225,10 +225,10 @@ class ProfilePage extends StatelessWidget {
                        height: 140,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                         color: Color.fromRGBO(241, 241, 241, 1),
+                         color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
                          boxShadow: [
                            BoxShadow(
-                               color: Colors.black.withOpacity(0.25),
+                               color: Colors.white.withOpacity(0.25),
                                blurRadius: 4,
                                blurStyle: BlurStyle.solid,
                                offset: Offset(0, 4)
@@ -263,10 +263,10 @@ class ProfilePage extends StatelessWidget {
                        height: 50,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                         color: Color.fromRGBO(241, 241, 241, 1),
+                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
                          boxShadow: [
                            BoxShadow(
-                               color: Colors.black.withOpacity(0.25),
+                               color: Colors.white.withOpacity(0.25),
                                blurRadius: 4,
                                blurStyle: BlurStyle.solid,
                                offset: Offset(0, 4)
@@ -303,10 +303,10 @@ class ProfilePage extends StatelessWidget {
                        height: 50,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                         color: Color.fromRGBO(241, 241, 241, 1),
+                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
                          boxShadow: [
                            BoxShadow(
-                               color: Colors.black.withOpacity(0.25),
+                               color: Colors.white.withOpacity(0.25),
                                blurRadius: 4,
                                blurStyle: BlurStyle.solid,
                                offset: Offset(0, 4)
@@ -343,10 +343,10 @@ class ProfilePage extends StatelessWidget {
                        height: 50,
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                         color: Color.fromRGBO(241, 241, 241, 1),
+                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
                          boxShadow: [
                            BoxShadow(
-                               color: Colors.black.withOpacity(0.25),
+                               color: Colors.white.withOpacity(0.25),
                                blurRadius: 4,
                                blurStyle: BlurStyle.solid,
                                offset: Offset(0, 4)
@@ -371,7 +371,6 @@ class ProfilePage extends StatelessWidget {
                                  fontSize: 15,
                                  fontFamily: 'Poppins',
                                  color: Color.fromRGBO(159, 173, 187, 1),
-
                                ),
                              )
                            ],
