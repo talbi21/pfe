@@ -3,20 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-
 import '../../Controllers/LoginController.dart';
 import '../widgets/appBar.dart';
 import '../widgets/loading_overlay.dart';
 import 'LoginPhone.dart';
 
-
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +55,7 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TextFormField(
-                                style: TextStyle(
-                                ),
+                                style: TextStyle(),
                                 controller: controller.idController,
                                 validator: controller.validator,
                                 decoration: InputDecoration(
@@ -82,7 +74,7 @@ class LoginScreen extends StatelessWidget {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       borderSide:
-                                      BorderSide(color: Color(0xffF5F5F5))),
+                                          BorderSide(color: Color(0xffF5F5F5))),
                                 )),
                           )
                         ],
@@ -120,13 +112,12 @@ class LoginScreen extends StatelessWidget {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       borderSide:
-                                      BorderSide(color: Color(0xffF5F5F5))),
+                                          BorderSide(color: Color(0xffF5F5F5))),
                                 )),
                           )
                         ],
                       ),
                       SizedBox(height: 20),
-
                       Divider(
                         color: Colors.grey,
                         thickness: 1,
@@ -149,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                                       "Login with Phone Number",
                                       style: TextStyle(
                                         color:
-                                        Color.fromRGBO(119, 113, 113, 113),
+                                            Color.fromRGBO(119, 113, 113, 113),
                                         fontSize: 14,
                                       ),
                                     ),
@@ -166,9 +157,11 @@ class LoginScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(150, 40),
                           foregroundColor: Colors.white,
-                          backgroundColor: Color.fromRGBO(12, 62, 117, 1), // text color
+                          backgroundColor:
+                              Color.fromRGBO(12, 62, 117, 1), // text color
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8), // rounded corners
+                            borderRadius:
+                                BorderRadius.circular(8), // rounded corners
                           ),
                         ),
                         onPressed: () async {
@@ -176,9 +169,7 @@ class LoginScreen extends StatelessWidget {
                               .validate()) {
                             LoadingOverlay.show(message: 'Login...');
                             try {
-                              await
-
-                              Timer(Duration(seconds:5), () {
+                              await Timer(Duration(seconds: 5), () {
                                 controller.login();
                               });
 
@@ -191,8 +182,7 @@ class LoginScreen extends StatelessWidget {
                                 "Error",
                                 err.toString(),
                                 snackPosition: SnackPosition.TOP,
-                                backgroundColor:
-                                Colors.red.withOpacity(.75),
+                                backgroundColor: Colors.red.withOpacity(.75),
                                 colorText: Colors.white,
                                 icon: const Icon(Icons.error,
                                     color: Colors.white),
@@ -255,6 +245,4 @@ class LoginScreen extends StatelessWidget {
       ]),
     );
   }
-
-
 }

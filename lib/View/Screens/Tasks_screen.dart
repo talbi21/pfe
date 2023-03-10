@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/View/widgets/Taskitem.dart';
-
 import '../../Controllers/BottomNavigationController.dart';
-import '../widgets/NavigationBar.dart';
 import '../widgets/appBa.dart';
 
 class TaskPage extends StatelessWidget {
@@ -17,7 +15,6 @@ class TaskPage extends StatelessWidget {
           Appba(),
           Taskitem(show: true),
         ],
-
       ),
     );
   }

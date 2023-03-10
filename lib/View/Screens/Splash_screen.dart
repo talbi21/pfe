@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 
 import '../../Controllers/SplashController.dart';
 
-class SplashScreen extends StatelessWidget  {
-
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
@@ -16,9 +15,7 @@ class SplashScreen extends StatelessWidget  {
         body: Center(
           child: Image.asset('Assets/logo.png',
               fit: BoxFit.scaleDown, alignment: Alignment.center),
-        )
-
-    );
+        ));
   }
   // Add your properties and methods here
 }

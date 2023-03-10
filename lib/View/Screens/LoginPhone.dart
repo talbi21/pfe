@@ -8,7 +8,6 @@ import 'Otp_screen.dart';
 class LoginPhone extends StatelessWidget {
   const LoginPhone({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PhoneController());
@@ -53,15 +52,11 @@ class LoginPhone extends StatelessWidget {
                         children: [
                           Expanded(
                             child: TextFormField(
-                              keyboardType: TextInputType.phone,
-                                style: TextStyle(
-
-                                ),
-
+                                keyboardType: TextInputType.phone,
+                                style: TextStyle(),
                                 controller: controller.numController,
                                 validator: controller.validator,
                                 decoration: InputDecoration(
-
                                   prefixIcon: Container(
                                     width: 60,
                                     decoration: BoxDecoration(
@@ -77,23 +72,21 @@ class LoginPhone extends StatelessWidget {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       borderSide:
-                                      BorderSide(color: Color(0xffF5F5F5))),
-
-                                )
-                            ),
+                                          BorderSide(color: Color(0xffF5F5F5))),
+                                )),
                           )
                         ],
                       ),
-
-
-                      SizedBox(height: MediaQuery.of(context).size.height/3),
+                      SizedBox(height: MediaQuery.of(context).size.height / 3),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(150, 40),
                           foregroundColor: Colors.white,
-                          backgroundColor: Color.fromRGBO(12, 62, 117, 1), // text color
+                          backgroundColor:
+                              Color.fromRGBO(12, 62, 117, 1), // text color
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8), // rounded corners
+                            borderRadius:
+                                BorderRadius.circular(8), // rounded corners
                           ),
                         ),
                         onPressed: () {
@@ -101,16 +94,10 @@ class LoginPhone extends StatelessWidget {
                         },
                         child: Text('Get OTP'),
                       ),
-
-
-                    ]
-
-                )
-            ),
+                    ])),
           ),
         ),
-      ]
-      ),
+      ]),
     );
   }
 }

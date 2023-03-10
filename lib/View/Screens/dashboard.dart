@@ -13,31 +13,23 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
-
-            Obx(() => _buildPage(controller.currentIndex.value)),
-
-            Obx(()  =>
-
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  left: 0,
-                  child:
-                  CustomBottomNavigationBar(selectedIndex: controller.currentIndex.value, controller: controller,isActive: controller.isActive),
-                )
-            ),
-
-
-          ],
-        ),
-     //   bottomNavigationBar:
-
-
+      body: Stack(
+        children: [
+          Obx(() => _buildPage(controller.currentIndex.value)),
+          Obx(() => Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: CustomBottomNavigationBar(
+                    selectedIndex: controller.currentIndex.value,
+                    controller: controller,
+                    isActive: controller.isActive),
+              )),
+        ],
+      ),
+      //   bottomNavigationBar:
     );
   }
-
 
   Widget _buildPage(int index) {
     switch (index) {

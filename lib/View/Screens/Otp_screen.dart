@@ -13,11 +13,10 @@ class OtpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(OtpController());
 
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Appbar(),
             SizedBox(height: 20),
@@ -35,11 +34,9 @@ class OtpPage extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            
             Center(
-              child:Image.asset('Assets/OTP.png'),
+              child: Image.asset('Assets/OTP.png'),
             ),
-
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(40.0),
@@ -49,14 +46,12 @@ class OtpPage extends StatelessWidget {
                 length: 4,
                 onChanged: (value) => controller.setOtp(value),
                 pinTheme: PinTheme(
-                  shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: 50,
-                  fieldWidth: 50,
-                  
-                  activeFillColor: Colors.white,
-                  inactiveColor: Color.fromRGBO(205, 205, 205, 100)
-                ),
+                    shape: PinCodeFieldShape.box,
+                    borderRadius: BorderRadius.circular(5),
+                    fieldHeight: 50,
+                    fieldWidth: 50,
+                    activeFillColor: Colors.white,
+                    inactiveColor: Color.fromRGBO(205, 205, 205, 100)),
               ),
             ),
             SizedBox(height: 16),

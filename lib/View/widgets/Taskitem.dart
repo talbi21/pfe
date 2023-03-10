@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 import 'Archiveitem.dart';
+import 'Category_Icon.dart';
 
 class Taskitem extends StatelessWidget {
   final Color secColor;
@@ -147,20 +148,9 @@ class Taskitem extends StatelessWidget {
                               fontSize: 14)),
 
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 30,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(100)),
-                            child: Row(children: [
-                              Text(
-                                "To Do",
-                              ),
-                              Icon(Icons.today_outlined)
-                            ]),
-                          )
+                          category_Icon(PrimaryColor:Color.fromRGBO(17, 154, 253, 1) , Title: 'To do', width: 60, height: 25, icon: 'Assets/to-do-list.png',)
                         ],
                       ),
                       Divider(

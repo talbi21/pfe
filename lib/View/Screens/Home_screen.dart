@@ -5,10 +5,8 @@ import 'package:untitled2/View/widgets/SummaryItem.dart';
 
 import '../../Controllers/HomeController.dart';
 import '../widgets/Archiveitem.dart';
-import '../widgets/NavigationBar.dart';
 import '../widgets/appBa.dart';
 import '../widgets/Categoryitem.dart';
-import 'Profile_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -254,7 +252,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-
     );
   }
 }

@@ -16,13 +16,11 @@ class ProfilePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Appbar(),
-
           Padding(
             padding: const EdgeInsets.all(20),
             child: Container(
               alignment: Alignment.center,
-              decoration:
-              BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8)),
                 color: Color.fromRGBO(241, 241, 241, 1),
                 boxShadow: [
@@ -30,8 +28,7 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.black.withOpacity(0.25),
                       blurRadius: 4,
                       blurStyle: BlurStyle.solid,
-                      offset: Offset(0, 4)
-                  ),
+                      offset: Offset(0, 4)),
                 ],
               ),
               child: Row(
@@ -40,29 +37,28 @@ class ProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         left: 10, right: 5, bottom: 10, top: 10),
                     child: Image.asset("Assets/exempleuser.jpg",
-                        height: 87,
-                        width: 84
-                    ),
+                        height: 87, width: 84),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10, bottom: 5, left: 1),
-                        child: Text("Achref Talbi",
+                        padding:
+                            const EdgeInsets.only(top: 10, bottom: 5, left: 1),
+                        child: Text(
+                          "Achref Talbi",
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Montserrat',
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
-                              height: 0.5
-                          ),
+                              height: 0.5),
                         ),
                       ),
                       Row(
                         children: [
-                          Icon(Icons.mail,
+                          Icon(
+                            Icons.mail,
                             size: 20,
                             color: Color.fromRGBO(12, 62, 117, 1),
                           ),
@@ -72,7 +68,8 @@ class ProfilePage extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Icon(Icons.date_range,
+                          Icon(
+                            Icons.date_range,
                             size: 20,
                             color: Color.fromRGBO(12, 62, 117, 1),
                           ),
@@ -81,9 +78,9 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                       Row(
-
                         children: [
-                          Icon(Icons.pin_drop,
+                          Icon(
+                            Icons.pin_drop,
                             size: 20,
                             color: Color.fromRGBO(12, 62, 117, 1),
                           ),
@@ -93,16 +90,13 @@ class ProfilePage extends StatelessWidget {
                       )
                     ],
                   )
-
                 ],
               ),
             ),
           ),
-
           Obx(() {
             return Container(
-              decoration:
-              BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(50)),
                 color: Color.fromRGBO(241, 241, 241, 1),
                 boxShadow: [
@@ -110,8 +104,7 @@ class ProfilePage extends StatelessWidget {
                       color: Colors.black.withOpacity(0.25),
                       blurRadius: 4,
                       blurStyle: BlurStyle.solid,
-                      offset: Offset(0, 4)
-                  ),
+                      offset: Offset(0, 4)),
                 ],
               ),
               width: 130,
@@ -127,8 +120,7 @@ class ProfilePage extends StatelessWidget {
                         height: 30,
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(12, 62, 117, 1),
-                            borderRadius: BorderRadius.circular(16)
-                        ),
+                            borderRadius: BorderRadius.circular(16)),
                       ),
                     ),
                   ),
@@ -138,22 +130,26 @@ class ProfilePage extends StatelessWidget {
                           left: 15, bottom: 10, top: 10, right: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [GestureDetector(
-                          onTap: () => controller.toAbout(),
-                          child: Text("ABOUT",
-                            style: TextStyle(
-                              color: controller.isToggleOn.value
-                                  ? Colors.white
-                                  : Color.fromRGBO(65, 117, 255, 1),
+                        children: [
+                          GestureDetector(
+                            onTap: () => controller.toAbout(),
+                            child: Text(
+                              "ABOUT",
+                              style: TextStyle(
+                                color: controller.isToggleOn.value
+                                    ? Colors.white
+                                    : Color.fromRGBO(65, 117, 255, 1),
+                              ),
                             ),
                           ),
-                        ),
                           GestureDetector(
                             onTap: () => controller.toWork(),
-                            child: Text("WORK",
+                            child: Text(
+                              "WORK",
                               style: TextStyle(
-                                color: controller.isToggleOn.value ? Color
-                                    .fromRGBO(65, 117, 255, 1) : Colors.white,
+                                color: controller.isToggleOn.value
+                                    ? Color.fromRGBO(65, 117, 255, 1)
+                                    : Colors.white,
                               ),
                             ),
                           )
@@ -164,53 +160,45 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             );
-          }
-
-          ),
-
-
+          }),
           Obx(() {
             return Visibility(
               visible: !controller.isToggleOn.value,
               child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child:
-                  Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
                     child: Column(
-
                       children: [
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ProfileTaskitem(nbr: controller.IssuesDone(),
+                            ProfileTaskitem(
+                                nbr: controller.IssuesDone(),
                                 Title: "Issues Done",
                                 colorr: Color.fromRGBO(44, 203, 215, 1)),
-                            ProfileTaskitem(nbr: controller.FeaturesDone(),
+                            ProfileTaskitem(
+                                nbr: controller.FeaturesDone(),
                                 Title: "Features Done",
                                 colorr: Color.fromRGBO(44, 203, 215, 1))
                           ],
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ProfileTaskitem(nbr: controller.HoursWorkedCount(),
+                            ProfileTaskitem(
+                                nbr: controller.HoursWorkedCount(),
                                 Title: "Hours  worked",
                                 colorr: Color.fromRGBO(253, 159, 61, 1)),
-                            ProfileTaskitem(nbr: controller.InprogressCount(),
+                            ProfileTaskitem(
+                                nbr: controller.InprogressCount(),
                                 Title: "Tasks In Progress",
                                 colorr: Color.fromRGBO(65, 117, 255, 1))
                           ],
                         ),
                       ],
                     ),
-                  )
-              ),
+                  )),
             );
           }),
           Obx(() {
@@ -218,175 +206,167 @@ class ProfilePage extends StatelessWidget {
               visible: controller.isToggleOn.value,
               child: Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child:
-                 Column(
-                   children: [
-                     Container(
-                       height: 140,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                         color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
-                         boxShadow: [
-                           BoxShadow(
-                               color: Colors.white.withOpacity(0.25),
-                               blurRadius: 4,
-                               blurStyle: BlurStyle.solid,
-                               offset: Offset(0, 4)
-                           ),
-                         ],
-                       ),
-                       child: Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text('Bio',
-                                 style: TextStyle(
-                                   fontSize: 18,
-                                   fontFamily: 'Poppins',
-                                   fontWeight: FontWeight.bold,
-                                   color: Color.fromRGBO(107, 115, 121, 1),
-                                 )
-                             ),
-                             Text('Lorem ipsum dolor '
-                                 'sit amet, consectetur adipi '
-                                 'scing elit. Tortor turpis sodales null'
-                                 'a velit. Nunc cum vitae, rhoncus leo id. '
-                                 'Volutpat  Duis tinunt pretium luctus pulvinar '
-                                 'pretium.')
-                           ],
-                         ),
-                       ),
-                     ),
-                    SizedBox(height: 5) ,
-                     Container(
-                       height: 50,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
-                         boxShadow: [
-                           BoxShadow(
-                               color: Colors.white.withOpacity(0.25),
-                               blurRadius: 4,
-                               blurStyle: BlurStyle.solid,
-                               offset: Offset(0, 4)
-                           ),
-                         ],
-                       ),
-                       child: Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Text("PHONE",
-                             style: TextStyle(
-                               fontSize: 18,
-                               fontFamily: 'Poppins',
-                               fontWeight: FontWeight.bold,
-                               color: Color.fromRGBO(107, 115, 121, 1),
-                             )
-                             ),
-                             Text("21519669",
-                               style: TextStyle(
-                                 fontSize: 15,
-                                 fontFamily: 'Poppins',
-                                   color: Color.fromRGBO(159, 173, 187, 1),
-
-                               ),
-                             )
-                           ],
-                         ),
-                       ),
-                     ),
-                     SizedBox(height: 5) ,
-                     Container(
-                       height: 50,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
-                         boxShadow: [
-                           BoxShadow(
-                               color: Colors.white.withOpacity(0.25),
-                               blurRadius: 4,
-                               blurStyle: BlurStyle.solid,
-                               offset: Offset(0, 4)
-                           ),
-                         ],
-                       ),
-                       child: Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Text("DEPARTEMENT",
-                                 style: TextStyle(
-                                   fontSize: 18,
-                                   fontFamily: 'Poppins',
-                                   fontWeight: FontWeight.bold,
-                                   color: Color.fromRGBO(107, 115, 121, 1),
-                                 )
-                             ),
-                             Text("Technique",
-                               style: TextStyle(
-                                 fontSize: 15,
-                                 fontFamily: 'Poppins',
-                                 color: Color.fromRGBO(159, 173, 187, 1),
-
-                               ),
-                             )
-                           ],
-                         ),
-                       ),
-                     ),
-                     SizedBox(height: 5) ,
-                     Container(
-                       height: 50,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.all(Radius.circular(8)),
-                           color: Color.fromRGBO(241, 241, 241, 1).withOpacity(0.75),
-                         boxShadow: [
-                           BoxShadow(
-                               color: Colors.white.withOpacity(0.25),
-                               blurRadius: 4,
-                               blurStyle: BlurStyle.solid,
-                               offset: Offset(0, 4)
-                           ),
-                         ],
-                       ),
-                       child: Padding(
-                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                           children: [
-                             Text("Joined",
-                                 style: TextStyle(
-                                   fontSize: 18,
-                                   fontFamily: 'Poppins',
-                                   fontWeight: FontWeight.bold,
-                                   color: Color.fromRGBO(107, 115, 121, 1),
-                                 )
-                             ),
-                             Text("Fev 2023",
-                               style: TextStyle(
-                                 fontSize: 15,
-                                 fontFamily: 'Poppins',
-                                 color: Color.fromRGBO(159, 173, 187, 1),
-                               ),
-                             )
-                           ],
-                         ),
-                       ),
-                     )
-                   ],
-                 )
-              ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 140,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color.fromRGBO(241, 241, 241, 1)
+                              .withOpacity(0.75),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.white.withOpacity(0.25),
+                                blurRadius: 4,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(0, 4)),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Bio',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(107, 115, 121, 1),
+                                  )),
+                              Text('Lorem ipsum dolor '
+                                  'sit amet, consectetur adipi '
+                                  'scing elit. Tortor turpis sodales null'
+                                  'a velit. Nunc cum vitae, rhoncus leo id. '
+                                  'Volutpat  Duis tinunt pretium luctus pulvinar '
+                                  'pretium.')
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color.fromRGBO(241, 241, 241, 1)
+                              .withOpacity(0.75),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.white.withOpacity(0.25),
+                                blurRadius: 4,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(0, 4)),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("PHONE",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(107, 115, 121, 1),
+                                  )),
+                              Text(
+                                "21519669",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  color: Color.fromRGBO(159, 173, 187, 1),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color.fromRGBO(241, 241, 241, 1)
+                              .withOpacity(0.75),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.white.withOpacity(0.25),
+                                blurRadius: 4,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(0, 4)),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("DEPARTEMENT",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(107, 115, 121, 1),
+                                  )),
+                              Text(
+                                "Technique",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  color: Color.fromRGBO(159, 173, 187, 1),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          color: Color.fromRGBO(241, 241, 241, 1)
+                              .withOpacity(0.75),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.white.withOpacity(0.25),
+                                blurRadius: 4,
+                                blurStyle: BlurStyle.solid,
+                                offset: Offset(0, 4)),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Joined",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(107, 115, 121, 1),
+                                  )),
+                              Text(
+                                "Fev 2023",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontFamily: 'Poppins',
+                                  color: Color.fromRGBO(159, 173, 187, 1),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
             );
           }),
-
-
         ],
       ),
     );
   }
 }
-
