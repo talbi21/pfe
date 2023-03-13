@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ArchiveItem extends StatelessWidget {
+class ArchiveItemHome extends StatelessWidget {
   final double height;
   final double width;
   final Color secColor;
   final Color PrimaryColor;
-  final Task item;
+  final ArchiveTask item;
 
 
 
-  const ArchiveItem({
+  const ArchiveItemHome({
     Key? key,
     this.secColor = Colors.indigo,
     this.PrimaryColor = Colors.amber,
@@ -22,7 +22,7 @@ class ArchiveItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only( right: 30),
+      margin: const EdgeInsets.only( right: 30,bottom: 10),
       height: height,
       width: width,
      decoration: BoxDecoration(
@@ -30,9 +30,10 @@ class ArchiveItem extends StatelessWidget {
        color: Color.fromRGBO(241, 241, 241, 1),
        boxShadow: [
          BoxShadow(
-           color: Color.fromRGBO(203, 191, 191, 0.25),
-           blurRadius: 4,
-           blurStyle: BlurStyle.solid,
+             color: Colors.black.withOpacity(0.25),
+             blurRadius: 4,
+             blurStyle: BlurStyle.solid,
+             offset: Offset(0, 4)
          ),
        ],
     ),
@@ -159,7 +160,7 @@ class ArchiveItem extends StatelessWidget {
                       SizedBox(
                         width: 5,
                       ),
-                      Image.asset("Assets/remove.png")
+                      Image.asset("assets/remove.png")
                     ],
                   ),
                 ),
@@ -174,10 +175,10 @@ class ArchiveItem extends StatelessWidget {
 }
 
 
-class Task {
+class ArchiveTask {
   final String title;
   final String description;
   final IconData icon;
 
-  const Task({required this.title, required this.description, required this.icon});
+  const ArchiveTask({required this.title, required this.description, required this.icon});
 }

@@ -24,7 +24,7 @@ final  String icon;
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: BorderRadius.all(Radius.circular(25)),
         color: Color.fromRGBO(241, 241, 241, 1)
             .withOpacity(1),
         boxShadow: [
@@ -35,15 +35,23 @@ final  String icon;
               offset: Offset(0, 4)),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(Title,style: TextStyle(
-            color: PrimaryColor,
-          )),
-          Image.asset(icon)
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(Title,style: TextStyle(
+              color: PrimaryColor,
+              fontFamily: "Poppins",
+              fontSize: 15,
+              fontWeight: FontWeight.bold
+            ),
+            ),
+            SizedBox(width: 5),
+            Image.asset(icon,height: 30, width: 30)
 
-        ],
+          ],
+        ),
       ),
     );
   }

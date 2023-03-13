@@ -2,19 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled2/Controllers/BottomNavigationController.dart';
 
-import '../Screens/Home_screen.dart';
-import '../Screens/Otp_screen.dart';
+import '../Screens/Home/Home_screen.dart';
+import '../Screens/Login/Otp_screen.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
   final BottomNavigationController controller;
-  final bool isActive;
+
 
   const CustomBottomNavigationBar(
       {Key? key,
       required this.selectedIndex,
-      required this.controller,
-      required this.isActive})
+      required this.controller,})
       : super(key: key);
 
   @override
@@ -47,15 +46,17 @@ class CustomBottomNavigationBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildNavItem(
-                    AssetImage('Assets/iconArchieve.png'),
+                    AssetImage('assets/iconArchieve.png'),
                     selectedIndex == 1
                         ? 'Archive'
                         : selectedIndex == 2
                             ? 'Archive'
+                        : selectedIndex == 3
+                        ? 'Archive'
                             : '',
                     0),
                 _buildNavItem(
-                    AssetImage('Assets/iconHome.png'),
+                    AssetImage('assets/iconHome.png'),
                     selectedIndex == 1
                         ? ''
                         : selectedIndex == 2
@@ -63,7 +64,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : 'Home',
                     1),
                 _buildNavItem(
-                    AssetImage('Assets/iconProfile.png'),
+                    AssetImage('assets/iconProfile.png'),
                     selectedIndex == 1
                         ? 'Profile'
                         : selectedIndex == 2
@@ -73,7 +74,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               ],
             ),
           ),
-          isActive
+          selectedIndex != 3
               ? Positioned(
                   left: 40,
                   right: 40,
@@ -95,10 +96,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         ),
                         child: Image.asset(
                           selectedIndex == 1
-                              ? "Assets/iconHome.png"
+                              ? "assets/iconHome.png"
                               : selectedIndex == 2
-                                  ? "Assets/iconProfile.png"
-                                  : "Assets/iconArchieve.png",
+                                  ? "assets/iconProfile.png"
+                                  : "assets/iconArchieve.png",
                           width: 30,
                           height: 30,
                           color: Colors.white,

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/BottomNavigationController.dart';
 
-import '../widgets/NavigationBar.dart';
-import 'Home_screen.dart';
-import 'Profile_screen.dart';
-import 'Tasks_screen.dart';
+import '../shared_components/NavigationBar.dart';
+import 'Archive/Archive_screen.dart';
+import 'Home/Home_screen.dart';
+import 'Profile/Profile_screen.dart';
+import 'Task/Tasks_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final controller = Get.put(BottomNavigationController());
@@ -23,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 child: CustomBottomNavigationBar(
                     selectedIndex: controller.currentIndex.value,
                     controller: controller,
-                    isActive: controller.isActive),
+                    ),
               )),
         ],
       ),
@@ -34,13 +35,12 @@ class HomeScreen extends StatelessWidget {
   Widget _buildPage(int index) {
     switch (index) {
       case 0:
-        return TaskPage();
+        return Archive_screen();
       case 1:
         return HomePage();
       case 2:
         return ProfilePage();
       case 3:
-        controller.toggle();
         return TaskPage();
       default:
         return Center(

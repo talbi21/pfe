@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'Archiveitem.dart';
+import '../../Home/components/ArchiveitemHome.dart';
 
 class ProfileTaskitem extends StatelessWidget {
   final String Title;
@@ -24,7 +24,7 @@ class ProfileTaskitem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(8)),
-          color: Color.fromRGBO(241, 241, 241, 1),
+          color: Color.fromRGBO(250, 250, 250, 1),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.25),

@@ -3,9 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class ProfileController extends GetxController {
-
   RxBool isToggleOn = true.obs;
   RxString nbrIssuesDone = "".obs;
   RxString nbrFeaturesDone = "".obs;
@@ -21,34 +19,33 @@ class ProfileController extends GetxController {
     isToggleOn.value = true;
   }
 
-  RxString IssuesDone()  {
+  RxString IssuesDone() {
     Future.delayed(Duration(seconds: 1));
-    nbrIssuesDone =RxString(Random().nextInt(100).toString());
+    nbrIssuesDone = RxString(Random().nextInt(100).toString());
     return nbrIssuesDone;
-
   }
-  RxString FeaturesDone()  {
+
+  RxString FeaturesDone() {
     Future.delayed(Duration(seconds: 1));
-    nbrFeaturesDone =RxString(Random().nextInt(100).toString());
+    nbrFeaturesDone = RxString(Random().nextInt(100).toString());
     return nbrFeaturesDone;
-
   }
-  RxString HoursWorkedCount()  {
+
+  RxString HoursWorkedCount() {
     Future.delayed(Duration(seconds: 1));
-    HoursWorked =RxString(Random().nextInt(100).toString());
+    HoursWorked = RxString(Random().nextInt(100).toString());
     return HoursWorked;
-
   }
+
   /*RxInt TaskInprogressCount()  {
     Future.delayed(Duration(seconds: 1));
     TaskInprogress =Random().nextInt(100) as RxInt;
     return TaskInprogress;
 
   }*/
-  RxString InprogressCount()  {
+  RxString InprogressCount() {
     Future.delayed(Duration(seconds: 1));
-    TaskInprogress =RxString(Random().nextInt(100).toString());
+    TaskInprogress = RxString(Random().nextInt(100).toString());
     return TaskInprogress;
   }
-
 }

@@ -1,14 +1,13 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../View/Screens/Otp_screen.dart';
+import '../View/Screens/Login/Otp_screen.dart';
 
 class PhoneController extends GetxController {
   final GlobalKey<FormState> PhoneFormKey =
-  GlobalKey<FormState>(debugLabel: '__PhoneFormKey__');
+      GlobalKey<FormState>(debugLabel: '__PhoneFormKey__');
   final numController = TextEditingController();
 
   PhoneController() : super();
@@ -33,10 +32,9 @@ class PhoneController extends GetxController {
     if (PhoneFormKey.currentState!.validate()) {
       try {
         await
-        Get.snackbar('Done', "e.message!",
-            backgroundColor: Colors.red, colorText: Colors.white);
-        Get.to(OtpPage());
-
+            /*Get.snackbar('Done', "e.message!",
+            backgroundColor: Colors.red, colorText: Colors.white);*/
+            Get.to(OtpPage());
       } catch (err, _) {
         // message = 'There is an issue with the app during request the data, '
         //         'please contact admin for fixing the issues ' +
@@ -48,6 +46,4 @@ class PhoneController extends GetxController {
       throw Exception('An error occurred, invalid inputs value');
     }
   }
-
-
 }

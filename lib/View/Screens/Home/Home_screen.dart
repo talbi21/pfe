@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/BottomNavigationController.dart';
-import 'package:untitled2/View/widgets/SummaryItem.dart';
 
-import '../../Controllers/HomeController.dart';
-import '../widgets/Archiveitem.dart';
-import '../widgets/appBa.dart';
-import '../widgets/Categoryitem.dart';
+import '../../../Controllers/HomeController.dart';
+import 'components/ArchiveitemHome.dart';
+import 'components/Categoryitem.dart';
+import 'components/SummaryItem.dart';
+import '../../shared_components/appBar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,76 +14,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
-    final Navigationcontroller = Get.put(BottomNavigationController());
 
+    final Navigationcontroller = Get.put(BottomNavigationController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Stack(
-              children: [
-                Appba(),
-                Padding(
-                  padding: const EdgeInsets.all(25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () => Navigationcontroller.changePage(2),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(100)),
-                              width: 60,
-                              height: 60,
-                              child: CircleAvatar(
-                                radius: 60,
-                                child: Image.asset(
-                                  'Assets/user.png',
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 35),
-                            child: Column(
-                              children: [
-                                Text('Hi there',
-                                    style: TextStyle(
-                                      color: Color.fromRGBO(231, 231, 231, 0.5),
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 24,
-                                    )),
-                                Text("Achref",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Montserrat',
-                                      fontSize: 24,
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.5),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(100))),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          size: 35,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            _buildAppBar(),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Align(
@@ -165,7 +102,7 @@ class HomePage extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return Obx(() => Padding(
                             padding: const EdgeInsets.only(left: 15),
-                            child: ArchiveItem(item: controller.items[index]),
+                            child: ArchiveItemHome(item: controller.items[index]),
                           ));
                     },
                     /*children: <Widget>[
@@ -193,16 +130,19 @@ class HomePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ))),
-                  Row(
-                    children: [
-                      Text("See all",
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
-                            fontFamily: 'Montserrat',
-                            fontSize: 16,
-                          )),
-                      Icon(Icons.arrow_forward_ios_sharp)
-                    ],
+                  GestureDetector(
+                    onTap: () => Navigationcontroller.changePage(3),
+                    child: Row(
+                      children: [
+                        Text("See all",
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                              fontFamily: 'Montserrat',
+                              fontSize: 16,
+                            )),
+                        Icon(Icons.arrow_forward_ios_sharp)
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -218,17 +158,17 @@ class HomePage extends StatelessWidget {
                       SumItem(
                           Status: "To Do",
                           nbr: controller.nbrTodo,
-                          img: "Assets/toDo.png",
+                          img: "assets/toDo.png",
                           PrimaryColor: Color.fromRGBO(253, 159, 61, 1)),
                       SumItem(
                           Status: "InProgress",
                           nbr: controller.nbrTodo,
-                          img: "Assets/InProgress.png",
+                          img: "assets/InProgress.png",
                           PrimaryColor: Color.fromRGBO(34, 94, 251, 1)),
                       SumItem(
                           Status: "Done",
                           nbr: controller.nbrTodo,
-                          img: "Assets/Done.png",
+                          img: "assets/Done.png",
                           PrimaryColor: Color.fromRGBO(44, 203, 215, 1)),
                     ],
                   )
@@ -254,4 +194,72 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildAppBar (){
+  final Navigationcontroller = Get.put(BottomNavigationController());
+  return Stack(
+    children: [
+      Appbar(TitleOn: false),
+      Padding(
+        padding: const EdgeInsets.all(25),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () => Navigationcontroller.changePage(2),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100)),
+                    width: 60,
+                    height: 60,
+                    child: CircleAvatar(
+                      radius: 60,
+                      child: Image.asset(
+                        'assets/user.png',
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 35),
+                  child: Column(
+                    children: [
+                      Text('Hi there',
+                          style: TextStyle(
+                            color: Color.fromRGBO(231, 231, 231, 0.5),
+                            fontFamily: 'Montserrat',
+                            fontSize: 24,
+                          )),
+                      Text("Achref",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Montserrat',
+                            fontSize: 24,
+                          ))
+                    ],
+                  ),
+                )
+              ],
+            ),
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.5),
+                  borderRadius:
+                  BorderRadius.all(Radius.circular(100))),
+              child: Icon(
+                Icons.notifications_outlined,
+                size: 35,
+              ),
+            )
+          ],
+        ),
+      ),
+    ],
+  );
 }

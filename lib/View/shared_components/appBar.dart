@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
 class  Appbar extends StatelessWidget {
-  const Appbar({Key? key}) : super(key: key);
+  const Appbar({Key? key, required this.TitleOn}) : super(key: key);
+  final bool TitleOn;
 
 
 
@@ -56,20 +57,23 @@ class  Appbar extends StatelessWidget {
                       )
                   ),
                 )
-            ), Positioned(
-                top: MediaQuery
-                    .of(context)
-                    .size
-                    .width / 8,
-                left: 120,
-                child: Text(
-                  'TaskPulse', textAlign: TextAlign.center, style: TextStyle(
-                    color: Color.fromRGBO(255, 255, 255, 1),
-                    fontFamily: 'Concert One',
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    height: 0.5
-                ),)
+            ), Visibility(
+              visible: TitleOn,
+              child: Positioned(
+                  top: MediaQuery
+                      .of(context)
+                      .size
+                      .width / 8,
+                  left: 120,
+                  child: Text(
+                    'TaskPulse', textAlign: TextAlign.center, style: TextStyle(
+                      color: Color.fromRGBO(255, 255, 255, 1),
+                      fontFamily: 'Concert One',
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      height: 0.5
+                  ),)
+              ),
             ),
           ]
       ),

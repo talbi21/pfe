@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../View/Screens/NumPad_screen.dart';
+import '../View/Screens/Login/NumPad_screen.dart';
 
 class OtpController extends GetxController {
   var otp = ''.obs;
@@ -12,6 +12,4 @@ class OtpController extends GetxController {
   void verifyOtp() {
     Get.to(() => NumPadscreen());
   }
-
-
 }

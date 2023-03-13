@@ -4,10 +4,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../View/Screens/Tasks_screen.dart';
-import '../View/widgets/Archiveitem.dart';
+import '../View/Screens/Task/Tasks_screen.dart';
+import '../View/Screens/Home/components/ArchiveitemHome.dart';
 import 'BottomNavigationController.dart';
-
 
 class HomeController extends GetxController {
   HomeController() : super();
@@ -21,49 +20,49 @@ class HomeController extends GetxController {
   void ToIssues() async {
     NavController.changePage(3);
     print("to Issues");
-
   }
-  void ToFeatures()  {
+
+  void ToFeatures() {
     NavController.changePage(3);
     print("to Featsures");
-
   }
-  RxString ToDoCount()  {
+
+  RxString ToDoCount() {
     Future.delayed(Duration(seconds: 1));
-    nbrTodo =RxString(Random().nextInt(100).toString());
+    nbrTodo = RxString(Random().nextInt(100).toString());
     return nbrTodo;
-
   }
 
-
-  RxString InProgCount()  {
+  RxString InProgCount() {
     Future.delayed(Duration(seconds: 1));
-    nbrInProgress =RxString(Random().nextInt(100).toString());
+    nbrInProgress = RxString(Random().nextInt(100).toString());
     return nbrInProgress;
-
   }
-  RxString DoneCount()  {
+
+  RxString DoneCount() {
     Future.delayed(Duration(seconds: 1));
-    nbrDone =RxString(Random().nextInt(100).toString());
+    nbrDone = RxString(Random().nextInt(100).toString());
     return nbrDone;
-
   }
 
-  RxString FeaturesCount()  {
+  RxString FeaturesCount() {
     Future.delayed(Duration(seconds: 1));
-    nbrFeature =RxString(Random().nextInt(100).toString());
+    nbrFeature = RxString(Random().nextInt(100).toString());
     return nbrFeature;
-
   }
-  RxString IssuesCount()  {
-     Future.delayed(Duration(seconds: 1));
-     nbrIssues =RxString(Random().nextInt(100).toString());
+
+  RxString IssuesCount() {
+    Future.delayed(Duration(seconds: 1));
+    nbrIssues = RxString(Random().nextInt(100).toString());
     return nbrIssues;
   }
 
-  RxList<Task> items = <Task>[
-    Task(title: 'Task 1', description: '12 July 2023', icon: Icons.star),
-    Task(title: 'Task 2', description: 'Description 2', icon: Icons.abc),
-    Task(title: 'Task 3', description: 'Description 3', icon: Icons.abc_outlined),
+  RxList<ArchiveTask> items = <ArchiveTask>[
+    ArchiveTask(title: 'Task 1', description: '12 July 2023', icon: Icons.star),
+    ArchiveTask(title: 'Task 2', description: 'Description 2', icon: Icons.abc),
+    ArchiveTask(
+        title: 'Task 3',
+        description: 'Description 3',
+        icon: Icons.abc_outlined),
   ].obs;
 }
