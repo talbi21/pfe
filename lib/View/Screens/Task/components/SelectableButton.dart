@@ -30,8 +30,7 @@ class SelectableButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(25)),
-          color: Color.fromRGBO(241, 241, 241, 1)
-              .withOpacity(1),
+          color: Color.fromRGBO(241, 241, 241, 1),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.25),

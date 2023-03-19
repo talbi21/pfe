@@ -15,10 +15,10 @@ class Taskitem extends StatelessWidget {
   final String Title;
   final String Date;
   final String Description;
-  final Status status;
-  final Type type;
+  final String status;
+  final String type;
 
-  const Taskitem({
+  const  Taskitem({
     Key? key,
     this.secColor = Colors.indigo,
     this.PrimaryColor = Colors.amber,
@@ -171,31 +171,31 @@ class Taskitem extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             category_Icon(
-                              PrimaryColor: status.text == "To do"
+                              PrimaryColor: status == "To do"
                                   ? Color.fromRGBO(17, 154, 253, 1)
-                                  : status.text == "In Progress"
+                                  : status == "In Progress"
                                       ? Color.fromRGBO(107, 119, 232, 1)
                                       : Color.fromRGBO(56, 232, 148, 1),
-                              Title: status.text,
+                              Title: status,
                               width: 60,
                               height: 25,
                               icon:
-                              status.text == "To do"
+                              status == "To do"
                                   ?  'assets/to-do-list.png'
-                                  : status.text == "In Progress"
+                                  : status == "In Progress"
                                   ?  'assets/settings.png'
                                   :  'assets/verify.png',
                             ),
                             SizedBox(width: 10),
                             category_Icon(
-                              PrimaryColor: type.text == "Issue"
+                              PrimaryColor: type == "Issue"
                                   ? Color.fromRGBO(51, 185, 239, 1)
                                   : Color.fromRGBO(151, 159, 239, 1),
-                              Title:type.text,
+                              Title:type,
                               width: 60,
                               height: 25,
                               icon:
-                              type.text == "Issue"
+                              type == "Issue"
                                   ?  'assets/maintenance.png'
                                   : 'assets/feature.png'
                             ),
@@ -227,9 +227,9 @@ class Taskitem extends StatelessWidget {
                                   horizontal: 60, vertical: 5),
                             ),
                             onPressed: () {},
-                            child: Text(status.text == "To do"
+                            child: Text(status == "To do"
                                 ? "Start"
-                                : status.text == "In Progress"
+                                : status == "In Progress"
                                     ? "Fix"
                                     : "Archive"),
                           ),

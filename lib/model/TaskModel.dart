@@ -6,8 +6,8 @@ class Task {
   final String title;
   final String date;
   final String description ;
-  final Status status ;
-  final Type type ;
+  final String status ;
+  final String type ;
   RxBool isToggleOn = false.obs;
    Task({
     required this.title,
@@ -16,22 +16,4 @@ class Task {
     required this.status,
     required this.type,
   });
-}
-
-enum Status {
-  ToDo('To do'),
-  InProgress('In Progress'),
-  Done('Done');
-
-  const Status(this.text);
-  final String text;
-}
-
-enum Type {
-  Issue('Issue'),
-  Feature('Feature');
-
-
-  const Type(this.text);
-  final String text;
 }

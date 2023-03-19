@@ -77,16 +77,19 @@ class HomePage extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ))),
-                  Row(
-                    children: [
-                      Text("See all",
-                          style: TextStyle(
-                            color: Colors.black.withOpacity(0.5),
-                            fontFamily: 'Montserrat',
-                            fontSize: 16,
-                          )),
-                      Icon(Icons.arrow_forward_ios_sharp)
-                    ],
+                  GestureDetector(
+                      onTap: () => Navigationcontroller.changePage(0),
+                    child: Row(
+                      children: [
+                        Text("See all",
+                            style: TextStyle(
+                              color: Colors.black.withOpacity(0.5),
+                              fontFamily: 'Montserrat',
+                              fontSize: 16,
+                            )),
+                        Icon(Icons.arrow_forward_ios_sharp)
+                      ],
+                    ),
                   )
                 ],
               ),

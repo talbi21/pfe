@@ -61,7 +61,7 @@ class ArchiveItem extends StatelessWidget {
                           ],
                         ),
                         child: Center(
-                          child: Image.asset(item.type.text == "Issue"
+                          child: Image.asset(item.type == "Issue"
                               ?  'assets/maintenance.png'
                               : 'assets/feature.png',
                           ),
