@@ -11,12 +11,14 @@ class Taskitem extends StatelessWidget {
   final Color secColor;
   final Color PrimaryColor;
   final TaskController controller;
-  final void Function()? onSubmit;
+  final VoidCallback  onSubmit;
   final String Title;
   final String Date;
   final String Description;
   final String status;
   final String type;
+  final bool isVisible;
+
 
   const  Taskitem({
     Key? key,
@@ -28,7 +30,7 @@ class Taskitem extends StatelessWidget {
     required this.Date,
     required this.Description,
     required this.status,
-    required this.type,
+    required this.type, required this.isVisible,
   }) : super(key: key);
 
   @override
@@ -130,8 +132,8 @@ class Taskitem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Obx(() {
-                    return GestureDetector(
+
+                    GestureDetector(
                       onTap: onSubmit,
                       child: Container(
                         height: 30,
@@ -140,12 +142,12 @@ class Taskitem extends StatelessWidget {
                             color: Color.fromRGBO(12, 62, 117, 1),
                             borderRadius: BorderRadius.circular(5)),
                         child: Center(
-                          child: Text(controller.Show.value ? "Hide" : "Show",
+                          child: Text(isVisible ? "Hide" : "Show",
                               style: TextStyle(color: Colors.white)),
                         ),
                       ),
-                    );
-                  })
+
+                  )
                 ],
               ),
               Text("Description",
@@ -157,8 +159,8 @@ class Taskitem extends StatelessWidget {
                 "Et eodem impetu Domitianum praecipitem per scalas itidem funibus constrinxerunt, eosque coniunctos per ampla spatia"
                 " civitatis acri raptavere discursu. iamque ",
               ),
-              Obx(() => Visibility(
-                    visible: controller.Show.value,
+              Visibility(
+                    visible: isVisible,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -180,6 +182,8 @@ class Taskitem extends StatelessWidget {
                               width: 60,
                               height: 25,
                               icon:
+
+
                               status == "To do"
                                   ?  'assets/to-do-list.png'
                                   : status == "In Progress"
@@ -236,7 +240,7 @@ class Taskitem extends StatelessWidget {
                         )
                       ],
                     ),
-                  ))
+                  )
             ],
           ),
         ),

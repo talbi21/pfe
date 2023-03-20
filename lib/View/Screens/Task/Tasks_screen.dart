@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled2/View/Screens/Task/components/OptionList.dart';
 import '../../../Controllers/TaskController.dart';
 import '../../../model/TaskModel.dart';
 import 'components/Category_Icon.dart';
-import 'components/StatusSelector.dart';
 import 'components/Taskitem.dart';
 import '../../shared_components/appBar.dart';
-import 'components/SelectableButton.dart';
 
 class TaskPage extends StatelessWidget {
   final TaskController controller = Get.put(TaskController());
@@ -26,43 +23,84 @@ class TaskPage extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: controller.categories.length,
+              itemCount: controller.Status.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: GestureDetector(
-                    onTap: () => controller.updateSelectedCategory(index),
+                    onTap: () => controller.updateSelectedStatus(index),
                     child: Obx(() {
-                      final isSelected = index == controller.selectedCategoryIndex.value;
-                      return category_Icon(PrimaryColor: controller
-                          .categories[index] == "To do"
-                          ? Color.fromRGBO(17, 154, 253, 1)
-                          : controller.categories[index] == "In Progress"
-                          ? Color.fromRGBO(107, 119, 232, 1)
-                          : Color.fromRGBO(56, 232, 148, 1),
-                        Title: controller.categories[index],
+                      final isSelected = index == controller
+                          .selectedStatusIndex.value;
+                      return category_Icon(
+                        PrimaryColor: isSelected? Colors.white:
+
+                        controller
+                            .Status[index] == "To do"
+                            ? Color.fromRGBO(17, 154, 253, 1)
+                            : controller.Status[index] == "In Progress"
+                            ? Color.fromRGBO(107, 119, 232, 1)
+                            : Color.fromRGBO(56, 232, 148, 1),
+                        Title: controller.Status[index],
                         width: 110,
                         height: 30,
-                        icon: controller.categories[index] == "To do"
+                        icon: controller.Status[index] == "To do"
                             ? 'assets/to-do-list.png'
-                            : controller.categories[index] == "In Progress"
+                            : controller.Status[index] == "In Progress"
                             ? 'assets/settings.png'
-                            : 'assets/verify.png',);
+                            : 'assets/verify.png',secColor: isSelected? Color.fromRGBO(185, 204, 225, 0.25):Colors.white );
                     }),
                   ),
                 );
-
               },
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          Container(
+            height: 30,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: controller.Types.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: GestureDetector(
+                    onTap: () => controller.updateSelectedType(index),
+                    child: Obx(() {
+                      final isSelected = index == controller
+                          .selectedTypeIndex.value;
+                      return category_Icon(
+                          PrimaryColor: isSelected? Colors.white:
+
+                          controller
+                              .Types[index] == "Issue"
+                              ? Color.fromRGBO(51, 185, 239, 1)
+                              : Color.fromRGBO(151, 159, 239, 1),
+
+                          Title: controller.Types[index],
+                          width: 110,
+                          height: 30,
+                          icon: controller.Types[index] == "Issue"
+                              ?  'assets/maintenance.png'
+                              : 'assets/feature.png',secColor: isSelected? Color.fromRGBO(185, 204, 225, 0.25):Colors.white );
+                    }),
+                  ),
+                );
+              },
+            ),
+          ),
+          SizedBox(height: 10),
 
           Expanded(
             child: Obx(() {
-              final tasks =  controller.tasks
+              final tasks = controller.tasks
                   .where((task) =>
               task.status ==
-                  controller.categories[controller.selectedCategoryIndex.value].toString())
+                  controller.Status[controller.selectedStatusIndex.value]
+                      .toString() && task.type ==
+                  controller.Types[controller.selectedTypeIndex.value]
+                      .toString() )
                   .toList(); // show tasks with selected category only
 
               return ListView.builder(
@@ -70,7 +108,16 @@ class TaskPage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final task = tasks[index];
                   return
-                    Taskitem(controller: controller, onSubmit: () {  }, Title: task.title, Date: task.date, Description: task.description, status: task.status, type: task.type);
+                    Obx(() {
+                      return Taskitem(controller: controller,
+                        onSubmit: ()=>controller.toggleVisibility(index),
+                        Title: task.title,
+                        Date: task.date,
+                        Description: task.description,
+                        status: task.status,
+                        type: task.type,
+                        isVisible: controller.isVisibleList[index].value);
+                    });
 
                   /*ListTile(
                     title: Text(task.title),
@@ -96,7 +143,7 @@ Widget _buildItemWidget(Task item) {
   );
 }
 
-Widget _buildOptions(BuildContext context) {
+/*Widget _buildOptions(BuildContext context) {
   final TaskController controller = Get.put(TaskController());
 
   return Padding(
@@ -130,9 +177,9 @@ Widget _buildOptions(BuildContext context) {
       ),
     ),
   );
-}
+}*/
 
-Widget _buildTaskList(BuildContext context) {
+/*Widget _buildTaskList(BuildContext context) {
   final TaskController controller = Get.put(TaskController());
   return Container(
     height: MediaQuery
@@ -167,4 +214,4 @@ Widget _buildTaskList(BuildContext context) {
       ),
     ),
   );
-}
+}*/

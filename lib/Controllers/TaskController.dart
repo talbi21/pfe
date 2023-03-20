@@ -5,36 +5,45 @@ import '../data/tasks.dart';
 import '../model/TaskModel.dart';
 
 class TaskController extends GetxController {
-  final Show = true.obs;
+
   var tasks = RxList<Task>();
-  final selections = <String>[].obs;
   var selectedIndex = 0.obs;
-  final List<String> categories = ['To do', 'In Progress', 'Done'];
-  RxInt selectedCategoryIndex = 0.obs;
-  RxBool isVisible = RxBool(false);
+  final List<String> Status = ['To do', 'In Progress', 'Done'];
+  final List<String> Types = ['Feature', 'Issue'];
+  RxInt selectedStatusIndex = 0.obs;
+  RxInt selectedTypeIndex = 0.obs;
+  RxList<RxBool> isVisibleList = <RxBool>[].obs;
 
-  void updateSelectedCategory(int index) {
-    selectedCategoryIndex.value = index;
+  void initVisibilityList(int itemCount) {
+    isVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
   }
 
-  void toggleSelection(String title) {
-    if (selections.contains(title)) {
-      selections.remove(title);
-    } else {
-      selections.add(title);
-    }
+
+
+  void updateSelectedStatus(int index) {
+    selectedStatusIndex.value = index;
   }
 
-  void ShowDetail() {
-    Show.toggle();
-    print("toggle");
+  void updateSelectedType(int index) {
+    selectedTypeIndex.value = index;
   }
+
+  void toggleVisibility(int index) {
+    isVisibleList[index].toggle();
+    print("toggle done");
+  }
+
+
+
+
+
+
 
   @override
   void onInit() {
     fetchItems();
     super.onInit();
-   // setCategoriesAndItems(allItems);
+    initVisibilityList(tasks.length);
 
   }
 
@@ -50,15 +59,9 @@ class TaskController extends GetxController {
   }
 
 
-  var allItems = <Task>[].obs;
 
-  void setCategoriesAndItems(List<Task> allItems) {
-    this.allItems.value = allItems;
-    setSelectedIndex(0);
-  }
 
-  void setSelectedIndex(int index) {
-    selectedIndex.value = index;
-        tasks.value = allItems.where((item) => item.status == categories[index]).toList();
-  }
+
+
+
 }

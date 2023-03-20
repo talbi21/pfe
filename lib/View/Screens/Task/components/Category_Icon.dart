@@ -12,7 +12,7 @@ final  String icon;
 
   const category_Icon({
     Key? key,
-    this.secColor = Colors.indigo,
+    this.secColor = Colors.white,
     required this.PrimaryColor,
     required this.Title,
     required this.width,
@@ -25,7 +25,7 @@ final  String icon;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(25)),
-        color: Color.fromRGBO(241, 241, 241, 1)
+        color: secColor
             .withOpacity(1),
         boxShadow: [
           BoxShadow(
