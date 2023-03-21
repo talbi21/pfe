@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../Controllers/PopupController.dart';
 import '../../../Controllers/TaskController.dart';
 import '../../../model/TaskModel.dart';
 import 'components/Category_Icon.dart';
@@ -9,6 +10,7 @@ import '../../shared_components/appBar.dart';
 
 class TaskPage extends StatelessWidget {
   final TaskController controller = Get.put(TaskController());
+  final popupcontroller = Get.put(PopupController());
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,6 @@ class TaskPage extends StatelessWidget {
                           .selectedStatusIndex.value;
                       return category_Icon(
                         PrimaryColor: isSelected? Colors.white:
-
                         controller
                             .Status[index] == "To do"
                             ? Color.fromRGBO(17, 154, 253, 1)
@@ -110,13 +111,8 @@ class TaskPage extends StatelessWidget {
                   return
                     Obx(() {
                       return Taskitem(controller: controller,
-                        onSubmit: ()=>controller.toggleVisibility(index),
-                        Title: task.title,
-                        Date: task.date,
-                        Description: task.description,
-                        status: task.status,
-                        type: task.type,
-                        isVisible: controller.isVisibleList[index].value);
+                        onSubmit: () => popupcontroller.openPopup(task),
+                        isVisible: controller.isVisibleList[index].value, ShowDetails: ()=>controller.toggleVisibility(index), task: task);
                     });
 
                   /*ListTile(
@@ -128,8 +124,9 @@ class TaskPage extends StatelessWidget {
               );
             }),
           ),
-          SizedBox(height: 70)
+          SizedBox(height: 70),
           // _buildTaskList(context),
+
 
         ],
       ),

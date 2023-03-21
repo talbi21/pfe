@@ -7,7 +7,6 @@ import '../model/TaskModel.dart';
 class TaskController extends GetxController {
 
   var tasks = RxList<Task>();
-  var selectedIndex = 0.obs;
   final List<String> Status = ['To do', 'In Progress', 'Done'];
   final List<String> Types = ['Feature', 'Issue'];
   RxInt selectedStatusIndex = 0.obs;

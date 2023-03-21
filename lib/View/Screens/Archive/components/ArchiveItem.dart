@@ -152,22 +152,6 @@ class ArchiveItem extends StatelessWidget {
                       )
                     ],
                   )
-                  /* Obx(() {
-      return GestureDetector(
-      onTap: onSubmit,
-      child: Container(
-      height: 30,
-      width: 70,
-      decoration: BoxDecoration(
-      color: Color.fromRGBO(12, 62, 117, 1),
-      borderRadius: BorderRadius.circular(5)),
-      child: Center(
-      child: Text(controller.Show.value ? "Hide" : "Show",
-      style: TextStyle(color: Colors.white)),
-      ),
-      ),
-      );
-      })*/
                 ],
               ),
              SizedBox(height: 30),
@@ -183,7 +167,7 @@ class ArchiveItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Container(
-                        width:95 ,
+                        width:110 ,
                         height: 30,
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(53, 97, 254, 0.25),
@@ -210,7 +194,7 @@ class ArchiveItem extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Container(
-                        width:95 ,
+                        width:110,
                         height: 30,
                         decoration: BoxDecoration(
                             color: Color.fromRGBO(56, 235, 148, 0.5),
@@ -219,7 +203,7 @@ class ArchiveItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Delete",
+                            Text("Download",
                               style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,

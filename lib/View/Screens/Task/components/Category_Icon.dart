@@ -36,9 +36,9 @@ final  String icon;
         ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.only(left: 7.5,right: 5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(Title,style: TextStyle(
               color: PrimaryColor,

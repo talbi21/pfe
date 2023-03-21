@@ -13,7 +13,7 @@ class SubmitButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 90),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(150, 40),
+          fixedSize: Size(150, 30),
           foregroundColor: Colors.white,
           backgroundColor: Color.fromRGBO(12, 62, 117, 1), // text color
           shape: RoundedRectangleBorder(

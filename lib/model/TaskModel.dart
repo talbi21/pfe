@@ -8,7 +8,6 @@ class Task {
   final String description ;
   final String status ;
   final String type ;
-  RxBool isToggleOn = false.obs;
    Task({
     required this.title,
     required this.date,
