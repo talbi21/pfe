@@ -39,7 +39,7 @@ Widget _buildBody(BuildContext context) {
                       )),
                   SizedBox(height: 10),
                   TextFieldLogin(
-                      controller: controller.numController, icon: Icons.phone),
+                      controller: controller.numController, icon: Icons.phone, inputType: TextInputType.phone,),
                   SizedBox(height: MediaQuery.of(context).size.height / 3),
                   SubmitButton(onSubmit: controller.GetOTP, text: 'Get OTP')
                 ])),

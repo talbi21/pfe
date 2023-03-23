@@ -12,9 +12,11 @@ class TaskController extends GetxController {
   RxInt selectedStatusIndex = 0.obs;
   RxInt selectedTypeIndex = 0.obs;
   RxList<RxBool> isVisibleList = <RxBool>[].obs;
+  RxList<RxBool> isHistoryVisibleList = <RxBool>[].obs;
 
   void initVisibilityList(int itemCount) {
     isVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
+    isHistoryVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
   }
 
 
@@ -32,6 +34,11 @@ class TaskController extends GetxController {
     print("toggle done");
   }
 
+  void toggleHistoryVisibility(int index) {
+    isHistoryVisibleList[index].toggle();
+    print("toggle done");
+  }
+
 
 
 
@@ -45,6 +52,8 @@ class TaskController extends GetxController {
     initVisibilityList(tasks.length);
 
   }
+
+
 
 
   void fetchItems() async {

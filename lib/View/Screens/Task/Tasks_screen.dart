@@ -112,7 +112,7 @@ class TaskPage extends StatelessWidget {
                     Obx(() {
                       return Taskitem(controller: controller,
                         onSubmit: () => popupcontroller.openPopup(task),
-                        isVisible: controller.isVisibleList[index].value, ShowDetails: ()=>controller.toggleVisibility(index), task: task);
+                        isHistoryVisible: controller.isHistoryVisibleList[index].value, ShowDetails: ()=>controller.toggleVisibility(index), task: task, isDetailsVisible: controller.isVisibleList[index].value, ShowHistory: ()=>controller.toggleHistoryVisibility(index),);
                     });
 
                   /*ListTile(

@@ -23,7 +23,6 @@ class LoginScreen extends StatelessWidget {
 
 
 Widget _buildBody() {
-
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
@@ -55,7 +54,8 @@ Widget _buildLoginForm() {
               SizedBox(height: 10),
               TextFieldLogin(
                   controller: controller.idController,
-                  icon: Icons.account_circle_outlined),
+                  icon: Icons.account_circle_outlined,
+                  inputType: TextInputType.text),
               SizedBox(height: 20),
               Text("Password",
                   style: TextStyle(
@@ -65,8 +65,49 @@ Widget _buildLoginForm() {
                     fontWeight: FontWeight.bold,
                   )),
               SizedBox(height: 10),
-              TextFieldLogin(
-                  controller: controller.passController, icon: Icons.lock),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Obx(() {
+                      return TextFormField(
+                          obscureText: controller.isObscured.value,
+                          style: TextStyle(),
+                          controller: controller.passController,
+                          validator: controller.validator,
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: controller.isObscured.value ? Icon(
+                                  Icons.visibility) : Icon(
+                                  Icons.visibility_off),
+                              onPressed: () {
+                                controller.isObscured.value =
+                                !controller.isObscured.value;
+                              },
+                            ),
+                            prefixIcon: Container(
+                              width: 60,
+                              decoration: BoxDecoration(
+                                  color: Color.fromRGBO(12, 62, 117, 1),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  )),
+                              child: Icon(
+                                  Icons.lock, color: Colors.white, size: 30),
+                            ),
+                            contentPadding:
+                            EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 15.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(
+                                    color: Color(0xffF5F5F5))),
+                          ));
+                    }),
+                  ),
+                ],
+              ),
               SizedBox(height: 20),
               Divider(
                 color: Colors.grey,

@@ -12,6 +12,7 @@ class LoginController extends GetxController {
       GlobalKey<FormState>(debugLabel: '__loginFormKey__');
   final idController = TextEditingController();
   final passController = TextEditingController();
+  var isObscured = true.obs;
 
   LoginController() : super();
 

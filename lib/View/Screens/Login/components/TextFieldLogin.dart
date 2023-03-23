@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:untitled2/Controllers/LoginController.dart';
 
 class TextFieldLogin extends StatelessWidget {
-  const TextFieldLogin({Key? key, required this.controller, required this.icon})
+  const TextFieldLogin({Key? key, required this.controller, required this.icon, required this.inputType})
       : super(key: key);
   final IconData icon;
   final TextEditingController controller;
+
+  final TextInputType inputType;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class TextFieldLogin extends StatelessWidget {
       children: [
         Expanded(
           child: TextFormField(
+keyboardType: inputType,
               style: TextStyle(),
               controller: controller,
               validator: logincontroller.validator,

@@ -9,6 +9,7 @@ import 'Category_Icon.dart';
 
 class FixPopUp extends StatelessWidget {
   final Task task;
+
   const FixPopUp({Key? key, required this.task}) : super(key: key);
 
   @override
@@ -29,8 +30,8 @@ class FixPopUp extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.topRight,
-                child: IconButton(onPressed: ()=>Get.back(), icon: Icon(
-                  Icons.clear
+                child: IconButton(onPressed: () => Get.back(), icon: Icon(
+                    Icons.clear
                 ),
 
                 ),
@@ -59,7 +60,7 @@ class FixPopUp extends StatelessWidget {
               TextField(
                 decoration: InputDecoration(
                     contentPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 5.0),
+                    EdgeInsets.symmetric(horizontal: 15, vertical: 5.0),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                         borderSide: BorderSide(
@@ -107,8 +108,8 @@ class FixPopUp extends StatelessWidget {
                     icon: task.status == "To do"
                         ? 'assets/to-do-list.png'
                         : task.status == "In Progress"
-                            ? 'assets/settings.png'
-                            : 'assets/verify.png',
+                        ? 'assets/settings.png'
+                        : 'assets/verify.png',
                   ),
                 ],
               ),
@@ -181,7 +182,13 @@ class FixPopUp extends StatelessWidget {
                         width: 120,
                         child: Center(
                           child: Text(
-                            "${DateTime.now().day} ${DateTime.now().month} ${DateTime.now().year}",
+                            "${DateTime
+                                .now()
+                                .day} ${DateTime
+                                .now()
+                                .month} ${DateTime
+                                .now()
+                                .year}",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
@@ -223,7 +230,7 @@ class FixPopUp extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundImage:
-                                AssetImage("assets/exempleuser.jpg"),
+                            AssetImage("assets/exempleuser.jpg"),
                             radius: 15,
                           ),
                           SizedBox(width: 7.5),
@@ -245,7 +252,7 @@ class FixPopUp extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundImage:
-                                AssetImage("assets/exempleuser.jpg"),
+                            AssetImage("assets/exempleuser.jpg"),
                             radius: 15,
                           ),
                           SizedBox(width: 7.5),
@@ -275,42 +282,68 @@ class FixPopUp extends StatelessWidget {
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 style: TextStyle(
-                  color: Colors.grey
+                    color: Colors.grey
                 ),
                 textAlignVertical: TextAlignVertical.top,
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
                   hintText: "tap here",
                   prefixIcon:
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8,right: 10),
-                    child: DottedBorder(
-                      borderType: BorderType.RRect,
+                  GestureDetector(
+                    onTap: controller.pickFile,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8, right: 10),
+                      child: DottedBorder(
+                        borderType: BorderType.RRect,
                         color: Colors.grey,
                         strokeWidth: 1,
                         dashPattern: [5, 5],
-                      padding: EdgeInsets.all(8),
-                      radius: Radius.circular(8),
+                        padding: EdgeInsets.all(8),
+                        radius: Radius.circular(8),
                         child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset("assets/Attachment.png",
-                        height: 30),
-                        Text("Attachment"),
-                      ],
-                    )),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Obx(() {
+                              return Image.asset(controller.selectedFile.value != null ?
+                                  "assets/attdone.png": "assets/Attachment.png",
+                                  height: 30);
+                            }),
+                            Obx(() =>
+                                Text(controller.selectedFile.value != null ?
+                                "Downloaded": 'Attachment')),
+
+                          ],
+                          /*
+                             children: [
+          Obx(() => Text(attachmentController.selectedFile.value?.files.single?.name ?? 'No file selected')),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: attachmentController.pickFile,
+            child: Text('Select File'),
+          ),
+          SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: attachmentController.clearSelection,
+            child: Text('Clear Selection'),
+          ),
+        ],
+                             */
+                        ),
+                      ),
+                    ),
                   ),
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                  EdgeInsets.symmetric(horizontal: 15, vertical: 30),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                       borderSide:
-                          BorderSide(color: Color.fromRGBO(205, 205, 205, 1))),
+                      BorderSide(color: Color.fromRGBO(205, 205, 205, 1))),
                 ),
               ),
               SizedBox(height: 10),
 
-              SubmitButton(onSubmit: ()=>controller.openArchivePopup(), text: 'Send')
+              SubmitButton(
+                  onSubmit: () => controller.openArchivePopup(), text: 'Send')
             ],
           ),
         ),

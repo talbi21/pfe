@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled2/Controllers/PopupController.dart';
 
 import '../Controllers/BottomNavigationController.dart';
 import '../Controllers/HomeController.dart';
@@ -23,6 +24,8 @@ class MyBindings implements Bindings {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => TaskController());
+    Get.lazyPut(() => PopupController());
+
 
   }
 }

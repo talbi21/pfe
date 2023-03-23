@@ -14,8 +14,10 @@ class Taskitem extends StatelessWidget {
   final TaskController controller;
   final VoidCallback  onSubmit;
   final VoidCallback  ShowDetails;
-  final bool isVisible;
+  final VoidCallback  ShowHistory;
+  final bool isDetailsVisible;
   final Task task;
+  final bool isHistoryVisible;
 
 
   const  Taskitem({
@@ -24,7 +26,7 @@ class Taskitem extends StatelessWidget {
     this.PrimaryColor = Colors.amber,
     required this.controller,
     required this.onSubmit,
-    required this.isVisible, required this.ShowDetails, required this.task,
+    required this.isDetailsVisible, required this.ShowDetails, required this.task, required this.isHistoryVisible, required this.ShowHistory,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class Taskitem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10,top: 10),
       child: GestureDetector(
-        onTap:isVisible? ()=>{}: ShowDetails ,
+        onTap:isDetailsVisible? ()=>{}: ShowDetails ,
         child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
@@ -139,7 +141,7 @@ class Taskitem extends StatelessWidget {
                               color: Color.fromRGBO(12, 62, 117, 1),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
-                            child: Text(isVisible ? "Hide" : "Show",
+                            child: Text(isDetailsVisible ? "Hide" : "Show",
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ),
@@ -154,11 +156,11 @@ class Taskitem extends StatelessWidget {
                         fontSize: 14)),
                 Text(
                   task.description,
-                  maxLines: isVisible? 1000:4,
+                  maxLines: isDetailsVisible? 1000:4,
                   overflow: TextOverflow.ellipsis,
                 ),
                 Visibility(
-                      visible: isVisible,
+                      visible: isDetailsVisible,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -208,10 +210,163 @@ class Taskitem extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("History"),
-                              Icon(Icons.arrow_drop_down)
+                              GestureDetector(
+                                onTap: ShowHistory,
+                                  child: Icon(
+                                      isHistoryVisible?
+                                      Icons.arrow_drop_up:
+                                      Icons.arrow_drop_down)
+                              )
                             ],
                           ),
                           SizedBox(height: 10),
+                  Visibility(
+                    visible: isHistoryVisible,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(107, 119, 232, 1),
+                                    borderRadius: BorderRadius.circular(100)
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        task.title,
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: Colors.black,
+                                            fontFamily: "Poppins"),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 5),
+                                          child: Icon(Icons.calendar_month,
+                                              color: Color.fromRGBO(12, 62, 117, 1)),
+                                        ),
+                                        Text(
+                                          task.date,
+                                          style: TextStyle(
+                                              color: Colors.black.withOpacity(0.5)),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(
+                              height: 30,
+                              width: 75,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Color.fromRGBO(17, 154, 253, 0.5),
+                              ),
+                              child: Center(
+                                child: Text('To do',style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700
+                                )),
+                              ),
+                            )
+
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 20),
+                          height: 60,
+                          width: 1,
+                          decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 10),
+                                  width: 25,
+                                  height: 25,
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(17, 154, 253, 1),
+                                      borderRadius: BorderRadius.circular(100)
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5),
+                                      child: Text(
+                                        task.title,
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            color: Colors.black,
+                                            fontFamily: "Poppins"),
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 5),
+                                          child: Icon(Icons.calendar_month,
+                                              color: Color.fromRGBO(12, 62, 117, 1)),
+                                        ),
+                                        Text(
+                                          task.date,
+                                          style: TextStyle(
+                                              color: Colors.black.withOpacity(0.5)),
+                                        ),
+
+                                      ],
+                                    ),
+
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                            Container(
+                              height: 30,
+                              width: 75,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: Text('New',style: TextStyle(
+                                    color: Color.fromRGBO(12, 62, 117, 1),
+                                    fontWeight: FontWeight.w700
+                                )),
+                              ),
+                            )
+                          ],
+                        ),
+
+                      ],
+
+                    ),
+                  ),
                           Center(
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(

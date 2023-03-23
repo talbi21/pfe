@@ -10,6 +10,7 @@ void main() {
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
