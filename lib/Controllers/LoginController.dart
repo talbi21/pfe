@@ -15,9 +15,6 @@ class LoginController extends GetxController {
   final idController = TextEditingController();
   final passController = TextEditingController();
   var isObscured = true.obs;
-  RxBool isLoading = false.obs;
-  RxString identifiant = ''.obs;
-  RxString password = ''.obs;
   RxString error = ''.obs;
 
   LoginController() : super();
@@ -38,42 +35,72 @@ class LoginController extends GetxController {
     return null;
   }
 
-  /*Future<void> login() async {
+  Future<void> login() async {
+    if (loginFormKey.currentState!.validate()) {
+
     try {
-      isLoading.value = true; // Show loading indicator
-      error.value = ''; // Reset error message
+
 
       // Make API request to backend for authentication
-      final response = await http.post(Uri.parse(ApiConstants.baseUrl+ApiConstants.loginEndpoint), body: {
-        'email': idController.text,
-        'password': passController.text,
-      });
+      print(idController.text);
 
+      final String url = ApiConstants.baseUrl+ApiConstants.loginEndpoint; // Replace with your backend URL
+      final http.Response response = await http.post(
+        Uri.parse(url),
+        body: jsonEncode({'identifiant': idController.text, 'password': passController.text}),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      print(passController.text);
       if (response.statusCode == 200) {
         // Successful login
         final responseData = json.decode(response.body);
         final token = responseData['token'];
 
+        print(token);
+        print(responseData);
+
         // Store authentication token locally
         // (e.g., using shared preferences, GetStorage, Hive, etc.)
         // ...
-
+        Get.offAll(() => HomeScreen());
         // Navigate to home screen
-        Get.offAllNamed('/home');
       } else {
         // Invalid credentials
+
         final responseData = json.decode(response.body);
         error.value = responseData['message'];
+        Get.snackbar(
+          "Error",
+          error.value.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
       }
     } catch (e) {
       // Error occurred
       error.value = 'Failed to login. Please try again later.';
+      Get.snackbar(
+        "Error",
+        error.value.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(.75),
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+      );
     } finally {
-      isLoading.value = false; // Hide loading indicator
+      passController.clear(); // Hide loading indicator
     }
-  }*/
+    }
+  }
 
-  void login() async {
+/*  void login() async {
     print('${idController.text}, ${passController.text}');
     if (loginFormKey.currentState!.validate()) {
       LoadingOverlay.show(message: 'Login...');
@@ -101,5 +128,5 @@ class LoginController extends GetxController {
 
       loginFormKey.currentState!.save();
     }
-  }
+  }*/
 }

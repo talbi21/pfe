@@ -28,20 +28,24 @@ Widget _buildBody(BuildContext context) {
           child: Image.asset('assets/OTP.png'),
         ),
         SizedBox(height: 20),
-        Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: PinCodeTextField(
-            keyboardType: TextInputType.number,
-            appContext: context,
-            length: 4,
-            onChanged: (value) => controller.setOtp(value),
-            pinTheme: PinTheme(
-                shape: PinCodeFieldShape.box,
-                borderRadius: BorderRadius.circular(5),
-                fieldHeight: 50,
-                fieldWidth: 50,
-                activeFillColor: Colors.white,
-                inactiveColor: Color.fromRGBO(205, 205, 205, 100)),
+        Form(
+          key: controller.OtpFormKey,
+          child: Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: PinCodeTextField(
+              validator: controller.validator,
+              keyboardType: TextInputType.number,
+              appContext: context,
+              length: 4,
+              onChanged: (value) => controller.setOtp(value),
+              pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  borderRadius: BorderRadius.circular(5),
+                  fieldHeight: 50,
+                  fieldWidth: 50,
+                  activeFillColor: Colors.white,
+                  inactiveColor: Color.fromRGBO(205, 205, 205, 100)),
+            ),
           ),
         ),
         SizedBox(height: 16),

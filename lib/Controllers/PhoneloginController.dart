@@ -1,11 +1,15 @@
 import 'dart:async';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled2/data/api_constants.dart';
 
 import '../View/Screens/Login/Otp_screen.dart';
+import 'OtpController.dart';
 
 class PhoneController extends GetxController {
+  final controller = Get.put(OtpController());
   final GlobalKey<FormState> PhoneFormKey =
       GlobalKey<FormState>(debugLabel: '__PhoneFormKey__');
   final numController = TextEditingController();
@@ -28,22 +32,77 @@ class PhoneController extends GetxController {
   }
 
   Future<void> GetOTP() async {
-    print('${numController.text}}');
+    print('${numController.text}');
     if (PhoneFormKey.currentState!.validate()) {
       try {
-        await
-            /*Get.snackbar('Done', "e.message!",
-            backgroundColor: Colors.red, colorText: Colors.white);*/
-            Get.to(OtpPage());
-      } catch (err, _) {
-        // message = 'There is an issue with the app during request the data, '
-        //         'please contact admin for fixing the issues ' +
+        final String url = ApiConstants.baseUrl+ApiConstants.sendOtpEndpoint; // Replace with your backend URL
+        final http.Response response = await http.post(
+            Uri.parse(url),
+            body: jsonEncode({'phoneNumber': numController.text}),
+            headers: {'Content-Type': 'application/json'},
+        );
 
+        if (response.statusCode == 200) {
+          // Successful login
+          final responseData = json.decode(response.body);
+
+          Get.snackbar(
+            "Done",
+            responseData['message'].toString(),
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.green.withOpacity(.75),
+            colorText: Colors.white,
+            icon: const Icon(Icons.error, color: Colors.white),
+            shouldIconPulse: true,
+            barBlur: 20,
+          );
+         // print(token);
+          print(responseData);
+
+          // Store authentication token locally
+          // (e.g., using shared preferences, GetStorage, Hive, etc.)
+          // ...
+          controller.phoneNumber = numController.text;
+          Get.to(() => OtpPage());
+          // Navigate to home screen
+        } else {
+          // Invalid credentials
+
+          final responseData = json.decode(response.body);
+         // error.value = responseData['message'];
+          Get.snackbar(
+            "Error",
+            responseData['message'].toString(),
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: Colors.red.withOpacity(.75),
+            colorText: Colors.white,
+            icon: const Icon(Icons.error, color: Colors.white),
+            shouldIconPulse: true,
+            barBlur: 20,
+          );
+        }
+
+      } catch (err, _) {
+        Get.snackbar(
+          "Error",
+          err.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+
+
+      }finally {
         numController.clear();
-        rethrow;
       }
-    } else {
-      throw Exception('An error occurred, invalid inputs value');
     }
   }
+
+
+
+
+
 }
