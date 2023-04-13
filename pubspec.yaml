@@ -35,6 +35,7 @@ dependencies:
   pin_code_fields: ^7.3.0
   dotted_border:
   file_picker: ^4.1.0
+  http: ^0.13.5
 
 
 
