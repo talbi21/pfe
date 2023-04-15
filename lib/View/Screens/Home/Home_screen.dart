@@ -201,6 +201,7 @@ class HomePage extends StatelessWidget {
 
 Widget _buildAppBar (){
   final Navigationcontroller = Get.put(BottomNavigationController());
+  final controller =  Get.find<HomeController>();
   return Stack(
     children: [
       Appbar(TitleOn: false),
@@ -248,16 +249,19 @@ Widget _buildAppBar (){
                 )
               ],
             ),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
-                  borderRadius:
-                  BorderRadius.all(Radius.circular(100))),
-              child: Icon(
-                Icons.notifications_outlined,
-                size: 35,
+            GestureDetector(
+              onTap: controller.LogOut,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    borderRadius:
+                    BorderRadius.all(Radius.circular(100))),
+                child: Icon(
+                  Icons.logout_sharp,
+                  size: 35,
+                ),
               ),
             )
           ],

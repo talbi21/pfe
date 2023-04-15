@@ -31,6 +31,7 @@ class ProfilePage extends StatelessWidget {
 
 Widget _buildWorkContainer(BuildContext context) {
   final controller = Get.put(ProfileController());
+
   return  Obx(() {
     return Visibility(
       visible: !controller.isToggleOn.value,

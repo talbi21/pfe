@@ -17,7 +17,8 @@ class LoginPhone extends StatelessWidget {
 }
 
 Widget _buildBody(BuildContext context) {
-  final controller = Get.put(PhoneController());
+
+  final controller =  Get.put(PhoneController());
   return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
     Appbar(TitleOn: true),
     WelcomeText(text: "Welcome to FixFlow!\n Sign in to continue"),

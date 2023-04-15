@@ -10,6 +10,7 @@ import '../Controllers/PhoneloginController.dart';
 import '../Controllers/ProfileController.dart';
 import '../Controllers/SplashController.dart';
 import '../Controllers/TaskController.dart';
+import '../Controllers/UpdatePasswordController.dart';
 
 class MyBindings implements Bindings {
   @override
@@ -25,6 +26,7 @@ class MyBindings implements Bindings {
     Get.lazyPut(() => ProfileController());
     Get.lazyPut(() => TaskController());
     Get.lazyPut(() => PopupController());
+    Get.lazyPut(() => UpdatePasswordController());
 
 
   }

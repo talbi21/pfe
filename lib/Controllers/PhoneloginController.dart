@@ -9,18 +9,16 @@ import '../View/Screens/Login/Otp_screen.dart';
 import 'OtpController.dart';
 
 class PhoneController extends GetxController {
-  final controller = Get.put(OtpController());
+  final controller =  Get.put(OtpController());
+
+
   final GlobalKey<FormState> PhoneFormKey =
       GlobalKey<FormState>(debugLabel: '__PhoneFormKey__');
   final numController = TextEditingController();
 
   PhoneController() : super();
 
-  @override
-  void onClose() {
-    numController.dispose();
-    super.onClose();
-  }
+
 
   String? validator(String? value) {
     print('validatoooor');
@@ -56,7 +54,7 @@ class PhoneController extends GetxController {
             shouldIconPulse: true,
             barBlur: 20,
           );
-         // print(token);
+
           print(responseData);
 
           // Store authentication token locally

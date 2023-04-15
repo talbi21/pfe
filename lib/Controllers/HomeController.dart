@@ -3,13 +3,16 @@ import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../View/Screens/Login/Login_screen.dart';
 import '../View/Screens/Task/Tasks_screen.dart';
 import '../View/Screens/Home/components/ArchiveitemHome.dart';
 import 'BottomNavigationController.dart';
 
 class HomeController extends GetxController {
   HomeController() : super();
+  final _storage = GetStorage();
   RxString nbrIssues = "".obs;
   RxString nbrFeature = "".obs;
   RxString nbrTodo = "".obs;
@@ -56,6 +59,13 @@ class HomeController extends GetxController {
     nbrIssues = RxString(Random().nextInt(100).toString());
     return nbrIssues;
   }
+
+  void LogOut() {
+    _storage.erase();
+    Get.offAll(LoginScreen());
+  }
+
+  
 
   RxList<ArchiveTask> items = <ArchiveTask>[
     ArchiveTask(title: 'Task 1', description: '12 July 2023', icon: Icons.star),

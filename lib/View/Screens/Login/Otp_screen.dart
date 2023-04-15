@@ -17,7 +17,8 @@ class OtpPage extends StatelessWidget {
 }
 
 Widget _buildBody(BuildContext context) {
-  final controller = Get.put(OtpController());
+  final controller =  Get.put(OtpController());
+
   return SingleChildScrollView(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.center,

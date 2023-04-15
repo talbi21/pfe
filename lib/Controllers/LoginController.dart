@@ -3,13 +3,18 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled2/Controllers/UpdatePasswordController.dart';
 import '../View/Screens/Home/Home_screen.dart';
+import '../View/Screens/Login/UpdatePassword.dart';
 import '../View/Screens/dashboard.dart';
 import '../View/shared_components/loading_overlay.dart';
 import '../data/api_constants.dart';
+import '../model/UserModel.dart';
 
 class LoginController extends GetxController {
+  final _storage = GetStorage();
   final GlobalKey<FormState> loginFormKey =
       GlobalKey<FormState>(debugLabel: '__loginFormKey__');
   final idController = TextEditingController();
@@ -24,6 +29,16 @@ class LoginController extends GetxController {
     idController.dispose();
     passController.dispose();
     super.onClose();
+  }
+
+
+
+
+
+  @override
+  void onInit() {
+    super.onInit();
+
   }
 
   String? validator(String? value) {
@@ -55,15 +70,40 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         // Successful login
         final responseData = json.decode(response.body);
-        final token = responseData['token'];
 
-        print(token);
+        final user = User.fromJson(responseData['user']);
+        _storage.write('id', user.id);
+        _storage.write('userName', user.userName);
+        _storage.write('identifiant', user.email);
+        _storage.write('password', user.password);
+        _storage.write('phoneNumber', user.phoneNumber);
+        _storage.write('image', user.image);
+
+
+
         print(responseData);
+
+        if (user.firstConnect) {
+
+
+          print('User is logging in for the first time');
+          Get.offAll(() => UpdatePassword());
+
+
+
+        } else {
+          final token = responseData['token'];
+          print(token);
+          _storage.write('token', token);
+
+          print('User is logging in regularly');
+          Get.offAll(() => HomeScreen());
+        }
+
 
         // Store authentication token locally
         // (e.g., using shared preferences, GetStorage, Hive, etc.)
         // ...
-        Get.offAll(() => HomeScreen());
         // Navigate to home screen
       } else {
         // Invalid credentials
@@ -83,6 +123,7 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       // Error occurred
+      print(e);
       error.value = 'Failed to login. Please try again later.';
       Get.snackbar(
         "Error",

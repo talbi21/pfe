@@ -15,7 +15,8 @@ class NumPadscreen extends StatelessWidget {
 }
 
 Widget _buildBody() {
-  final controller = Get.put(NumpadController());
+  final controller =  Get.put(NumpadController());
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [

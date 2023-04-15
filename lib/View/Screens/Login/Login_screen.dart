@@ -34,7 +34,9 @@ Widget _buildBody() {
 }
 
 Widget _buildLoginForm() {
-  final controller = Get.put(LoginController());
+
+    final controller =  Get.put(LoginController());
+
   return Expanded(
     child: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -103,7 +105,8 @@ Widget _buildLoginForm() {
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(
                                     color: Color(0xffF5F5F5))),
-                          ));
+                          )
+                      );
                     }),
                   ),
                 ],
