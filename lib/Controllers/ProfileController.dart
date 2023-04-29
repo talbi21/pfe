@@ -8,7 +8,7 @@ class ProfileController extends GetxController {
   RxString nbrIssuesDone = "".obs;
   RxString nbrFeaturesDone = "".obs;
   RxString HoursWorked = "".obs;
-//  RxInt TaskInprogress = 0.obs;
+
   RxString TaskInprogress = "".obs;
 
   void toWork() {

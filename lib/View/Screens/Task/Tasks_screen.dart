@@ -18,8 +18,6 @@ class TaskPage extends StatelessWidget {
       body: Column(
         children: [
           Appbar(TitleOn: true),
-          // _buildOptions(context),
-          //CategorySelector(controller),
           Container(
             height: 30,
             child: ListView.builder(
@@ -115,17 +113,13 @@ class TaskPage extends StatelessWidget {
                         isHistoryVisible: controller.isHistoryVisibleList[index].value, ShowDetails: ()=>controller.toggleVisibility(index), task: task, isDetailsVisible: controller.isVisibleList[index].value, ShowHistory: ()=>controller.toggleHistoryVisibility(index),);
                     });
 
-                  /*ListTile(
-                    title: Text(task.title),
-                    subtitle: Text(task.description),
-                    // ...
-                  );*/
+
                 },
               );
             }),
           ),
           SizedBox(height: 70),
-          // _buildTaskList(context),
+
 
 
         ],
@@ -134,81 +128,6 @@ class TaskPage extends StatelessWidget {
   }
 }
 
-Widget _buildItemWidget(Task item) {
-  return ListTile(
-    title: Text(item.title),
-  );
-}
 
-/*Widget _buildOptions(BuildContext context) {
-  final TaskController controller = Get.put(TaskController());
 
-  return Padding(
-    padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-    child: Container(
 
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: 40,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: options.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = options[index];
-          return Obx(() {
-            return SelectableButton(
-              Title: item.title,
-              isSelected: controller.selections.contains(item.title),
-              onPressed: () {
-                controller.toggleSelection(item.title);
-              },
-              PrimaryColor: item.color,
-              width: 70,
-              height: 10,
-              icon: item.icon,
-            );
-          });
-        },
-      ),
-    ),
-  );
-}*/
-
-/*Widget _buildTaskList(BuildContext context) {
-  final TaskController controller = Get.put(TaskController());
-  return Container(
-    height: MediaQuery
-        .of(context)
-        .size
-        .height - 220,
-    width: MediaQuery
-        .of(context)
-        .size
-        .width,
-    child: Padding(
-      padding: const EdgeInsets.only(bottom: 60),
-      child: Center(
-        child: Obx(
-              () =>
-              ListView.builder(
-                itemCount: controller.tasks.length,
-                itemBuilder: (context, index) {
-                  final item = controller.tasks[index];
-
-                  return Taskitem(
-                      controller: controller,
-                      onSubmit: controller.ShowDetail,
-                      Title: item.title,
-                      Date: item.date,
-                      Description: item.description,
-                      status: item.status,
-                      type: item.type);
-                },
-              ),
-        ),
-      ),
-    ),
-  );
-}*/

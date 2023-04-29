@@ -8,7 +8,7 @@ class categoryitem extends StatelessWidget {
   final Color PrimaryColor;
   final void Function()? onSubmit;
   final String Title;
-  final RxString nbr;
+  final String nbr;
 
   const categoryitem({
     Key? key,

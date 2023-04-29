@@ -3,8 +3,10 @@ import 'package:get/get.dart';
 
 import '../data/tasks.dart';
 import '../model/TaskModel.dart';
+import 'HomeController.dart';
 
 class TaskController extends GetxController {
+
 
   var tasks = RxList<Task>();
   final List<String> Status = ['To do', 'In Progress', 'Done'];
@@ -47,7 +49,7 @@ class TaskController extends GetxController {
 
   @override
   void onInit() {
-    fetchItems();
+   // fetchItems();
     super.onInit();
     initVisibilityList(tasks.length);
 
@@ -58,8 +60,7 @@ class TaskController extends GetxController {
 
   void fetchItems() async {
     try {
-     // final List<Task> fetchedItems = await ApiService.fetchItems();
-      final List<Task> fetchedItems = ListTasks;
+      final List<Task> fetchedItems =  Get.find<HomeController>().tasks.value;
       tasks.addAll(fetchedItems);
     } catch (e) {
       print(e);

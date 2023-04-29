@@ -11,9 +11,11 @@ import '../../shared_components/appBar.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(HomeController());
+
 
     final Navigationcontroller = Get.put(BottomNavigationController());
     return Scaffold(
@@ -38,24 +40,31 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Container(
                 height: 140,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    categoryitem(
-                      onSubmit: controller.ToIssues,
-                      Title: 'Issues',
-                      PrimaryColor: Color.fromRGBO(53, 97, 254, 1),
-                      nbr: controller.IssuesCount(),
-                      secColor: Colors.white,
-                    ),
-                    categoryitem(
-                      onSubmit: controller.ToFeatures,
-                      Title: 'Features',
-                      PrimaryColor: Color.fromRGBO(233, 234, 238, 1),
-                      nbr: controller.FeaturesCount(),
-                      secColor: Colors.black,
-                    ),
+                    Obx(() {
+                      return categoryitem(
+                        onSubmit: controller.ToIssues,
+                        Title: 'Issues',
+                        PrimaryColor: Color.fromRGBO(53, 97, 254, 1),
+                        nbr: controller.nbrIssues.value,
+                        secColor: Colors.white,
+                      );
+                    }),
+                    Obx(() {
+                      return categoryitem(
+                        onSubmit: controller.ToFeatures,
+                        Title: 'Features',
+                        PrimaryColor: Color.fromRGBO(233, 234, 238, 1),
+                        nbr: controller.nbrFeature.value,
+                        secColor: Colors.black,
+                      );
+                    }),
                   ],
                 ),
               ),
@@ -78,7 +87,7 @@ class HomePage extends StatelessWidget {
                             ),
                           ))),
                   GestureDetector(
-                      onTap: () => Navigationcontroller.changePage(0),
+                    onTap: () => Navigationcontroller.changePage(0),
                     child: Row(
                       children: [
                         Text("See all",
@@ -97,24 +106,24 @@ class HomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: Container(
-                  height: 130,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 2,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Obx(() => Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: ArchiveItemHome(item: controller.items[index]),
-                          ));
-                    },
-                    /*children: <Widget>[
-
-                      ArchiveItem(item: null,),
-                      ArchiveItem(item: null,),
-
-                    ],*/
-                  )),
+                height: 130,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Obx(() =>
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: ArchiveItemHome(item: controller
+                              .items[index]),
+                        ));
+                  },
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5),
@@ -154,29 +163,38 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: Container(
                   height: 120,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SumItem(
-                          Status: "To Do",
-                          nbr: controller.nbrTodo,
-                          img: "assets/toDo.png",
-                          PrimaryColor: Color.fromRGBO(253, 159, 61, 1)),
-                      SumItem(
-                          Status: "InProgress",
-                          nbr: controller.nbrTodo,
-                          img: "assets/InProgress.png",
-                          PrimaryColor: Color.fromRGBO(34, 94, 251, 1)),
-                      SumItem(
-                          Status: "Done",
-                          nbr: controller.nbrTodo,
-                          img: "assets/Done.png",
-                          PrimaryColor: Color.fromRGBO(44, 203, 215, 1)),
+                      Obx(() {
+                        return SumItem(
+                            Status: "To Do",
+                            nbr: controller.nbrTodo.value,
+                            img: "assets/toDo.png",
+                            PrimaryColor: Color.fromRGBO(253, 159, 61, 1));
+                      }),
+                      Obx(() {
+                        return SumItem(
+                            Status: "InProgress",
+                            nbr: controller.nbrInProgress.value,
+                            img: "assets/InProgress.png",
+                            PrimaryColor: Color.fromRGBO(34, 94, 251, 1));
+                      }),
+                      Obx(() {
+                        return SumItem(
+                            Status: "Done",
+                            nbr: controller.nbrDone.value,
+                            img: "assets/Done.png",
+                            PrimaryColor: Color.fromRGBO(44, 203, 215, 1));
+                      }),
                     ],
                   )
 
-                  /* ListView(
+                /* ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
 
@@ -190,7 +208,7 @@ class HomePage extends StatelessWidget {
 
                   ],
                 ),*/
-                  ),
+              ),
             ),
           ],
         ),
@@ -199,9 +217,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
-Widget _buildAppBar (){
+Widget _buildAppBar() {
   final Navigationcontroller = Get.put(BottomNavigationController());
-  final controller =  Get.find<HomeController>();
+  final controller = Get.find<HomeController>();
   return Stack(
     children: [
       Appbar(TitleOn: false),
@@ -238,7 +256,7 @@ Widget _buildAppBar (){
                             fontFamily: 'Montserrat',
                             fontSize: 24,
                           )),
-                      Text("Achref",
+                      Text(controller.name.value,
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Montserrat',

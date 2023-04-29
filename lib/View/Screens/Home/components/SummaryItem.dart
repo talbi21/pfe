@@ -7,7 +7,7 @@ class SumItem extends StatelessWidget {
   final Color secColor;
   final Color PrimaryColor;
   final String Status;
-  final RxString nbr;
+  final String nbr;
   final String img;
 
   const SumItem({
@@ -48,7 +48,7 @@ class SumItem extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15),
-                child: Text(nbr.value+"5",
+                child: Text(nbr,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25
