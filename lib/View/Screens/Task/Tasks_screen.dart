@@ -103,7 +103,7 @@ class TaskPage extends StatelessWidget {
                   return
                     Obx(() {
                       return Taskitem(controller: controller,
-                        onSubmit: () => popupcontroller.openPopup(task),
+                        onSubmit: () => controller.FixTask(task),
                         isHistoryVisible: controller.isHistoryVisibleList[index].value,
                         ShowDetails: ()=>controller.toggleVisibility(index),
                         task: task,

@@ -1,8 +1,13 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../data/tasks.dart';
+import '../data/api_constants.dart';
+import 'package:http/http.dart' as http;
 import '../model/TaskModel.dart';
 import 'HomeController.dart';
+import 'PopupController.dart';
 
 class TaskController extends GetxController {
   var tasks = RxList<Task>();
@@ -12,6 +17,7 @@ class TaskController extends GetxController {
   RxInt selectedTypeIndex = 2.obs;
   RxList<RxBool> isVisibleList = <RxBool>[].obs;
   RxList<RxBool> isHistoryVisibleList = <RxBool>[].obs;
+  final isLoading = false.obs;
 
   void initVisibilityList(int itemCount) {
     isVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
@@ -108,5 +114,94 @@ class TaskController extends GetxController {
     } catch (e) {
       print(e);
     }
+  }
+
+  void StartFix(String id) async {
+
+
+    isLoading.value = true;
+    try {
+
+      final String url = ApiConstants.baseUrl+ApiConstants.StartFixTask+id; // Replace with your backend URL
+      final http.Response response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        // Successful login
+        tasks.removeWhere((task) => task.id == id);
+        print (tasks.length);
+        final data = json.decode(response.body);
+        Task newTask = Task.fromJson(data);
+
+
+        tasks.add(newTask);
+        toStatus(2);
+
+
+      } else if (response.statusCode == 401) {
+
+        final responseData = json.decode(response.body);
+        Get.snackbar(
+          "Error",
+          responseData['message'].toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+
+
+
+
+
+      } else {
+        // Invalid credentials
+        print("test3");
+        final responseData = json.decode(response.body);
+        // error.value = responseData['message'];
+        print(responseData);
+        Get.snackbar(
+          "Error",
+          responseData['message'].toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+      }
+
+    } catch (err, _) {
+      print("test4");
+      Get.snackbar(
+        "Error",
+        err.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(.75),
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+      );
+
+
+    }finally {
+      isLoading.value = false;
+      update();
+    }
+  }
+
+  void FixTask(Task item) {
+   if (item.status == "To do"){
+     StartFix(item.id);
+     Get.find<PopupController>().openPopup(item);
+   } else {
+     Get.find<PopupController>().openPopup(item);
+   }
   }
 }

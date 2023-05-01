@@ -5,6 +5,7 @@ class ApiConstants {
   static const String verifOtpEndpoint = 'User/VerifOtp';
   static const String updatePasswordEndpoint = 'User/updatePassword/';
   static const String findTasks = 'Task/find/';
+  static const String StartFixTask = 'Task/update/';
 
 
 // Define other endpoints here

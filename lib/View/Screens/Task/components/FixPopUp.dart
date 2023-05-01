@@ -184,9 +184,9 @@ class FixPopUp extends StatelessWidget {
                           child: Text(
                             "${DateTime
                                 .now()
-                                .day} ${DateTime
+                                .day}/${DateTime
                                 .now()
-                                .month} ${DateTime
+                                .month}/${DateTime
                                 .now()
                                 .year}",
                             style: TextStyle(
