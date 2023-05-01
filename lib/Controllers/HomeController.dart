@@ -1,15 +1,11 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:ffi';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:untitled2/Controllers/TaskController.dart';
 import '../View/Screens/Login/Login_screen.dart';
-import '../View/Screens/Task/Tasks_screen.dart';
 import '../View/Screens/Home/components/ArchiveitemHome.dart';
-import '../View/shared_components/loading_overlay.dart';
 import '../data/api_constants.dart';
 import '../model/TaskModel.dart';
 import 'BottomNavigationController.dart';
@@ -22,15 +18,17 @@ class HomeController extends GetxController {
   RxString nbrTodo = "".obs;
   RxString nbrInProgress = "".obs;
   RxString nbrDone = "".obs;
-  final NavController = BottomNavigationController();
   RxString name ="".obs;
   RxString id ="".obs;
   RxString image="".obs;
   var tasks = RxList<Task>().obs;
+  final isLoading = false.obs;
 
   void fetchItems() async {
-
+print("test1");
+isLoading.value = true;
     try {
+      print("test11");
       final String url = ApiConstants.baseUrl+ApiConstants.findTasks+id.value; // Replace with your backend URL
       final http.Response response = await http.get(
         Uri.parse(url),
@@ -44,11 +42,13 @@ class HomeController extends GetxController {
         final taskList = (data['tasks'] as List<dynamic>).map((e) => Task.fromJson(e as Map<String, dynamic>)).toList();
         tasks.value.clear();
         tasks.value.addAll(taskList);
+        print(taskList);
         TypeCount();
 
 
 
       } else if (response.statusCode == 401) {
+        print("test2");
         final responseData = json.decode(response.body);
         Get.snackbar(
           "Error",
@@ -67,7 +67,7 @@ class HomeController extends GetxController {
 
       } else {
         // Invalid credentials
-
+        print("test3");
         final responseData = json.decode(response.body);
         // error.value = responseData['message'];
         print(responseData);
@@ -84,8 +84,7 @@ class HomeController extends GetxController {
       }
 
     } catch (err, _) {
-      print(err);
-
+      print("test4");
       Get.snackbar(
         "Error",
         err.toString(),
@@ -98,6 +97,9 @@ class HomeController extends GetxController {
       );
 
 
+    }finally {
+      isLoading.value = false;
+      update();
     }
   }
 
@@ -106,51 +108,38 @@ class HomeController extends GetxController {
     id.value  = _storage.read('id');
     name.value  = _storage.read('userName');
     image.value  = _storage.read('image');
-    //fetchItems();
+    fetchItems();
     super.onInit();
   }
 
   void ToIssues() async {
-    NavController.changePage(3);
+    Get.find<BottomNavigationController>().changePage(3);
+    Get.find<TaskController>().toType(2);
     print("to Issues");
   }
 
   void ToFeatures() {
-    NavController.changePage(3);
+    Get.find<BottomNavigationController>().changePage(3);
+    Get.find<TaskController>().toType(1);
     print("to Featsures");
   }
-
-  RxString ToDoCount() {
-    Future.delayed(Duration(seconds: 1));
-    nbrTodo = RxString(Random().nextInt(100).toString());
-
-    int count = tasks.value.where((task) => task.status == "To do").length;
-    print("Number of tasks: $count");
-    return nbrTodo;
+  void ToTodo() async {
+    Get.find<BottomNavigationController>().changePage(3);
+    Get.find<TaskController>().toStatus(1);
+    print("to To do");
+  }
+  void ToInProgress() async {
+    Get.find<BottomNavigationController>().changePage(3);
+    Get.find<TaskController>().toStatus(2);
+    print("to In Progress");
+  }
+  void ToDone() async {
+    Get.find<BottomNavigationController>().changePage(3);
+    Get.find<TaskController>().toStatus(3);
+    print("to Done");
   }
 
-  RxString InProgCount() {
-    Future.delayed(Duration(seconds: 1));
-    nbrInProgress = RxString(Random().nextInt(100).toString());
-    return nbrInProgress;
-  }
 
-  RxString DoneCount() {
-    Future.delayed(Duration(seconds: 1));
-    nbrDone = RxString(Random().nextInt(100).toString());
-    return nbrDone;
-  }
-
-/*  RxString FeaturesCount() {
-    nbrFeature = RxString(tasks.where((task) => task.type == "Feature").length.toString());
-    return nbrFeature;
-  }*/
-
- /* RxString IssuesCount() {
-    Future.delayed(Duration(seconds: 1));
-    nbrIssues = RxString(tasks.where((task) => task.type == "Issue").length.toString());
-    return nbrIssues;
-  }*/
 
   void LogOut() {
     _storage.erase();

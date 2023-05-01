@@ -23,7 +23,7 @@ class TaskPage extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: controller.Status.length,
+              itemCount: controller.Status.length-1,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -47,7 +47,8 @@ class TaskPage extends StatelessWidget {
                             ? 'assets/to-do-list.png'
                             : controller.Status[index] == "In Progress"
                             ? 'assets/settings.png'
-                            : 'assets/verify.png',secColor: isSelected? Color.fromRGBO(185, 204, 225, 0.25):Colors.white );
+                            : 'assets/verify.png',
+                          secColor: isSelected? Color.fromRGBO(185, 204, 225, 0.25):Colors.white );
                     }),
                   ),
                 );
@@ -60,7 +61,7 @@ class TaskPage extends StatelessWidget {
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: controller.Types.length,
+              itemCount: controller.Types.length-1,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -93,14 +94,7 @@ class TaskPage extends StatelessWidget {
 
           Expanded(
             child: Obx(() {
-              final tasks = controller.tasks
-                  .where((task) =>
-              task.status ==
-                  controller.Status[controller.selectedStatusIndex.value]
-                      .toString() && task.type ==
-                  controller.Types[controller.selectedTypeIndex.value]
-                      .toString() )
-                  .toList(); // show tasks with selected category only
+              final tasks = controller.TaskSelected(); // show tasks with selected category only
 
               return ListView.builder(
                 itemCount: tasks.length,
@@ -110,7 +104,11 @@ class TaskPage extends StatelessWidget {
                     Obx(() {
                       return Taskitem(controller: controller,
                         onSubmit: () => popupcontroller.openPopup(task),
-                        isHistoryVisible: controller.isHistoryVisibleList[index].value, ShowDetails: ()=>controller.toggleVisibility(index), task: task, isDetailsVisible: controller.isVisibleList[index].value, ShowHistory: ()=>controller.toggleHistoryVisibility(index),);
+                        isHistoryVisible: controller.isHistoryVisibleList[index].value,
+                        ShowDetails: ()=>controller.toggleVisibility(index),
+                        task: task,
+                        isDetailsVisible: controller.isVisibleList[index].value,
+                        ShowHistory: ()=>controller.toggleHistoryVisibility(index),);
                     });
 
 

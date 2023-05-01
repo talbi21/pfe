@@ -39,12 +39,11 @@ class HomeScreen extends StatelessWidget {
       case 0:
         return Archive_screen();
       case 1:
-        Get.find<HomeController>().fetchItems();
+
         return HomePage();
       case 2:
         return ProfilePage();
       case 3:
-        Get.find<TaskController>().fetchItems();
         return TaskPage();
       default:
         return Center(

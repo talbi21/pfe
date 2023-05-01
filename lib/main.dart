@@ -12,6 +12,7 @@ void main() async{
   ]);
   WidgetsFlutterBinding.ensureInitialized();
 
+
  // await GetStorage.init();
   Get.put(MyBindings());
   runApp(const MyApp());
