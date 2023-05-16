@@ -8,6 +8,8 @@ class ArchiveItem extends StatelessWidget {
   final Color secColor;
   final Color PrimaryColor;
   final Task item;
+  final VoidCallback  onDelete;
+  final VoidCallback  onDownload;
 
   const ArchiveItem({
     Key? key,
@@ -16,6 +18,8 @@ class ArchiveItem extends StatelessWidget {
     this.height = 140,
     this.width = 250,
     required this.item,
+    required this.onDelete,
+    required this.onDownload,
   }) : super(key: key);
 
   @override
@@ -166,55 +170,61 @@ class ArchiveItem extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 15),
-                      child: Container(
-                        width:110 ,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(53, 97, 254, 0.25),
-                            borderRadius: BorderRadius.circular(12.5)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Delete",
-                              style: TextStyle(
-                                fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white
+                      child: GestureDetector(
+                        onTap: onDelete,
+                        child: Container(
+                          width:110 ,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(53, 97, 254, 0.25),
+                              borderRadius: BorderRadius.circular(12.5)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Delete",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Image.asset("assets/remove.png")
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Image.asset("assets/remove.png")
+                            ],
+                          ),
                         ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 15),
-                      child: Container(
-                        width:110,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            color: Color.fromRGBO(56, 235, 148, 0.5),
-                            borderRadius: BorderRadius.circular(12.5)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Download",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white
+                      child: GestureDetector(
+                        onTap: onDownload,
+                        child: Container(
+                          width:110,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: Color.fromRGBO(56, 235, 148, 0.5),
+                              borderRadius: BorderRadius.circular(12.5)
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Download",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                           Icon(Icons.attach_file,color: Colors.white,size: 20,)
-                          ],
+                              SizedBox(
+                                width: 5,
+                              ),
+                             Icon(Icons.attach_file,color: Colors.white,size: 20,)
+                            ],
+                          ),
                         ),
                       ),
                     )

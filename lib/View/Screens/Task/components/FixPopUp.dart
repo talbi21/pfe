@@ -86,32 +86,37 @@ class FixPopUp extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  category_Icon(
+
+              SingleChildScrollView(
+                padding: EdgeInsets.symmetric(vertical: 5,horizontal: 5),
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    category_Icon(
+                        secColor: Color.fromRGBO(185, 204, 225, 0.25),
+                        PrimaryColor: Colors.white,
+                        Title: task.type,
+                        width: 60,
+                        height: 25,
+                        icon: task.type == "Issue"
+                            ? 'assets/maintenance.png'
+                            : 'assets/feature.png'),
+                    SizedBox(width: 10),
+                    category_Icon(
                       secColor: Color.fromRGBO(185, 204, 225, 0.25),
                       PrimaryColor: Colors.white,
-                      Title: task.type,
+                      Title: task.status,
                       width: 60,
                       height: 25,
-                      icon: task.type == "Issue"
-                          ? 'assets/maintenance.png'
-                          : 'assets/feature.png'),
-                  SizedBox(width: 10),
-                  category_Icon(
-                    secColor: Color.fromRGBO(185, 204, 225, 0.25),
-                    PrimaryColor: Colors.white,
-                    Title: task.status,
-                    width: 60,
-                    height: 25,
-                    icon: task.status == "To do"
-                        ? 'assets/to-do-list.png'
-                        : task.status == "In Progress"
-                        ? 'assets/settings.png'
-                        : 'assets/verify.png',
-                  ),
-                ],
+                      icon: task.status == "To do"
+                          ? 'assets/to-do-list.png'
+                          : task.status == "In Progress"
+                          ? 'assets/settings.png'
+                          : 'assets/verify.png',
+                    ),
+                  ],
+                ),
               ),
               Divider(
                 thickness: 1,

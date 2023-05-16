@@ -14,18 +14,20 @@
 
     @override
     Widget build(BuildContext context) {
-      final controller = Get.put(HomeController());
 
 
       final Navigationcontroller = Get.put(BottomNavigationController());
       return Scaffold(
-        body: GetBuilder<HomeController>(builder: (controller) {
-        if (controller.isLoading.value) {
-        return Center(child: CircularProgressIndicator());
-        } else {
-          return Column(
+        body: Column(
             children: [
               _buildAppBar(),
+              GetBuilder<HomeController>(builder: (controller) {
+                if (controller.isLoading.value) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return
+              Column(
+                children: [
               Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                 child: Align(
@@ -116,13 +118,14 @@
                       .width,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 2,
+                    itemCount: controller.archiveTasks.value.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Obx(() =>
                           Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: ArchiveItemHome(item: controller
-                                .items[index]),
+                                .archiveTasks.value[index], onDelete: () =>controller.deleteArchiveItem(controller
+                                .archiveTasks.value[index].id)),
                           ));
                     },
                   ),
@@ -165,7 +168,7 @@
               Padding(
                 padding: const EdgeInsets.all(15),
                 child: Container(
-                    height: 120,
+                    height: MediaQuery.of(context).size.height/6.5,
                     width: MediaQuery
                         .of(context)
                         .size
@@ -196,35 +199,24 @@
                         }),
                       ],
                     )
-
-                  /* ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-
-                    SumItem(Status: "To Do", nbr:controller.nbrTodo, img: "Assets/toDo.png",PrimaryColor:Color.fromRGBO(253, 159, 61, 1) ),
-                    categoryitem(
-                      onSubmit: controller.ToFeatures,
-                      Title: 'Features',
-                      PrimaryColor: Color.fromRGBO(233, 234, 238, 1),
-                      nbr: controller.FeaturesCount(),
-                      secColor: Colors.black,),
-
-                  ],
-                ),*/
                 ),
               ),
             ],
+
           );
         }
         }
-        ),
+        )
+
+            ],
+          ),
       );
     }
   }
 
   Widget _buildAppBar() {
     final Navigationcontroller = Get.put(BottomNavigationController());
-    final controller = Get.find<HomeController>();
+    final controller = Get.put(HomeController());
     return Stack(
       children: [
         Appbar(TitleOn: false),

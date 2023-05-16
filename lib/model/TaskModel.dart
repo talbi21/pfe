@@ -1,3 +1,5 @@
+
+import 'dart:io';
 import 'dart:ui';
 
 import 'UserModel.dart';
@@ -12,7 +14,9 @@ class Task {
   final String status;
   final String type;
   final List<String> collaborators;
-   Task({
+  final Map<String, dynamic>? attachment;
+  final bool isArchived;
+  Task({
      required this.id,
     required this.title,
     required this.date,
@@ -20,6 +24,8 @@ class Task {
     required this.status,
     required this.type,
      required this.collaborators,
+    this.attachment,
+    required this.isArchived,
   });
 
 
@@ -32,6 +38,8 @@ class Task {
       status: json['status'],
       type: json['type'],
       collaborators: List<String>.from(json['collaborators']), // Handle null values with default value
+        attachment: json['attachment'],
+      isArchived: json['isArchived'],
     );
   }
 
@@ -44,6 +52,8 @@ class Task {
       'status': status,
       'type': type,
       'collaborators': collaborators,
+      'attachment': attachment, // Convert file object to string path
+      'isArchived': isArchived,
     };
   }
 }

@@ -7,7 +7,8 @@ import '../../shared_components/appBar.dart';
 import 'components/ArchiveItem.dart';
 
 class Archive_screen extends StatelessWidget {
-  // final controller = Get.put(TaskController());
+
+  //final ArchiveController controller = Get.put(ArchiveController());
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +24,38 @@ class Archive_screen extends StatelessWidget {
 }
 
 Widget _buildArchiveList(BuildContext context) {
-  final ArchiveContoller controller = Get.put(ArchiveContoller());
-  return Container(
-    height: MediaQuery.of(context).size.height - 150,
-    width: MediaQuery.of(context).size.width,
-    child: Padding(
-      padding: const EdgeInsets.only(bottom: 60),
-      child: Center(
-        child: Obx(
-              () => ListView.builder(
-            itemCount: controller.tasks.length,
-            itemBuilder: (context, index) {
-              final item = controller.tasks[index];
+ // final ArchiveController controller = Get.find<ArchiveController>();
+  return GetBuilder<ArchiveController>(builder: (controller) {
+    if (controller.isLoading.value) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container(
+        height: MediaQuery
+            .of(context)
+            .size
+            .height - 150,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: Center(
+            child: Obx(
+                  () =>
+                  ListView.builder(
+                    itemCount: controller.tasks.value.length,
+                    itemBuilder: (context, index) {
+                      final item = controller.tasks.value[index];
 
-              return ArchiveItem(item: item,
-                  );
-            },
+                      return ArchiveItem(item: item, onDelete: ()=>controller.DeleteItem(item.id), onDownload: ()=> controller.downloadAttachment(item.id, item.title),
+                      );
+                    },
+                  ),
+            ),
           ),
         ),
-      ),
-    ),
-  );
+      );
+    }
+  });
 }

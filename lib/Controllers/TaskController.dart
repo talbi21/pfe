@@ -102,15 +102,18 @@ class TaskController extends GetxController {
   void onInit() {
     fetchItems();
     super.onInit();
-    initVisibilityList(tasks.length);
+
   }
 
   void fetchItems() async {
+    isLoading.value = true;
+    initVisibilityList(tasks.length);
     try {
       final List<Task> fetchedItems = Get.find<HomeController>().tasks.value;
       tasks.value.clear();
       // final List<Task> fetchedItems =  ListTasks;
       tasks.addAll(fetchedItems);
+      isLoading.value = false;
     } catch (e) {
       print(e);
     }
@@ -120,9 +123,10 @@ class TaskController extends GetxController {
 
 
     isLoading.value = true;
+    update();
     try {
 
-      final String url = ApiConstants.baseUrl+ApiConstants.StartFixTask+id; // Replace with your backend URL
+      final String url = ApiConstants.baseUrl+ApiConstants.StartFixTaskEndpoint+id; // Replace with your backend URL
       final http.Response response = await http.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -199,9 +203,95 @@ class TaskController extends GetxController {
   void FixTask(Task item) {
    if (item.status == "To do"){
      StartFix(item.id);
-     Get.find<PopupController>().openPopup(item);
+
+
+   } else if (item.status == "Done"){
+
+     Archivetask(item.id);
    } else {
      Get.find<PopupController>().openPopup(item);
    }
+  }
+
+
+  void Archivetask(String id) async {
+
+
+    isLoading.value = true;
+    update();
+    try {
+
+      final String url = ApiConstants.baseUrl+ApiConstants.ArchiveTaskEndpoint+id; // Replace with your backend URL
+      final http.Response response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+      );
+
+      if (response.statusCode == 200) {
+        // Successful login
+        tasks.removeWhere((task) => task.id == id);
+        print (tasks.length);
+        final data = json.decode(response.body);
+        Task newTask = Task.fromJson(data);
+
+
+       // tasks.add(newTask);
+        toStatus(3);
+
+
+      } else if (response.statusCode == 401) {
+
+        final responseData = json.decode(response.body);
+        Get.snackbar(
+          "Error",
+          responseData['message'].toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+
+
+
+
+
+      } else {
+        // Invalid credentials
+        print("test3");
+        final responseData = json.decode(response.body);
+        // error.value = responseData['message'];
+        print(responseData);
+        Get.snackbar(
+          "Error",
+          responseData['message'].toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
+      }
+
+    } catch (err, _) {
+      print("test4");
+      Get.snackbar(
+        "Error",
+        err.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(.75),
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+      );
+
+
+    }finally {
+      isLoading.value = false;
+      update();
+    }
   }
 }

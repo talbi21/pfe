@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/BottomNavigationController.dart';
-
-import '../../Controllers/HomeController.dart';
-import '../../Controllers/TaskController.dart';
 import '../shared_components/NavigationBar.dart';
 import 'Archive/Archive_screen.dart';
 import 'Home/Home_screen.dart';
@@ -39,7 +36,6 @@ class HomeScreen extends StatelessWidget {
       case 0:
         return Archive_screen();
       case 1:
-
         return HomePage();
       case 2:
         return ProfilePage();

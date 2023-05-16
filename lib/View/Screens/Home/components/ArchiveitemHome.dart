@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+
+import '../../../../model/TaskModel.dart';
 
 class ArchiveItemHome extends StatelessWidget {
   final double height;
   final double width;
   final Color secColor;
   final Color PrimaryColor;
-  final ArchiveTask item;
+  final Task item;
+  final Callback onDelete;
 
 
 
@@ -16,8 +20,10 @@ class ArchiveItemHome extends StatelessWidget {
 
      this.height= 140,
      this.width= 250,
-    required this.item,
+    required this.item, required this.onDelete,
   }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +53,11 @@ class ArchiveItemHome extends StatelessWidget {
                 Container(
                    width: 50,
                   height:50 ,
-                  child: Icon(item.icon,
-                    size: 40,
-                    color: Colors.yellow,
-                ),
+
+
+                  child: Image.asset(item.type == "Issue"
+                      ? 'assets/maintenance.png'
+                      : 'assets/feature.png',),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
                     color: Colors.white,
@@ -128,40 +135,50 @@ class ArchiveItemHome extends StatelessWidget {
           Row(
            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: Icon(Icons.calendar_month,
-                    color: Color.fromRGBO(12, 62, 117, 1)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: Icon(Icons.calendar_month,
+                        color: Color.fromRGBO(12, 62, 117, 1)),
+                  ),
+                  SizedBox(width: 5),
+                  Text(item.date,
+                    style: TextStyle(
+                        color: Colors.black.withOpacity(0.5)
+                    ),
+                  ),
+                ],
               ),
 
-              Text(item.description,
-                style: TextStyle(
-                    color: Colors.black.withOpacity(0.5)
-                ),
-              ),
+
 
               Padding(
                 padding: const EdgeInsets.only(right: 15),
-                child: Container(
-                  width:80 ,
-                  height: 25,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(53, 97, 254, 0.25),
-                    borderRadius: BorderRadius.circular(12.5)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Delete",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Image.asset("assets/remove.png")
-                    ],
+                child: GestureDetector(
+                  onTap: onDelete,
+                  child: Container(
+                    width:80 ,
+                    height: 25,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(53, 97, 254, 0.25),
+                      borderRadius: BorderRadius.circular(12.5)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Delete",
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Image.asset("assets/remove.png")
+                      ],
+                    ),
                   ),
                 ),
               )
@@ -174,11 +191,3 @@ class ArchiveItemHome extends StatelessWidget {
   }
 }
 
-
-class ArchiveTask {
-  final String title;
-  final String description;
-  final IconData icon;
-
-  const ArchiveTask({required this.title, required this.description, required this.icon});
-}

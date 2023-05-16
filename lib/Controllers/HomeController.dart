@@ -8,6 +8,7 @@ import '../View/Screens/Login/Login_screen.dart';
 import '../View/Screens/Home/components/ArchiveitemHome.dart';
 import '../data/api_constants.dart';
 import '../model/TaskModel.dart';
+import 'ArchiveController.dart';
 import 'BottomNavigationController.dart';
 
 class HomeController extends GetxController {
@@ -22,14 +23,16 @@ class HomeController extends GetxController {
   RxString id ="".obs;
   RxString image="".obs;
   var tasks = RxList<Task>().obs;
+  var archiveTasks = RxList<Task>().obs;
   final isLoading = false.obs;
+  ArchiveController archiveController = Get.put(ArchiveController());
 
   void fetchItems() async {
 print("test1");
 isLoading.value = true;
     try {
       print("test11");
-      final String url = ApiConstants.baseUrl+ApiConstants.findTasks+id.value; // Replace with your backend URL
+      final String url = ApiConstants.baseUrl+ApiConstants.findTasksEndpoint+id.value; // Replace with your backend URL
       final http.Response response = await http.get(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -41,7 +44,15 @@ isLoading.value = true;
         final data = json.decode(response.body);
         final taskList = (data['tasks'] as List<dynamic>).map((e) => Task.fromJson(e as Map<String, dynamic>)).toList();
         tasks.value.clear();
-        tasks.value.addAll(taskList);
+        archiveTasks.value.clear();
+        for (var task in taskList) {
+          if (!task.isArchived) {
+            tasks.value.add(task);
+          }else{
+            archiveTasks.value.add(task);
+          }
+        }
+       // tasks.value.addAll(taskList);
         print(taskList);
         TypeCount();
 
@@ -85,6 +96,7 @@ isLoading.value = true;
 
     } catch (err, _) {
       print("test4");
+      print(err);
       Get.snackbar(
         "Error",
         err.toString(),
@@ -146,6 +158,34 @@ isLoading.value = true;
     Get.offAll(LoginScreen());
   }
 
+  void removeTaskById(String id) {
+    archiveTasks.value.removeWhere((task) => task.id == id);
+  }
+
+  void deleteArchiveItem(String id) async {
+    isLoading.value = true;
+    update();
+
+    bool deleteResult = await archiveController.DeleteItem(id);
+    if (deleteResult) {
+      removeTaskById(id);
+      Get.snackbar('Success', 'Task deleted');
+    } else {
+      Get.snackbar(
+        "Error",
+        "Failed to delete",
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(.75),
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+      );
+    }
+    isLoading.value = false;
+    update();
+  }
+
   void TypeCount() {
 
    String countIssues  = tasks.value.where((task) => task.type == "Issue").length.toString();
@@ -163,14 +203,4 @@ isLoading.value = true;
 
 
 
-  
-
-  RxList<ArchiveTask> items = <ArchiveTask>[
-    ArchiveTask(title: 'Task 1', description: '12 July 2023', icon: Icons.star),
-    ArchiveTask(title: 'Task 2', description: 'Description 2', icon: Icons.abc),
-    ArchiveTask(
-        title: 'Task 3',
-        description: 'Description 3',
-        icon: Icons.abc_outlined),
-  ].obs;
 }
