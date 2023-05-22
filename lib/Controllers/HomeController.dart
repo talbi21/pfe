@@ -25,22 +25,22 @@ class HomeController extends GetxController {
   var tasks = RxList<Task>().obs;
   var archiveTasks = RxList<Task>().obs;
   final isLoading = false.obs;
+  final hasError = false.obs;
   ArchiveController archiveController = Get.put(ArchiveController());
 
   void fetchItems() async {
-print("test1");
-isLoading.value = true;
+    isLoading.value = true;
+    hasError.value = false;
+    update();
+
     try {
-      print("test11");
-      final String url = ApiConstants.baseUrl+ApiConstants.findTasksEndpoint+id.value; // Replace with your backend URL
+      final String url = ApiConstants.baseUrl + ApiConstants.findTasksEndpoint + id.value;
       final http.Response response = await http.get(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
       );
 
       if (response.statusCode == 200) {
-        // Successful login
-
         final data = json.decode(response.body);
         final taskList = (data['tasks'] as List<dynamic>).map((e) => Task.fromJson(e as Map<String, dynamic>)).toList();
         tasks.value.clear();
@@ -48,18 +48,13 @@ isLoading.value = true;
         for (var task in taskList) {
           if (!task.isArchived) {
             tasks.value.add(task);
-          }else{
+          } else {
             archiveTasks.value.add(task);
           }
         }
-       // tasks.value.addAll(taskList);
         print(taskList);
         TypeCount();
-
-
-
       } else if (response.statusCode == 401) {
-        print("test2");
         final responseData = json.decode(response.body);
         Get.snackbar(
           "Error",
@@ -71,16 +66,9 @@ isLoading.value = true;
           shouldIconPulse: true,
           barBlur: 20,
         );
-
-
-
-
-
+        hasError.value = true; // Set the hasError flag to true
       } else {
-        // Invalid credentials
-        print("test3");
         final responseData = json.decode(response.body);
-        // error.value = responseData['message'];
         print(responseData);
         Get.snackbar(
           "Error",
@@ -92,10 +80,9 @@ isLoading.value = true;
           shouldIconPulse: true,
           barBlur: 20,
         );
+        hasError.value = true; // Set the hasError flag to true
       }
-
     } catch (err, _) {
-      print("test4");
       print(err);
       Get.snackbar(
         "Error",
@@ -107,9 +94,8 @@ isLoading.value = true;
         shouldIconPulse: true,
         barBlur: 20,
       );
-
-
-    }finally {
+      hasError.value = true; // Set the hasError flag to true
+    } finally {
       isLoading.value = false;
       update();
     }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../Controllers/PopupController.dart';
 import '../../../Controllers/TaskController.dart';
 import 'components/Category_Icon.dart';
+import 'components/Skeleton.dart';
 import 'components/Taskitem.dart';
 import '../../shared_components/appBar.dart';
 
@@ -97,7 +98,7 @@ class TaskPage extends StatelessWidget {
 
           GetBuilder<TaskController>(builder: (controller) {
             if (controller.isLoading.value) {
-              return Center(child: CircularProgressIndicator());
+              return TaskSkeleton();
             } else {
               return Expanded(
                 child: Obx(() {

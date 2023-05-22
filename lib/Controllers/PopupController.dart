@@ -16,6 +16,7 @@ import 'HomeController.dart';
 
 class PopupController extends GetxController {
   final Navcontroller = Get.put(BottomNavigationController());
+
   Rx<FilePickerResult?> selectedFile = Rx<FilePickerResult?>(null);
   final isLoading = false.obs;
   RxString Taskid ="".obs;
@@ -49,7 +50,8 @@ class PopupController extends GetxController {
   void openArchivePopup() {
     Get.back();
     if (selectedFile.value == null) {
-      Get.snackbar('Error', 'No file selected');
+      Get.snackbar('Error', 'No file selected',backgroundColor: Colors.red.withOpacity(0.5),
+          icon: const Icon(Icons.error, color: Colors.white),);
     } else {
       fix(Taskid.value);
      // await saveFile(selectedFile.value); // save the file
@@ -68,7 +70,7 @@ class PopupController extends GetxController {
 
 
   Future<void> fix(String taskId) async {
-    isLoading.value = true;
+    Get.find<TaskController>().isLoading.value = true;
     update();
     try {
 
@@ -119,7 +121,7 @@ class PopupController extends GetxController {
         barBlur: 20,
       );
     } finally {
-      isLoading.value = false;
+      Get.find<TaskController>().isLoading.value = false;
       update();
     }
   }

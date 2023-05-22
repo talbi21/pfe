@@ -20,6 +20,7 @@ class ArchiveController extends GetxController {
   final _storage = GetStorage();
   final isLoading = false.obs;
   RxString id ="".obs;
+  final hasError = false.obs;
 
 
 
@@ -85,8 +86,11 @@ class ArchiveController extends GetxController {
 
 
   void fetchItems() async {
+    hasError.value = false;
+
 
     isLoading.value = true;
+    update();
     try {
 
       final String url = ApiConstants.baseUrl+ApiConstants.findArchiveTasksEndpoint+id.value; // Replace with your backend URL
@@ -157,7 +161,7 @@ class ArchiveController extends GetxController {
         barBlur: 20,
       );
 
-
+      hasError.value = true;
     }finally {
       isLoading.value = false;
       update();

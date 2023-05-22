@@ -3,9 +3,11 @@
   import 'package:untitled2/Controllers/BottomNavigationController.dart';
 
   import '../../../Controllers/HomeController.dart';
-  import 'components/ArchiveitemHome.dart';
+  import '../../shared_components/ApiError.dart';
+import 'components/ArchiveitemHome.dart';
   import 'components/Categoryitem.dart';
-  import 'components/SummaryItem.dart';
+  import 'components/Skeleton.dart';
+import 'components/SummaryItem.dart';
   import '../../shared_components/appBar.dart';
 
   class HomePage extends StatelessWidget {
@@ -23,7 +25,14 @@
               _buildAppBar(),
               GetBuilder<HomeController>(builder: (controller) {
                 if (controller.isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
+                 // return Center(child: CircularProgressIndicator());
+                  return HomeSkeleton();
+
+                } else if (controller.hasError.value) {
+                  return ApiErrorWidget(
+                    message: 'Error occurred while loading data.',
+                    retryCallback: controller.fetchItems,
+                  );
                 } else {
                   return
               Column(

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/ArchiveController.dart';
 
+import '../../shared_components/ApiError.dart';
 import '../../shared_components/appBar.dart';
 import 'components/ArchiveItem.dart';
+import 'components/Skeleton.dart';
 
 class Archive_screen extends StatelessWidget {
 
@@ -27,7 +29,13 @@ Widget _buildArchiveList(BuildContext context) {
  // final ArchiveController controller = Get.find<ArchiveController>();
   return GetBuilder<ArchiveController>(builder: (controller) {
     if (controller.isLoading.value) {
-      return Center(child: CircularProgressIndicator());
+
+      return ShimmerList();
+    } else if (controller.hasError.value) {
+      return ApiErrorWidget(
+        message: 'Error occurred while loading data.',
+        retryCallback: controller.fetchItems,
+      );
     } else {
       return Container(
         height: MediaQuery
