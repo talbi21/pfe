@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../View/Screens/Login/NumPad_screen.dart';
 import '../data/api_constants.dart';
+import 'NumpadController.dart';
 
 class OtpController extends GetxController {
+  final controller =  Get.put(NumpadController());
   final GlobalKey<FormState> OtpFormKey =
   GlobalKey<FormState>(debugLabel: '__OtpFormKey__');
   var otp = ''.obs;
@@ -43,7 +45,7 @@ class OtpController extends GetxController {
         if (response.statusCode == 200) {
           // Successful login
           final responseData = json.decode(response.body);
-
+controller.phoneNumber = phoneNumber;
           Get.snackbar(
             "Done",
             responseData['message'].toString(),

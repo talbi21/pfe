@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:untitled2/Controllers/UpdatePasswordController.dart';
-import '../View/Screens/Home/Home_screen.dart';
 import '../View/Screens/Login/UpdatePassword.dart';
 import '../View/Screens/dashboard.dart';
-import '../View/shared_components/loading_overlay.dart';
 import '../data/api_constants.dart';
 import '../model/UserModel.dart';
 
@@ -141,33 +138,5 @@ class LoginController extends GetxController {
     }
   }
 
-/*  void login() async {
-    print('${idController.text}, ${passController.text}');
-    if (loginFormKey.currentState!.validate()) {
-      LoadingOverlay.show(message: 'Login...');
-      try {
-        await Timer(Duration(seconds: 5), () {
-          Get.offAll(() => HomeScreen());
-        });
 
-        //   Get.offAllNamed(Routes.HOME);
-        print("done");
-      } catch (err, _) {
-        LoadingOverlay.hide();
-        passController.clear();
-        Get.snackbar(
-          "Error",
-          err.toString(),
-          snackPosition: SnackPosition.TOP,
-          backgroundColor: Colors.red.withOpacity(.75),
-          colorText: Colors.white,
-          icon: const Icon(Icons.error, color: Colors.white),
-          shouldIconPulse: true,
-          barBlur: 20,
-        );
-      } finally {}
-
-      loginFormKey.currentState!.save();
-    }
-  }*/
 }

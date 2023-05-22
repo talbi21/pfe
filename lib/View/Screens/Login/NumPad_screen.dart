@@ -26,7 +26,7 @@ Widget _buildBody() {
       Center(
         child: Image.asset('assets/passwordimg.png'),
       ),
-      SizedBox(height: 20),
+      SizedBox(height: 30),
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -36,14 +36,18 @@ Widget _buildBody() {
             child: SizedBox(
               height: 30,
               child: Center(
-                  child: TextField(
+                  child: Form(
+                    key: controller.loginPhoneFormKey,
+                    child: TextFormField(
+                      validator: controller.validator,
                 controller: controller.numController,
                 textAlign: TextAlign.center,
                 showCursor: false,
                 style: const TextStyle(fontSize: 40),
                 // Disable the default soft keybaord
                 keyboardType: TextInputType.none,
-              )),
+              ),
+                  )),
             ),
           ),
           // implement the custom NumPad
@@ -56,18 +60,7 @@ Widget _buildBody() {
               controller.delete();
             },
             // do something with the input numbers
-            onSubmit: () {
-              Get.offAll(() => HomeScreen());
-              //  Get.to(() => HomePage());
-              /*showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Text(
-                      "You code is "+controller.numController.text,
-                      style: const TextStyle(fontSize: 30),
-                    ),
-                  ));*/
-            },
+            onSubmit: controller.login
           ),
         ],
       ),

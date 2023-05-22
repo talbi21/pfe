@@ -6,7 +6,7 @@ class NumPad extends StatelessWidget {
   final Color iconColor;
   final TextEditingController controller;
   final Function delete;
-  final Function onSubmit;
+  final void Function()? onSubmit;
 
   const NumPad({
     Key? key,
@@ -134,7 +134,7 @@ class NumPad extends StatelessWidget {
                 height: 55,
                 width: 55,
                 child: IconButton(
-                  onPressed: () => onSubmit(),
+                  onPressed:  onSubmit,
                   icon: Icon(
                     Icons.arrow_forward_sharp,
                     color: iconColor,
