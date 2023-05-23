@@ -11,7 +11,7 @@ class ApiConstants {
   static const String FixTaskEndpoint = 'Task/fix/';
   static const String ArchiveTaskEndpoint = 'Task/archive/';
   static const String DeleteArchiveTaskEndpoint = 'Task/delete/';
-  static const String downloadAttatechmantEndpoint = 'Task/downloadAttachment/';
+  static const String downloadAttachmentEndpoint = 'Task/downloadAttachment/';
 
 
 

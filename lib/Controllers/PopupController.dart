@@ -24,7 +24,7 @@ class PopupController extends GetxController {
   Future<void> pickFile() async {
     try {
       final result = await FilePicker.platform.pickFiles(
-        type: FileType.any,
+        type: FileType.image,
         allowMultiple: false,
       );
       if (result != null) {
@@ -88,10 +88,13 @@ class PopupController extends GetxController {
           await http.MultipartFile.fromPath(
             'file',
             file.path!,
-            filename: file.name,
-            contentType: MediaType('application', 'octet-stream'),
+            filename: file.path!.split("/").last,
+            contentType: MediaType('image', 'jpeg'),
           ),
+
+
         );
+        print(file.path);
 
         final response = await request.send();
 

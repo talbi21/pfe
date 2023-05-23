@@ -152,7 +152,7 @@ class HomeController extends GetxController {
     isLoading.value = true;
     update();
 
-    bool deleteResult = await archiveController.DeleteItem(id);
+    bool deleteResult = await archiveController.deleteItem(id);
     if (deleteResult) {
       removeTaskById(id);
       Get.snackbar('Success', 'Task deleted');

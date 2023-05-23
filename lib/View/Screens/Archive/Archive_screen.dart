@@ -9,27 +9,22 @@ import 'components/ArchiveItem.dart';
 import 'components/Skeleton.dart';
 
 class Archive_screen extends StatelessWidget {
-
   //final ArchiveController controller = Get.put(ArchiveController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [
-          Appbar(TitleOn: true),
-          _buildArchiveList(context)
-        ],
+        children: [Appbar(TitleOn: true), _buildArchiveList(context)],
       ),
     );
   }
 }
 
 Widget _buildArchiveList(BuildContext context) {
- // final ArchiveController controller = Get.find<ArchiveController>();
+  // final ArchiveController controller = Get.find<ArchiveController>();
   return GetBuilder<ArchiveController>(builder: (controller) {
     if (controller.isLoading.value) {
-
       return ShimmerList();
     } else if (controller.hasError.value) {
       return ApiErrorWidget(
@@ -38,28 +33,25 @@ Widget _buildArchiveList(BuildContext context) {
       );
     } else {
       return Container(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height - 150,
-        width: MediaQuery
-            .of(context)
-            .size
-            .width,
+        height: MediaQuery.of(context).size.height - 150,
+        width: MediaQuery.of(context).size.width,
         child: Padding(
           padding: const EdgeInsets.only(bottom: 60),
           child: Center(
             child: Obx(
-                  () =>
-                  ListView.builder(
-                    itemCount: controller.tasks.value.length,
-                    itemBuilder: (context, index) {
-                      final item = controller.tasks.value[index];
+              () => ListView.builder(
+                itemCount: controller.tasks.value.length,
+                itemBuilder: (context, index) {
+                  final item = controller.tasks.value[index];
 
-                      return ArchiveItem(item: item, onDelete: ()=>controller.DeleteItem(item.id), onDownload: ()=> controller.downloadAttachment(item.id, item.title),
-                      );
-                    },
-                  ),
+                  return ArchiveItem(
+                    item: item,
+                    onDelete: () => controller.deleteItem(item.id),
+                    onDownload: () =>
+                        controller.downloadAttachment(item.id, "item.title"),
+                  );
+                },
+              ),
             ),
           ),
         ),

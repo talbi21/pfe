@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../View/Screens/Login/UpdatePassword.dart';
 import '../View/Screens/dashboard.dart';
+import '../View/shared_components/loading_overlay.dart';
 import '../data/api_constants.dart';
 import '../model/UserModel.dart';
 
@@ -49,7 +50,6 @@ class LoginController extends GetxController {
 
   Future<void> login() async {
     if (loginFormKey.currentState!.validate()) {
-
     try {
 
 
@@ -134,6 +134,7 @@ class LoginController extends GetxController {
       );
     } finally {
       passController.clear(); // Hide loading indicator
+
     }
     }
   }
