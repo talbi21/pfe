@@ -283,66 +283,58 @@ class FixPopUp extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                style: TextStyle(
-                    color: Colors.grey
-                ),
-                textAlignVertical: TextAlignVertical.top,
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                  hintText: "tap here",
-                  prefixIcon:
-                  GestureDetector(
-                    onTap: controller.pickFile,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8, right: 10),
-                      child: DottedBorder(
-                        borderType: BorderType.RRect,
-                        color: Colors.grey,
-                        strokeWidth: 1,
-                        dashPattern: [5, 5],
-                        padding: EdgeInsets.all(8),
-                        radius: Radius.circular(8),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Obx(() {
-                              return Image.asset(controller.selectedFile.value != null ?
-                                  "assets/attdone.png": "assets/Attachment.png",
-                                  height: 30);
-                            }),
-                            Obx(() =>
-                                Text(controller.selectedFile.value != null ?
-                                "Downloaded": 'Attachment')),
+              Form(
+                key: controller.PopUpFormKey,
+                child: TextFormField(
+                  validator:controller.validator ,
+                  controller: controller.descController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  style: TextStyle(
+                      color: Colors.grey
+                  ),
+                  textAlignVertical: TextAlignVertical.top,
+                  textAlign: TextAlign.start,
+                  decoration: InputDecoration(
+                    hintText: "tap here",
+                    prefixIcon:
+                    GestureDetector(
+                      onTap: controller.pickFile,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8, right: 10),
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          color: Colors.grey,
+                          strokeWidth: 1,
+                          dashPattern: [5, 5],
+                          padding: EdgeInsets.all(8),
+                          radius: Radius.circular(8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Obx(() {
+                                return Image.asset(controller.selectedFile.value != null ?
+                                    "assets/attdone.png": "assets/Attachment.png",
+                                    height: 30);
+                              }),
+                              Obx(() =>
+                                  Text(controller.selectedFile.value != null ?
+                                  "Downloaded": 'Attachment')),
 
-                          ],
-                          /*
-                             children: [
-          Obx(() => Text(attachmentController.selectedFile.value?.files.single?.name ?? 'No file selected')),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: attachmentController.pickFile,
-            child: Text('Select File'),
-          ),
-          SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: attachmentController.clearSelection,
-            child: Text('Clear Selection'),
-          ),
-        ],
-                             */
+                            ],
+
+
+                          ),
                         ),
                       ),
                     ),
+                    contentPadding:
+                    EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        borderSide:
+                        BorderSide(color: Color.fromRGBO(205, 205, 205, 1))),
                   ),
-                  contentPadding:
-                  EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide:
-                      BorderSide(color: Color.fromRGBO(205, 205, 205, 1))),
                 ),
               ),
               SizedBox(height: 10),
