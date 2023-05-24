@@ -8,31 +8,29 @@ import 'components/ProfileTaskItem.dart';
 import '../../shared_components/appBar.dart';
 
 class ProfilePage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Appbar(TitleOn: true),
-          _buildProfileContainer(),
-          _buildChoiceContainer(),
-          _buildWorkContainer(context),
-          AboutContainer()
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Appbar(TitleOn: true),
+            _buildProfileContainer(),
+            _buildChoiceContainer(),
+            _buildWorkContainer(context),
+            AboutContainer()
+          ],
+        ),
       ),
     );
   }
 }
 
-
-
 Widget _buildWorkContainer(BuildContext context) {
   final controller = Get.put(ProfileController());
 
-  return  Obx(() {
+  return Obx(() {
     return Visibility(
       visible: !controller.isToggleOn.value,
       child: Padding(
@@ -45,11 +43,11 @@ Widget _buildWorkContainer(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProfileTaskitem(
-                        nbr: controller.IssuesDone(),
+                        nbr: controller.nbrIssuesDone,
                         Title: "Issues Done",
                         colorr: Color.fromRGBO(44, 203, 215, 1)),
                     ProfileTaskitem(
-                        nbr: controller.FeaturesDone(),
+                        nbr: controller.nbrFeaturesDone,
                         Title: "Features Done",
                         colorr: Color.fromRGBO(44, 203, 215, 1))
                   ],
@@ -58,15 +56,16 @@ Widget _buildWorkContainer(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProfileTaskitem(
-                        nbr: controller.HoursWorkedCount(),
-                        Title: "Hours  worked",
+                        nbr: controller.nbrTodo,
+                        Title: "Tasks  To do",
                         colorr: Color.fromRGBO(253, 159, 61, 1)),
                     ProfileTaskitem(
-                        nbr: controller.InprogressCount(),
+                        nbr: controller.TaskInprogress,
                         Title: "Tasks In Progress",
                         colorr: Color.fromRGBO(65, 117, 255, 1))
                   ],
                 ),
+                SizedBox(height: 50)
               ],
             ),
           )),
@@ -74,8 +73,9 @@ Widget _buildWorkContainer(BuildContext context) {
   });
 }
 
-Widget _buildProfileContainer(){
-  return  Padding(
+Widget _buildProfileContainer() {
+  final controller = Get.find<ProfileController>();
+  return Padding(
     padding: const EdgeInsets.all(20),
     child: Container(
       alignment: Alignment.center,
@@ -92,20 +92,19 @@ Widget _buildProfileContainer(){
       ),
       child: Row(
         children: [
+
           Padding(
-            padding: const EdgeInsets.only(
-                left: 10, right: 5, bottom: 10, top: 10),
-            child: Image.asset("assets/exempleuser.jpg",
-                height: 87, width: 84),
+            padding:
+                const EdgeInsets.only(left: 10, right: 5, bottom: 10, top: 10),
+            child: Image.asset("assets/exempleuser.jpg", height: 87, width: 84),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding:
-                const EdgeInsets.only(top: 10, bottom: 5, left: 1),
+                padding: const EdgeInsets.only(top: 10, bottom: 5, left: 1),
                 child: Text(
-                  "Achref Talbi",
+                  controller.userName.value,
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Montserrat',
@@ -122,7 +121,7 @@ Widget _buildProfileContainer(){
                     color: Color.fromRGBO(12, 62, 117, 1),
                   ),
                   SizedBox(width: 10),
-                  Text("achref.talbi@esprit.tn")
+                  Text(controller.email.value)
                 ],
               ),
               Row(
@@ -146,10 +145,12 @@ Widget _buildProfileContainer(){
                   SizedBox(width: 10),
                   Text("Marsa, Tunis")
                 ],
-              )
+              ),
             ],
-          )
+          ),
+
         ],
+
       ),
     ),
   );
@@ -157,8 +158,7 @@ Widget _buildProfileContainer(){
 
 Widget _buildChoiceContainer() {
   final controller = Get.put(ProfileController());
-  return
-  Obx(() {
+  return Obx(() {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -196,7 +196,7 @@ Widget _buildChoiceContainer() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => controller.toAbout(),
+                    onTap:  controller.toAbout,
                     child: Text(
                       "ABOUT",
                       style: TextStyle(
@@ -207,7 +207,7 @@ Widget _buildChoiceContainer() {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => controller.toWork(),
+                    onTap:  controller.toWork,
                     child: Text(
                       "WORK",
                       style: TextStyle(

@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:untitled2/Controllers/ProfileController.dart';
 
 import 'ArchiveController.dart';
 import 'HomeController.dart';
@@ -17,6 +18,8 @@ class BottomNavigationController extends GetxController {
       Get.find<TaskController>().fetchItems();
     }else if (index == 0){
       Get.find<ArchiveController>().fetchItems();
+    }else if (index == 2){
+      Get.find<ProfileController>().fetchItems();
     }
     print("Page N°" + " " + index.toString());
 

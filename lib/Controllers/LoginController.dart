@@ -75,6 +75,10 @@ class LoginController extends GetxController {
         _storage.write('password', user.password);
         _storage.write('phoneNumber', user.phoneNumber);
         _storage.write('image', user.image);
+        _storage.write('dateJoined', user.dateJoined);
+
+        print(user.dateJoined);
+
 
 
 

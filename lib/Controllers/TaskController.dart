@@ -21,8 +21,7 @@ class TaskController extends GetxController {
 
   void initVisibilityList(int itemCount) {
     isVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
-    isHistoryVisibleList
-        .assignAll(List.generate(itemCount, (index) => false.obs));
+    isHistoryVisibleList.assignAll(List.generate(itemCount, (index) => false.obs));
   }
 
   List<Task> TaskSelected() {
@@ -52,6 +51,8 @@ class TaskController extends GetxController {
   }
 
   void updateSelectedStatus(int index) {
+    initVisibilityList(tasks.length);
+    update();
     if (selectedStatusIndex.value == index) {
       selectedStatusIndex.value = 3;
     } else {
@@ -60,6 +61,8 @@ class TaskController extends GetxController {
   }
 
   void updateSelectedType(int index) {
+    initVisibilityList(tasks.length);
+    update();
     if (selectedTypeIndex.value == index) {
       selectedTypeIndex.value = 2;
     } else{
@@ -107,6 +110,7 @@ class TaskController extends GetxController {
 
   void fetchItems() async {
     isLoading.value = true;
+    update();
     initVisibilityList(tasks.length);
     try {
       final List<Task> fetchedItems = Get.find<HomeController>().tasks.value;
@@ -114,6 +118,7 @@ class TaskController extends GetxController {
       // final List<Task> fetchedItems =  ListTasks;
       tasks.addAll(fetchedItems);
       isLoading.value = false;
+      update();
     } catch (e) {
       print(e);
     }
@@ -142,6 +147,7 @@ class TaskController extends GetxController {
 
         tasks.add(newTask);
         toStatus(2);
+        initVisibilityList(tasks.length);
 
 
       } else if (response.statusCode == 401) {
@@ -203,11 +209,13 @@ class TaskController extends GetxController {
   void FixTask(Task item) {
    if (item.status == "To do"){
      StartFix(item.id);
+     initVisibilityList(tasks.length);
 
 
    } else if (item.status == "Done"){
 
      Archivetask(item.id);
+     initVisibilityList(tasks.length);
    } else {
      Get.find<PopupController>().openPopup(item);
    }

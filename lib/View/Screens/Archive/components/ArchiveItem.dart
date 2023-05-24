@@ -160,8 +160,7 @@ class ArchiveItem extends StatelessWidget {
               ),
              SizedBox(height: 30),
               Text(
-                "Et eodem impetu Domitianum praecipitem per scalas itidem funibus constrinxerunt, eosque coniunctos per ampla spatia"
-                " civitatis acri raptavere discursu. iamque ",
+                item.description,
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),

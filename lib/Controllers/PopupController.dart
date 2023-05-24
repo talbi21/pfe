@@ -17,11 +17,11 @@ import 'HomeController.dart';
 class PopupController extends GetxController {
   final Navcontroller = Get.put(BottomNavigationController());
   final GlobalKey<FormState> PopUpFormKey =
-  GlobalKey<FormState>(debugLabel: '__PopUpFormKey__');
+      GlobalKey<FormState>(debugLabel: '__PopUpFormKey__');
 
   Rx<FilePickerResult?> selectedFile = Rx<FilePickerResult?>(null);
   final isLoading = false.obs;
-  RxString Taskid ="".obs;
+  RxString Taskid = "".obs;
   final descController = TextEditingController();
 
   String? validator(String? value) {
@@ -51,27 +51,27 @@ class PopupController extends GetxController {
     selectedFile.value = null;
   }
 
-
-
   void openPopup(Task item) {
     Get.dialog(FixPopUp(task: item));
     Taskid.value = item.id;
   }
 
-
   void openArchivePopup() {
     Get.back();
     if (selectedFile.value == null) {
-      Get.snackbar('Error', 'No file selected',backgroundColor: Colors.red.withOpacity(0.5),
-          icon: const Icon(Icons.error, color: Colors.white),);
+      Get.snackbar(
+        'Error',
+        'No file selected',
+        backgroundColor: Colors.red.withOpacity(0.5),
+        icon: const Icon(Icons.error, color: Colors.white),
+      );
     } else {
       fix(Taskid.value);
-     // await saveFile(selectedFile.value); // save the file
+      // await saveFile(selectedFile.value); // save the file
       clearSelection();
       Get.snackbar('Success', 'File saved');
     }
     //Get.dialog(ArchivePopup());
-
   }
 
   void closeArchivePopup() {
@@ -79,12 +79,10 @@ class PopupController extends GetxController {
     Navcontroller.changePage(0);
   }
 
-
-
   Future<void> fix(String taskId) async {
     if (PopUpFormKey.currentState!.validate()) {
       Get.find<TaskController>().isLoading.value = true;
-      update();
+      Get.find<TaskController>().update();
       try {
         final request = http.MultipartRequest(
           'POST',
@@ -94,8 +92,9 @@ class PopupController extends GetxController {
 
         request.fields['description'] = descController.text;
 
-        final file = selectedFile.value != null ? selectedFile.value!.files
-            .single : null;
+        final file = selectedFile.value != null
+            ? selectedFile.value!.files.single
+            : null;
         if (file != null) {
           request.files.add(
             await http.MultipartFile.fromPath(
@@ -104,8 +103,6 @@ class PopupController extends GetxController {
               filename: file.path!.split("/").last,
               contentType: MediaType('image', 'jpeg'),
             ),
-
-
           );
           print(file.path);
 
@@ -136,13 +133,10 @@ class PopupController extends GetxController {
           barBlur: 20,
         );
       } finally {
-        Get
-            .find<TaskController>()
-            .isLoading
-            .value = false;
-        update();
+        Get.find<TaskController>().isLoading.value = false;
+        Get.find<TaskController>().update();
       }
-    }else {
+    } else {
       Get.snackbar(
         "Error",
         "please fill description",
@@ -155,9 +149,4 @@ class PopupController extends GetxController {
       );
     }
   }
-
-
-
-
 }
-

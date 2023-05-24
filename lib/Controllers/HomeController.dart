@@ -66,7 +66,8 @@ class HomeController extends GetxController {
           shouldIconPulse: true,
           barBlur: 20,
         );
-        hasError.value = true; // Set the hasError flag to true
+        hasError.value = true;
+        update();// Set the hasError flag to true
       } else {
         final responseData = json.decode(response.body);
         print(responseData);
@@ -80,7 +81,8 @@ class HomeController extends GetxController {
           shouldIconPulse: true,
           barBlur: 20,
         );
-        hasError.value = true; // Set the hasError flag to true
+        hasError.value = true;
+        update();// Set the hasError flag to true
       }
     } catch (err, _) {
       print(err);
@@ -94,7 +96,8 @@ class HomeController extends GetxController {
         shouldIconPulse: true,
         barBlur: 20,
       );
-      hasError.value = true; // Set the hasError flag to true
+      hasError.value = true;
+      update();// Set the hasError flag to true
     } finally {
       isLoading.value = false;
       update();

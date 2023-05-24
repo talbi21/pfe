@@ -75,13 +75,9 @@ class Taskitem extends StatelessWidget {
                             ],
                           ),
                           child: Center(
-                            child: Text(
-                              "AT",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(12, 62, 117, 1),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                            child: Image.asset(task.type == "Issue"
+                                ? 'assets/maintenance.png'
+                                : 'assets/feature.png',),
                           ),
                         ),
                         Column(

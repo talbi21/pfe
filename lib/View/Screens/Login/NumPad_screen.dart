@@ -15,7 +15,7 @@ class NumPadscreen extends StatelessWidget {
 }
 
 Widget _buildBody() {
-  final controller =  Get.put(NumpadController());
+  final controller = Get.put(NumpadController());
 
   return SingleChildScrollView(
     child: Column(
@@ -39,30 +39,46 @@ Widget _buildBody() {
                 child: Center(
                     child: Form(
                       key: controller.loginPhoneFormKey,
-                      child: TextFormField(
-                        validator: controller.validator,
-                  controller: controller.numController,
-                  textAlign: TextAlign.center,
-                  showCursor: false,
-                  style: const TextStyle(fontSize: 40),
-                  // Disable the default soft keybaord
-                  keyboardType: TextInputType.none,
-                ),
+                      child: Obx(() {
+                        return TextFormField(
+                          obscureText: controller.isObscured.value,
+                          validator: controller.validator,
+                          controller: controller.numController,
+                          textAlign: TextAlign.center,
+                          showCursor: false,
+                          style: const TextStyle(fontSize: 40),
+                          // Disable the default soft keybaord
+                          keyboardType: TextInputType.none,
+                          decoration: InputDecoration(
+                            suffixIcon: Positioned(
+                              child: IconButton(
+                                icon: controller.isObscured.value ? Icon(
+                                    Icons.visibility) : Icon(
+                                    Icons.visibility_off),
+                                onPressed: () {
+                                  controller.isObscured.value =
+                                  !controller.isObscured.value;
+                                },
+                              ),
+                            ),
+                          ),
+
+                        );
+                      }),
                     )),
               ),
             ),
             // implement the custom NumPad
             NumPad(
-              buttonSize: 60,
-              buttonColor: Colors.white,
-              iconColor: Colors.white,
-              controller: controller.numController,
-              delete: () {
-                controller.delete();
-              },
-              // do something with the input numbers
-              onSubmit: controller.login
-            ),
+                buttonSize: 60,
+                buttonColor: Colors.white,
+                iconColor: Colors.white,
+                controller: controller.numController,
+                delete: () {
+                  controller.delete();
+                },
+                // do something with the input numbers
+                onSubmit: controller.login),
           ],
         ),
         SizedBox(height: 20)

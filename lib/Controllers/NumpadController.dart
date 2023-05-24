@@ -18,6 +18,7 @@ class NumpadController extends GetxController {
   var phoneNumber = '';
   RxString error = ''.obs;
   final _storage = GetStorage();
+  var isObscured = true.obs;
 
   NumpadController() : super();
   @override

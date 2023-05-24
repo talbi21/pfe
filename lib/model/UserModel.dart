@@ -10,7 +10,8 @@ class User {
   final String image;
   final bool firstConnect;
   final String id;
-  final String phonePassword; // New field
+  final String phonePassword;
+  final String dateJoined;// New field
 
   User({
     required this.firstConnect,
@@ -20,7 +21,8 @@ class User {
     required this.password,
     required this.phoneNumber,
     required this.image,
-    required this.phonePassword, // New field
+    required this.phonePassword,
+    required this.dateJoined,// New field
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -32,7 +34,8 @@ class User {
       phoneNumber: json['phoneNumber'],
       image: json['image'],
       firstConnect: json['firstConnect'] ?? false,
-      phonePassword: json['phonePassword'], // New field
+      phonePassword: json['phonePassword'],
+      dateJoined: json['createdAt']// New field
     );
   }
 
@@ -45,7 +48,8 @@ class User {
       'phoneNumber': phoneNumber,
       'image': image,
       'firstConnect': firstConnect,
-      'phonePassword': phonePassword, // New field
+      'phonePassword': phonePassword,
+      'createdAt': dateJoined// New field
     };
   }
 }

@@ -171,6 +171,8 @@ class ArchiveController extends GetxController {
         directory.createSync(recursive: true);
       }
 
+
+
       final taskId = await FlutterDownloader.enqueue(
         url: ApiConstants.baseUrl +
             ApiConstants.downloadAttachmentEndpoint +
