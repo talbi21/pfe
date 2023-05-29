@@ -17,7 +17,7 @@ class AboutContainer extends StatelessWidget{
             child: Column(
               children: [
                 SizedBox(height: 5),
-                Container(
+                /*Container(
                   height: 50,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -54,7 +54,7 @@ class AboutContainer extends StatelessWidget{
                       ],
                     ),
                   ),
-                ),
+                ),*/
                 SizedBox(height: 5),
                 Container(
                   height: 50,

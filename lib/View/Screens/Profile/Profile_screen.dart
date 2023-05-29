@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Controllers/ProfileController.dart';
+import 'Update_screen.dart';
 import 'components/About.dart';
 import 'components/ProfileTaskItem.dart';
 import '../../shared_components/appBar.dart';
@@ -77,81 +78,118 @@ Widget _buildProfileContainer() {
   final controller = Get.find<ProfileController>();
   return Padding(
     padding: const EdgeInsets.all(20),
-    child: Container(
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        color: Color.fromRGBO(241, 241, 241, 1),
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(0.25),
-              blurRadius: 4,
-              blurStyle: BlurStyle.solid,
-              offset: Offset(0, 4)),
-        ],
-      ),
-      child: Row(
-        children: [
-
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 10, right: 5, bottom: 10, top: 10),
-            child: Image.asset("assets/exempleuser.jpg", height: 87, width: 84),
+    child: Stack(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+            color: Color.fromRGBO(241, 241, 241, 1),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                blurRadius: 4,
+                blurStyle: BlurStyle.solid,
+                offset: Offset(0, 4),
+              ),
+            ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 5, left: 1),
-                child: Text(
-                  controller.userName.value,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Montserrat',
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      height: 0.5),
+                padding: const EdgeInsets.only(
+                    left: 10, right: 5, bottom: 10, top: 10),
+                child: Image.asset(
+                  "assets/exempleuser.jpg",
+                  height: 87,
+                  width: 84,
                 ),
               ),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.mail,
-                    size: 20,
-                    color: Color.fromRGBO(12, 62, 117, 1),
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(top: 10, bottom: 5, left: 1),
+                    child: Text(
+                      controller.userName.value,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Montserrat',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        height: 0.5,
+                      ),
+                    ),
                   ),
-                  SizedBox(width: 10),
-                  Text(controller.email.value)
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.date_range,
-                    size: 20,
-                    color: Color.fromRGBO(12, 62, 117, 1),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.mail,
+                        size: 20,
+                        color: Color.fromRGBO(12, 62, 117, 1),
+                      ),
+                      SizedBox(width: 10),
+                      Text(controller.email.value),
+                    ],
                   ),
-                  SizedBox(width: 10),
-                  Text("Mai, 10, 1998")
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.pin_drop,
-                    size: 20,
-                    color: Color.fromRGBO(12, 62, 117, 1),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.date_range,
+                        size: 20,
+                        color: Color.fromRGBO(12, 62, 117, 1),
+                      ),
+                      SizedBox(width: 10),
+                      Text("Mai, 10, 1998"),
+                    ],
                   ),
-                  SizedBox(width: 10),
-                  Text("Marsa, Tunis")
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.phone,
+                        size: 20,
+                        color: Color.fromRGBO(12, 62, 117, 1),
+                      ),
+                      SizedBox(width: 10),
+                      Text(controller.phoneNumber.value),
+                    ],
+                  ),
                 ],
               ),
             ],
           ),
-
-        ],
-
-      ),
+        ),
+        Positioned(
+          top: 10,
+          right: 10,
+          child: GestureDetector(
+            onTap: () {
+              Get.to(() => UpdatePage());
+            },
+            child: Container(
+              width: 30,
+              height: 30,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color.fromRGBO(12, 62, 117, 1),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 4,
+                      blurStyle: BlurStyle.solid,
+                      offset: Offset(0, 4)),
+                ],
+              ),
+              child: Icon(
+                Icons.edit,
+                color:Color.fromRGBO(241, 241, 241, 1),
+                size: 20,
+              ),
+            ),
+          ),
+        ),
+      ],
     ),
   );
 }

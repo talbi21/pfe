@@ -11,9 +11,11 @@ class BottomNavigationController extends GetxController {
 
   void changePage(int index) {
     Get.lazyPut(()=>ArchiveController());
+    Get.lazyPut(()=>ProfileController());
     currentIndex.value = index;
     if (index == 1){
       Get.find<HomeController>().fetchItems();
+      Get.find<HomeController>().storagerefresh();
     }else if (index == 3){
       Get.find<TaskController>().fetchItems();
     }else if (index == 0){

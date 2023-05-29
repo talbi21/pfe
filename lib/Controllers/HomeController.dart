@@ -106,9 +106,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    id.value  = _storage.read('id');
-    name.value  = _storage.read('userName');
-    image.value  = _storage.read('image');
+    storagerefresh();
     fetchItems();
     super.onInit();
   }
@@ -139,7 +137,11 @@ class HomeController extends GetxController {
     Get.find<TaskController>().toStatus(3);
     print("to Done");
   }
-
+  void storagerefresh() {
+    id.value  = _storage.read('id');
+    name.value  = _storage.read('userName');
+    image.value  = _storage.read('image');
+  }
 
 
   void LogOut() {
