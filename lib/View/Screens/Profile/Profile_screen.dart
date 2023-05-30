@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../Controllers/ProfileController.dart';
+import '../../../data/api_constants.dart';
 import 'Update_screen.dart';
 import 'components/About.dart';
 import 'components/ProfileTaskItem.dart';
@@ -29,8 +30,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 Widget _buildWorkContainer(BuildContext context) {
-  final controller = Get.put(ProfileController());
-
+  final controller = Get.find<ProfileController>();
   return Obx(() {
     return Visibility(
       visible: !controller.isToggleOn.value,
@@ -99,11 +99,20 @@ Widget _buildProfileContainer() {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 10, right: 5, bottom: 10, top: 10),
-                child: Image.asset(
-                  "assets/exempleuser.jpg",
+                child: controller.image.value != ""
+                    ? Image.network(
+                  ApiConstants.baseUrl+controller.image.value,
                   height: 87,
                   width: 84,
-                ),
+                  fit: BoxFit.fill,
+                )
+                    : Image.asset(
+                  "assets/User-avatar.svg.png",
+                  height: 87,
+                  width: 84,
+                  fit: BoxFit.fill,
+
+                )
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

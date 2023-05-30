@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:untitled2/data/api_constants.dart';
 
 import '../../../Controllers/UpdateController.dart';
 import '../../shared_components/appBar.dart';
@@ -47,12 +48,22 @@ Widget _buildUpdateForm() {
             physics: BouncingScrollPhysics(),
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 50,
-                  child: ClipOval(
-                    child: Image.asset(
-                      "assets/exempleuser.jpg",
-                      fit: BoxFit.cover,
+                child: GestureDetector(
+                  onTap: controller.pickFile,
+                  child: CircleAvatar(
+                    radius: 45,
+                    child: ClipOval(
+                      child: controller.imageUrl != ""
+                          ? Image.network(
+                        ApiConstants.baseUrl+controller.imageUrl!,
+                        fit: BoxFit.fill,
+                        height: 90,
+                        width: 90,
+                      )
+                          : Image.asset(
+                        "assets/avatar.png",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,8 +26,9 @@ class UpdateController extends GetxController {
   var email = '';
   var phoneNumber = '';
   var id ='';
+  var imageUrl='';
+  Rx<FilePickerResult?> selectedFile = Rx<FilePickerResult?>(null);
   final isLoading = false.obs;
-  final hasError = false.obs;
   RxString error = ''.obs;
 
 
@@ -84,6 +86,21 @@ class UpdateController extends GetxController {
     return null;
   }
 
+  Future<void> pickFile() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.image,
+        allowMultiple: false,
+      );
+      if (result != null) {
+        selectedFile.value = result;
+
+      }
+    } catch (err) {
+      print(err.toString());
+    }
+  }
+
   Future<void> updateUser() async {
 
     if (updateFormKey.currentState!.validate()) {
@@ -92,22 +109,34 @@ class UpdateController extends GetxController {
       try {
       final String url = ApiConstants.baseUrl +
           ApiConstants.updateUser+id; // Replace with your backend URL
-      final http.Response response = await http.put(
-        Uri.parse(url),
-        body: jsonEncode({'userName': userNameController.text,
-          'identifiant': emailController.text,
-          'oldPassword': oldPassController.text,
-          'newPassword': newPassController.text,
-          'phoneNumber': phoneController.text,
-          'phonePassword': passPhoneController.text,}),
-        headers: {'Content-Type': 'application/json'},
-      );
+
+      var request = http.MultipartRequest('PUT', Uri.parse(url));
+      final file = selectedFile.value != null
+          ? selectedFile.value!.files.single
+          : null;
+      if (file != null) {
+        String fieldName = 'image';
+        String fileName =  file.path!.split("/").last;
+
+        request.files.add(await http.MultipartFile.fromPath(fieldName, file.path!, filename: fileName));
+      }
+      request.fields['userName'] = userNameController.text;
+      request.fields['identifiant'] = emailController.text;
+      request.fields['oldPassword'] = oldPassController.text;
+      request.fields['newPassword'] = newPassController.text;
+      request.fields['phoneNumber'] = phoneController.text;
+      request.fields['phonePassword'] = passPhoneController.text;
+
+      var response = await request.send();
+      var responseData = await response.stream.transform(utf8.decoder).join();
+      var jsonResponse = jsonDecode(responseData);
+
 
       if (response.statusCode == 200) {
         // Successful login
-        final responseData = json.decode(response.body);
 
-        final user = User.fromJson(responseData['user']);
+
+        final user = User.fromJson(jsonResponse['user']);
         _storage.write('id', user.id);
         _storage.write('userName', user.userName);
         _storage.write('identifiant', user.email);
@@ -208,6 +237,7 @@ class UpdateController extends GetxController {
     userNameController.text = username;
     emailController.text = email;
     phoneController.text = phoneNumber;
+    imageUrl =_storage.read('image');
 
   }
 

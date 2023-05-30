@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:untitled2/Controllers/BottomNavigationController.dart';
 
 import '../../../Controllers/HomeController.dart';
+import '../../../data/api_constants.dart';
 import '../../shared_components/ApiError.dart';
 import '../../shared_components/loading_overlay.dart';
 import 'components/ArchiveitemHome.dart';
@@ -233,10 +234,20 @@ Widget _buildAppBar() {
                     height: 60,
                     child: CircleAvatar(
                       radius: 50,
-                      child: Image.asset(
-                        'assets/user.png',
-                        fit: BoxFit.fitHeight,
-                      ),
+                      child: ClipOval(
+                      child:
+                      controller.image.value != ""
+                          ? Image.network(
+                        ApiConstants.baseUrl+controller.image.value,
+                        fit: BoxFit.fill,
+                        width: 100,
+                        height: 100,
+                      )
+                          : Image.asset(
+                        "assets/avatar.png",
+                        fit: BoxFit.cover,
+                      )
+                    ),
                     ),
                   ),
                 ),
