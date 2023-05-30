@@ -106,7 +106,7 @@ class NumPad extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100),
-                  color: Color.fromRGBO(220, 220, 220, 10)
+                  color: const Color.fromRGBO(220, 220, 220, 10)
                 ),
                 height: 55,
                 width: 55,
@@ -129,7 +129,7 @@ class NumPad extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Color.fromRGBO(12, 62, 117, 1)
+                    color: const Color.fromRGBO(12, 62, 117, 1)
                 ),
                 height: 55,
                 width: 55,

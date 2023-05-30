@@ -1,24 +1,41 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class LoadingOverlay {
-  static void hide() {
-    Get.back();
-  }
+class LoadingWidget extends StatelessWidget {
+  final Color color;
+  final double size;
+  final String message;
 
-  static void show({String? message}) {
-    Get.dialog(
-      CupertinoAlertDialog(
-        title: Row(children: [
-          // Icon(Icons.signal_wifi_off_outlined),
-          Container(
-              // margin: EdgeInsets.only(left: 5),
-              child: Text(message ?? 'loading...')),
-        ]),
-        content: const Center(child: CircularProgressIndicator()),
+  const LoadingWidget({
+    Key? key,
+    this.color = Colors.blue,
+    this.size = 40.0,
+    this.message = 'Loading...',
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(color),
+              strokeWidth: 2.0,
+            ),
+            const SizedBox(height: 16.0),
+            Text(
+              message,
+              style: TextStyle(
+                color: color,
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
-      barrierDismissible: true,
     );
   }
 }

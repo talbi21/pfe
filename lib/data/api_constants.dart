@@ -9,19 +9,14 @@ class ApiConstants {
   static const String updatePasswordEndpoint = 'User/updatePassword/';
   static const String updateUser = 'User/Update/';
 
-
   //Task
   static const String findTasksEndpoint = 'Task/find/';
   static const String findArchiveTasksEndpoint = 'Task/findArchive/';
-  static const String StartFixTaskEndpoint = 'Task/update/';
-  static const String FixTaskEndpoint = 'Task/fix/';
-  static const String ArchiveTaskEndpoint = 'Task/archive/';
-  static const String DeleteArchiveTaskEndpoint = 'Task/delete/';
+  static const String startFixTaskEndpoint = 'Task/update/';
+  static const String fixTaskEndpoint = 'Task/fix/';
+  static const String archiveTaskEndpoint = 'Task/archive/';
+  static const String deleteArchiveTaskEndpoint = 'Task/delete/';
   static const String downloadAttachmentEndpoint = 'Task/downloadAttachment/';
-
-
-
-
 
 // Define other endpoints here
 }

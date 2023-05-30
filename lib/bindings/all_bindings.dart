@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/PopupController.dart';
-
-import '../Controllers/BottomNavigationController.dart';
+import '../Controllers/bottomNavigationController.dart';
 import '../Controllers/HomeController.dart';
 import '../Controllers/LoginController.dart';
 import '../Controllers/NumpadController.dart';
-import '../Controllers/OtpController.dart';
+import '../Controllers/otpcontroller.dart';
 import '../Controllers/PhoneloginController.dart';
 import '../Controllers/ProfileController.dart';
 import '../Controllers/SplashController.dart';
@@ -19,7 +18,7 @@ class MyBindings implements Bindings {
     Get.lazyPut(() => SplashController());
     Get.lazyPut(() => PhoneController());
     Get.lazyPut(() => OtpController());
-    Get.lazyPut(() => NumpadController());
+    Get.lazyPut(() => NumPadController());
     Get.lazyPut(() => SplashController());
     Get.lazyPut(() => BottomNavigationController());
     Get.lazyPut(() => HomeController());
@@ -27,7 +26,5 @@ class MyBindings implements Bindings {
     Get.lazyPut(() => TaskController());
     Get.lazyPut(() => PopupController());
     Get.lazyPut(() => UpdatePasswordController());
-
-
   }
 }

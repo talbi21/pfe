@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/Controllers/LoginController.dart';
@@ -21,13 +20,13 @@ class TextFieldLogin extends StatelessWidget {
         Expanded(
           child: TextFormField(
 keyboardType: inputType,
-              style: TextStyle(),
+              style: const TextStyle(),
               controller: controller,
               validator: logincontroller.validator,
               decoration: InputDecoration(
                 prefixIcon: Container(
                   width: 60,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Color.fromRGBO(12, 62, 117, 1),
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
@@ -35,10 +34,10 @@ keyboardType: inputType,
                   child: Icon(icon, color: Colors.white, size: 30),
                 ),
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15.0),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(color: Color(0xffF5F5F5))),
+                    borderSide: const BorderSide(color: Color(0xffF5F5F5))),
               )),
         ),
       ],

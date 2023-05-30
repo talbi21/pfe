@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../Controllers/ProfileController.dart';
 import '../../../data/api_constants.dart';
 import 'Update_screen.dart';
 import 'components/About.dart';
 import 'components/ProfileTaskItem.dart';
-import '../../shared_components/appBar.dart';
+import '../../shared_components/app_bar.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -17,7 +16,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Appbar(TitleOn: true),
+            Appbar(titleOn: true),
             _buildProfileContainer(),
             _buildChoiceContainer(),
             _buildWorkContainer(context),
@@ -61,7 +60,7 @@ Widget _buildWorkContainer(BuildContext context) {
                         Title: "Tasks  To do",
                         colorr: Color.fromRGBO(253, 159, 61, 1)),
                     ProfileTaskitem(
-                        nbr: controller.TaskInprogress,
+                        nbr: controller.taskInProgress,
                         Title: "Tasks In Progress",
                         colorr: Color.fromRGBO(65, 117, 255, 1))
                   ],
@@ -97,29 +96,26 @@ Widget _buildProfileContainer() {
           child: Row(
             children: [
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 5, bottom: 10, top: 10),
-                child: controller.image.value != ""
-                    ? Image.network(
-                  ApiConstants.baseUrl+controller.image.value,
-                  height: 87,
-                  width: 84,
-                  fit: BoxFit.fill,
-                )
-                    : Image.asset(
-                  "assets/User-avatar.svg.png",
-                  height: 87,
-                  width: 84,
-                  fit: BoxFit.fill,
-
-                )
-              ),
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 5, bottom: 10, top: 10),
+                  child: controller.image.value != ""
+                      ? Image.network(
+                          ApiConstants.baseUrl + controller.image.value,
+                          height: 87,
+                          width: 84,
+                          fit: BoxFit.fill,
+                        )
+                      : Image.asset(
+                          "assets/User-avatar.svg.png",
+                          height: 87,
+                          width: 84,
+                          fit: BoxFit.fill,
+                        )),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                    const EdgeInsets.only(top: 10, bottom: 5, left: 1),
+                    padding: const EdgeInsets.only(top: 10, bottom: 5, left: 1),
                     child: Text(
                       controller.userName.value,
                       style: TextStyle(
@@ -192,7 +188,7 @@ Widget _buildProfileContainer() {
               ),
               child: Icon(
                 Icons.edit,
-                color:Color.fromRGBO(241, 241, 241, 1),
+                color: Color.fromRGBO(241, 241, 241, 1),
                 size: 20,
               ),
             ),
@@ -204,7 +200,7 @@ Widget _buildProfileContainer() {
 }
 
 Widget _buildChoiceContainer() {
-  final controller = Get.put(ProfileController());
+  final controller = Get.find<ProfileController>();
   return Obx(() {
     return Container(
       decoration: BoxDecoration(
@@ -243,7 +239,7 @@ Widget _buildChoiceContainer() {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap:  controller.toAbout,
+                    onTap: controller.toAbout,
                     child: Text(
                       "ABOUT",
                       style: TextStyle(
@@ -254,7 +250,7 @@ Widget _buildChoiceContainer() {
                     ),
                   ),
                   GestureDetector(
-                    onTap:  controller.toWork,
+                    onTap: controller.toWork,
                     child: Text(
                       "WORK",
                       style: TextStyle(

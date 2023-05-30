@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import '../../../Controllers/PhoneloginController.dart';
 import '../../../Controllers/UpdatePasswordController.dart';
-import '../../shared_components/appBar.dart';
+import '../../shared_components/app_bar.dart';
 import 'components/Button.dart';
 import 'components/TextFieldLogin.dart';
 import 'components/WelcomeText.dart';
@@ -21,13 +21,13 @@ Widget _buildBody(BuildContext context) {
   final controller =  Get.put(UpdatePasswordController());
 
   return Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-    Appbar(TitleOn: true),
+    Appbar(titleOn: true),
     WelcomeText(text: "Welcome to FixFlow!\n Sign in to continue"),
     Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Form(
-            key: controller.PasswordFormKey,
+            key: controller.passwordFormKey,
             child: ListView(
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 physics: BouncingScrollPhysics(),
@@ -170,7 +170,7 @@ Widget _buildBody(BuildContext context) {
                       .of(context)
                       .size
                       .height / 5.5),
-                  SubmitButton(onSubmit:controller.UpdatePassword, text: 'Update')
+                  SubmitButton(onSubmit:controller.updatePassword, text: 'Update')
                 ])),
       ),
     ),

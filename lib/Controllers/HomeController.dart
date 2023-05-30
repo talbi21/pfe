@@ -5,11 +5,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled2/Controllers/TaskController.dart';
 import '../View/Screens/Login/Login_screen.dart';
-import '../View/Screens/Home/components/ArchiveitemHome.dart';
 import '../data/api_constants.dart';
 import '../model/TaskModel.dart';
-import 'ArchiveController.dart';
-import 'BottomNavigationController.dart';
+import 'archiveController.dart';
+import 'bottomNavigationController.dart';
 
 class HomeController extends GetxController {
   HomeController() : super();
@@ -52,8 +51,7 @@ class HomeController extends GetxController {
             archiveTasks.value.add(task);
           }
         }
-        print(taskList);
-        TypeCount();
+        typeCount();
       } else if (response.statusCode == 401) {
         final responseData = json.decode(response.body);
         Get.snackbar(
@@ -70,7 +68,6 @@ class HomeController extends GetxController {
         update();// Set the hasError flag to true
       } else {
         final responseData = json.decode(response.body);
-        print(responseData);
         Get.snackbar(
           "Error",
           responseData['message'].toString(),
@@ -85,7 +82,6 @@ class HomeController extends GetxController {
         update();// Set the hasError flag to true
       }
     } catch (err, _) {
-      print(err);
       Get.snackbar(
         "Error",
         err.toString(),
@@ -106,47 +102,41 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    storagerefresh();
+    storageRefresh();
     fetchItems();
     super.onInit();
   }
 
-  void ToIssues() async {
+  void toIssues() async {
     Get.find<BottomNavigationController>().changePage(3);
-    Get.find<TaskController>().toType(2);
-    print("to Issues");
-  }
+    Get.find<TaskController>().toType(2);}
 
-  void ToFeatures() {
+  void toFeatures() {
     Get.find<BottomNavigationController>().changePage(3);
     Get.find<TaskController>().toType(1);
-    print("to Featsures");
   }
-  void ToTodo() async {
+  void toTodo() async {
     Get.find<BottomNavigationController>().changePage(3);
     Get.find<TaskController>().toStatus(1);
-    print("to To do");
   }
-  void ToInProgress() async {
+  void toInProgress() async {
     Get.find<BottomNavigationController>().changePage(3);
     Get.find<TaskController>().toStatus(2);
-    print("to In Progress");
   }
-  void ToDone() async {
+  void toDone() async {
     Get.find<BottomNavigationController>().changePage(3);
     Get.find<TaskController>().toStatus(3);
-    print("to Done");
   }
-  void storagerefresh() {
+  void storageRefresh() {
     id.value  = _storage.read('id');
     name.value  = _storage.read('userName');
     image.value  = _storage.read('image');
   }
 
 
-  void LogOut() {
+  void logOut() {
     _storage.erase();
-    Get.offAll(LoginScreen());
+    Get.offAll(const LoginScreen());
   }
 
   void removeTaskById(String id) {
@@ -160,24 +150,12 @@ class HomeController extends GetxController {
     bool deleteResult = await archiveController.deleteItem(id);
     if (deleteResult) {
       removeTaskById(id);
-      Get.snackbar('Success', 'Task deleted');
-    } else {
-      Get.snackbar(
-        "Error",
-        "Failed to delete",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red.withOpacity(.75),
-        colorText: Colors.white,
-        icon: const Icon(Icons.error, color: Colors.white),
-        shouldIconPulse: true,
-        barBlur: 20,
-      );
     }
     isLoading.value = false;
     update();
   }
 
-  void TypeCount() {
+  void typeCount() {
 
    String countIssues  = tasks.value.where((task) => task.type == "Issue").length.toString();
    String countFeature  = tasks.value.where((task) => task.type == "Feature").length.toString();

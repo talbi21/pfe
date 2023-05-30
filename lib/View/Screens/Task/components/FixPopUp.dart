@@ -284,7 +284,7 @@ class FixPopUp extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Form(
-                key: controller.PopUpFormKey,
+                key: controller.popUpFormKey,
                 child: TextFormField(
                   validator:controller.validator ,
                   controller: controller.descController,

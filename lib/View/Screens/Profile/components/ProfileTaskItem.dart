@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../Home/components/ArchiveitemHome.dart';
+import '../../Home/components/ArchiveItemHome.dart';
 
 class ProfileTaskitem extends StatelessWidget {
   final String Title;

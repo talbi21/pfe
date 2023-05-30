@@ -1,30 +1,31 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../Controllers/PopupController.dart';
 import '../../../Controllers/TaskController.dart';
 import 'components/Category_Icon.dart';
 import 'components/Skeleton.dart';
-import 'components/Taskitem.dart';
-import '../../shared_components/appBar.dart';
+import 'components/task_item.dart';
+import '../../shared_components/app_bar.dart';
 
 class TaskPage extends StatelessWidget {
   final TaskController controller = Get.put(TaskController());
-  final popupcontroller = Get.put(PopupController());
+  final popupController = Get.put(PopupController());
+
+   TaskPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Appbar(TitleOn: true),
+          const Appbar(titleOn: true),
           Container(
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
             height: 30,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: controller.Status.length - 1,
+              itemCount: controller.status.length - 1,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -36,20 +37,20 @@ class TaskPage extends StatelessWidget {
                       return category_Icon(
                           PrimaryColor: isSelected ? Colors.white :
                           controller
-                              .Status[index] == "To do"
-                              ? Color.fromRGBO(17, 154, 253, 1)
-                              : controller.Status[index] == "In Progress"
-                              ? Color.fromRGBO(107, 119, 232, 1)
-                              : Color.fromRGBO(56, 232, 148, 1),
-                          Title: controller.Status[index],
+                              .status[index] == "To do"
+                              ? const Color.fromRGBO(17, 154, 253, 1)
+                              : controller.status[index] == "In Progress"
+                              ? const Color.fromRGBO(107, 119, 232, 1)
+                              : const Color.fromRGBO(56, 232, 148, 1),
+                          Title: controller.status[index],
                           width: 110,
                           height: 30,
-                          icon: controller.Status[index] == "To do"
+                          icon: controller.status[index] == "To do"
                               ? 'assets/to-do-list.png'
-                              : controller.Status[index] == "In Progress"
+                              : controller.status[index] == "In Progress"
                               ? 'assets/settings.png'
                               : 'assets/verify.png',
-                          secColor: isSelected ? Color.fromRGBO(
+                          secColor: isSelected ? const Color.fromRGBO(
                               185, 204, 225, 0.25) : Colors.white);
                     }),
                   ),
@@ -57,13 +58,13 @@ class TaskPage extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 5),
-          Container(
+          const SizedBox(height: 5),
+          SizedBox(
             height: 30,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: controller.Types.length - 1,
+              itemCount: controller.types.length - 1,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -76,17 +77,17 @@ class TaskPage extends StatelessWidget {
                           PrimaryColor: isSelected ? Colors.white :
 
                           controller
-                              .Types[index] == "Issue"
-                              ? Color.fromRGBO(51, 185, 239, 1)
-                              : Color.fromRGBO(151, 159, 239, 1),
+                              .types[index] == "Issue"
+                              ? const Color.fromRGBO(51, 185, 239, 1)
+                              : const Color.fromRGBO(151, 159, 239, 1),
 
-                          Title: controller.Types[index],
+                          Title: controller.types[index],
                           width: 110,
                           height: 30,
-                          icon: controller.Types[index] == "Issue"
+                          icon: controller.types[index] == "Issue"
                               ? 'assets/maintenance.png'
                               : 'assets/feature.png',
-                          secColor: isSelected ? Color.fromRGBO(
+                          secColor: isSelected ? const Color.fromRGBO(
                               185, 204, 225, 0.25) : Colors.white);
                     }),
                   ),
@@ -94,16 +95,16 @@ class TaskPage extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
 
           GetBuilder<TaskController>(builder: (controller) {
             if (controller.isLoading.value) {
-              return TaskSkeleton();
+              return const TaskSkeleton();
             } else {
               return Expanded(
                 child: Obx(() {
                   final tasks = controller
-                      .TaskSelected(); // show tasks with selected category only
+                      .taskSelected(); // show tasks with selected category only
 
                   return ListView.builder(
                     itemCount: tasks.length,
@@ -111,16 +112,16 @@ class TaskPage extends StatelessWidget {
                       final task = tasks[index];
                       return
                         Obx(() {
-                          return Taskitem(controller: controller,
-                            onSubmit: () => controller.FixTask(task),
+                          return TaskItem(controller: controller,
+                            onSubmit: () => controller.fixTask(task),
                             isHistoryVisible: controller
                                 .isHistoryVisibleList[index].value,
-                            ShowDetails: () =>
+                            showDetails: () =>
                                 controller.toggleVisibility(index),
                             task: task,
                             isDetailsVisible: controller.isVisibleList[index]
                                 .value,
-                            ShowHistory: () =>
+                            showHistory: () =>
                                 controller.toggleHistoryVisibility(index),);
                         });
                     },
@@ -130,7 +131,7 @@ class TaskPage extends StatelessWidget {
             }
           }
       ),
-          SizedBox(height: 70),
+          const SizedBox(height: 70),
 
 
         ],

@@ -4,36 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
-
 import '../View/Screens/dashboard.dart';
 import '../data/api_constants.dart';
 import '../model/UserModel.dart';
 
-class NumpadController extends GetxController {
-
+class NumPadController extends GetxController {
   final numController = TextEditingController();
   final GlobalKey<FormState> loginPhoneFormKey =
-  GlobalKey<FormState>(debugLabel: '__loginPhoneFormKey__');
+      GlobalKey<FormState>(debugLabel: '__loginPhoneFormKey__');
   var phoneNumber = '';
   RxString error = ''.obs;
   final _storage = GetStorage();
   var isObscured = true.obs;
 
-  NumpadController() : super();
+  NumPadController() : super();
   @override
   void onClose() {
     numController.dispose();
     super.onClose();
   }
 
-  @override
-  void onInit() {
-    super.onInit();
 
-  }
   void delete() async {
-    if (!numController.text.isEmpty) {
+    if (numController.text.isNotEmpty) {
       numController.text =
           numController.text.substring(0, numController.text.length - 1);
     }
@@ -44,36 +37,31 @@ class NumpadController extends GetxController {
   }
 
   String? validator(String? value) {
-    print('validatoooor');
-
-    if (value != null && value.isEmpty ) {
+    if (value != null && value.isEmpty) {
       return 'Please this field must be filled';
     }
-    if ( value!.length < 4 || value!.length >4 ) {
+    if (value!.length < 4 || value!.length > 4) {
       return 'Enter a 4 digits password';
     }
     return null;
   }
 
-
-
   Future<void> login() async {
     if (loginPhoneFormKey.currentState!.validate()) {
-
       try {
-
-
         // Make API request to backend for authentication
-        print(numController.text);
 
-        final String url = ApiConstants.baseUrl+ApiConstants.loginPhoneEndpoint; // Replace with your backend URL
+        const String url = ApiConstants.baseUrl +
+            ApiConstants.loginPhoneEndpoint; // Replace with your backend URL
         final http.Response response = await http.post(
           Uri.parse(url),
-          body: jsonEncode({'phoneNumber': phoneNumber, 'phonePassword': numController.text}),
+          body: jsonEncode({
+            'phoneNumber': phoneNumber,
+            'phonePassword': numController.text
+          }),
           headers: {'Content-Type': 'application/json'},
         );
 
-        print(numController.text);
         if (response.statusCode == 200) {
           // Successful login
           final responseData = json.decode(response.body);
@@ -89,8 +77,6 @@ class NumpadController extends GetxController {
           _storage.write('token', token);
 
           Get.offAll(() => HomeScreen());
-
-          print(responseData);
 
         } else {
           // Invalid credentials
@@ -110,7 +96,6 @@ class NumpadController extends GetxController {
         }
       } catch (e) {
         // Error occurred
-        print(e);
         error.value = 'Failed to login. Please try again later.';
         Get.snackbar(
           "Error",

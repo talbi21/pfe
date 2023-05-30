@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:untitled2/data/api_constants.dart';
 
 import '../../../Controllers/UpdateController.dart';
-import '../../shared_components/appBar.dart';
+import '../../shared_components/app_bar.dart';
 import '../Login/components/Button.dart';
 import '../Login/components/TextFieldLogin.dart';
 import 'components/UpdateSkeleton.dart';
@@ -24,7 +24,7 @@ Widget _buildBody() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-      Appbar(TitleOn: true),
+      Appbar(titleOn: true),
       _buildUpdateForm()
     ],
   );

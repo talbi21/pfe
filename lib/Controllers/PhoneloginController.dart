@@ -4,46 +4,41 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled2/data/api_constants.dart';
-
 import '../View/Screens/Login/Otp_screen.dart';
-import 'OtpController.dart';
+import 'otpcontroller.dart';
 
 class PhoneController extends GetxController {
-  final controller =  Get.put(OtpController());
+  final controller = Get.put(OtpController());
 
-
-  final GlobalKey<FormState> PhoneFormKey =
+  final GlobalKey<FormState> phoneFormKey =
       GlobalKey<FormState>(debugLabel: '__PhoneFormKey__');
   final numController = TextEditingController();
+  final isLoading = false.obs;
 
   PhoneController() : super();
 
-
-
   String? validator(String? value) {
-    print('validatoooor');
-
     if (value == null || value.isEmpty) {
       return 'Please this field must be filled';
     }
     return null;
   }
 
-  Future<void> GetOTP() async {
-    print('${numController.text}');
-    if (PhoneFormKey.currentState!.validate()) {
+  Future<void> getOTP() async {
+    if (phoneFormKey.currentState!.validate()) {
+      isLoading.value = true;
+      update();
       try {
-        final String url = ApiConstants.baseUrl+ApiConstants.sendOtpEndpoint; // Replace with your backend URL
+        const String url = ApiConstants.baseUrl +
+            ApiConstants.sendOtpEndpoint; // Replace with your backend URL
         final http.Response response = await http.post(
-            Uri.parse(url),
-            body: jsonEncode({'phoneNumber': numController.text}),
-            headers: {'Content-Type': 'application/json'},
+          Uri.parse(url),
+          body: jsonEncode({'phoneNumber': numController.text}),
+          headers: {'Content-Type': 'application/json'},
         );
-
         if (response.statusCode == 200) {
           // Successful login
           final responseData = json.decode(response.body);
-
           Get.snackbar(
             "Done",
             responseData['message'].toString(),
@@ -55,19 +50,12 @@ class PhoneController extends GetxController {
             barBlur: 20,
           );
 
-          print(responseData);
-
-          // Store authentication token locally
-          // (e.g., using shared preferences, GetStorage, Hive, etc.)
-          // ...
           controller.phoneNumber = numController.text;
-          Get.to(() => OtpPage());
-          // Navigate to home screen
+          Get.to(() => const OtpPage());
         } else {
           // Invalid credentials
 
           final responseData = json.decode(response.body);
-         // error.value = responseData['message'];
           Get.snackbar(
             "Error",
             responseData['message'].toString(),
@@ -79,7 +67,6 @@ class PhoneController extends GetxController {
             barBlur: 20,
           );
         }
-
       } catch (err, _) {
         Get.snackbar(
           "Error",
@@ -91,16 +78,11 @@ class PhoneController extends GetxController {
           shouldIconPulse: true,
           barBlur: 20,
         );
-
-
-      }finally {
+      } finally {
         numController.clear();
+        isLoading.value = false;
+        update(); // Hide loading indicator
       }
     }
   }
-
-
-
-
-
 }

@@ -1,21 +1,17 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-
 import '../View/Screens/dashboard.dart';
 import '../data/api_constants.dart';
 import '../model/UserModel.dart';
 
 class UpdatePasswordController extends GetxController {
   final _storage = GetStorage();
-  final GlobalKey<FormState> PasswordFormKey =
-  GlobalKey<FormState>(debugLabel: '__PasswordFormKey__');
-  final RxString  id ="".obs ;
+  final GlobalKey<FormState> passwordFormKey =
+      GlobalKey<FormState>(debugLabel: '__PasswordFormKey__');
+  final RxString id = "".obs;
   final oldPassController = TextEditingController();
   final newPasController = TextEditingController();
   final confirmPassController = TextEditingController();
@@ -24,14 +20,13 @@ class UpdatePasswordController extends GetxController {
   var isConfirmObscured = true.obs;
 
   String? validator(String? value) {
-
     if (value != null && value.isEmpty) {
       return 'Please this field must be filled';
     }
     return null;
   }
-  String? confirmvalidator(String? value) {
 
+  String? confirmvalidator(String? value) {
     if (value != null && value.isEmpty) {
       return 'Please this field must be filled';
     }
@@ -43,10 +38,10 @@ class UpdatePasswordController extends GetxController {
 
   @override
   void onInit() {
-    id.value  = _storage.read('id');
+    id.value = _storage.read('id');
     super.onInit();
-    print(id);
   }
+
   @override
   void onClose() {
     oldPassController.dispose();
@@ -55,46 +50,33 @@ class UpdatePasswordController extends GetxController {
     super.onClose();
   }
 
-  Future<void> UpdatePassword() async {
-    if (PasswordFormKey.currentState!.validate()) {
-
+  Future<void> updatePassword() async {
+    if (passwordFormKey.currentState!.validate()) {
       try {
-
         // Make API request to backend for authentication
-print("hrere"+id.value);
 
-        final String url = ApiConstants.baseUrl+ApiConstants.updatePasswordEndpoint+id.toString(); // Replace with your backend URL
+        final String url = ApiConstants.baseUrl +
+            ApiConstants.updatePasswordEndpoint +
+            id.toString(); // Replace with your backend URL
         final http.Response response = await http.post(
           Uri.parse(url),
-          body: jsonEncode({'oldPassword': oldPassController.text, 'newPassword': newPasController.text}),
+          body: jsonEncode({
+            'oldPassword': oldPassController.text,
+            'newPassword': newPasController.text
+          }),
           headers: {'Content-Type': 'application/json'},
         );
-
 
         if (response.statusCode == 200) {
           // Successful login
           final responseData = json.decode(response.body);
-
+          final token = responseData['token'];
           final user = User.fromJson(responseData['user']);
           _storage.write('password', user.password);
-
-
-          print(responseData);
-
-          final token = responseData['token'];
-          print(token);
+          _storage.write('token', token);
 
           Get.offAll(() => HomeScreen());
-
-
-
-          // Store authentication token locally
-          // (e.g., using shared preferences, GetStorage, Hive, etc.)
-          // ...
-          // Navigate to home screen
         } else {
-          // Invalid credentials
-
           final responseData = json.decode(response.body);
 
           Get.snackbar(
@@ -110,7 +92,6 @@ print("hrere"+id.value);
         }
       } catch (e) {
         // Error occurred
-        print(e);
 
         Get.snackbar(
           "Error",
@@ -125,7 +106,7 @@ print("hrere"+id.value);
       } finally {
         oldPassController.clear();
         newPasController.clear();
-        confirmPassController.clear();// Hide loading indicator
+        confirmPassController.clear(); // Hide loading indicator
       }
     }
   }

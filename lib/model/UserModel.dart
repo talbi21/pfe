@@ -1,7 +1,3 @@
-import 'dart:ui';
-
-import 'package:get_storage/get_storage.dart';
-
 class User {
   final String userName;
   final String email;
@@ -11,7 +7,7 @@ class User {
   final bool firstConnect;
   final String id;
   final String phonePassword;
-  final String dateJoined;// New field
+  final String dateJoined; // New field
 
   User({
     required this.firstConnect,
@@ -22,21 +18,21 @@ class User {
     required this.phoneNumber,
     required this.image,
     required this.phonePassword,
-    required this.dateJoined,// New field
+    required this.dateJoined, // New field
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['_id'],
-      userName: json['userName'],
-      email: json['identifiant'],
-      password: json['password'],
-      phoneNumber: json['phoneNumber'],
-      image: json['image'],
-      firstConnect: json['firstConnect'] ?? false,
-      phonePassword: json['phonePassword'],
-      dateJoined: json['createdAt']// New field
-    );
+        id: json['_id'],
+        userName: json['userName'],
+        email: json['identifiant'],
+        password: json['password'],
+        phoneNumber: json['phoneNumber'],
+        image: json['image'],
+        firstConnect: json['firstConnect'] ?? false,
+        phonePassword: json['phonePassword'],
+        dateJoined: json['createdAt'] // New field
+        );
   }
 
   Map<String, dynamic> toJson() {
@@ -49,7 +45,7 @@ class User {
       'image': image,
       'firstConnect': firstConnect,
       'phonePassword': phonePassword,
-      'createdAt': dateJoined// New field
+      'createdAt': dateJoined // New field
     };
   }
 }

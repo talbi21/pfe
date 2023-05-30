@@ -1,32 +1,26 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:untitled2/Controllers/TaskController.dart';
 import '../View/Screens/Task/components/FixPopUp.dart';
-import '../View/Screens/Task/components/ToArchivePopup.dart';
 import '../data/api_constants.dart';
 import '../model/TaskModel.dart';
-import 'BottomNavigationController.dart';
+import 'bottomNavigationController.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 
-import 'HomeController.dart';
-
 class PopupController extends GetxController {
-  final Navcontroller = Get.put(BottomNavigationController());
-  final GlobalKey<FormState> PopUpFormKey =
+  final navController = Get.put(BottomNavigationController());
+  final GlobalKey<FormState> popUpFormKey =
       GlobalKey<FormState>(debugLabel: '__PopUpFormKey__');
 
   Rx<FilePickerResult?> selectedFile = Rx<FilePickerResult?>(null);
   final isLoading = false.obs;
-  RxString Taskid = "".obs;
+  RxString taskId = "".obs;
   final descController = TextEditingController();
 
   String? validator(String? value) {
-    print('validatoooor');
-
     if (value != null && value.isEmpty) {
       return 'Please this field must be filled';
     }
@@ -43,7 +37,12 @@ class PopupController extends GetxController {
         selectedFile.value = result;
       }
     } catch (err) {
-      print(err.toString());
+      Get.snackbar(
+        'Error',
+        'No file selected',
+        backgroundColor: Colors.red.withOpacity(0.5),
+        icon: const Icon(Icons.error, color: Colors.white),
+      );
     }
   }
 
@@ -53,41 +52,37 @@ class PopupController extends GetxController {
 
   void openPopup(Task item) {
     Get.dialog(FixPopUp(task: item));
-    Taskid.value = item.id;
+    taskId.value = item.id;
   }
 
   void openArchivePopup() {
-    Get.back();
-    if (selectedFile.value == null) {
-      Get.snackbar(
-        'Error',
-        'No file selected',
-        backgroundColor: Colors.red.withOpacity(0.5),
-        icon: const Icon(Icons.error, color: Colors.white),
-      );
-    } else {
-      fix(Taskid.value);
-      // await saveFile(selectedFile.value); // save the file
-      clearSelection();
-      Get.snackbar('Success', 'File saved');
+    if (popUpFormKey.currentState!.validate()) {
+      if (selectedFile.value == null) {
+        Get.snackbar(
+          'Error',
+          'No file selected',
+          backgroundColor: Colors.red.withOpacity(0.5),
+          icon: const Icon(Icons.error, color: Colors.white),
+        );
+      } else {
+        fix(taskId.value);
+        Get.back();
+        // await saveFile(selectedFile.value); // save the file
+        clearSelection();
+        Get.snackbar('Success', 'File saved');
+      }
     }
-    //Get.dialog(ArchivePopup());
   }
 
-  void closeArchivePopup() {
-    Get.back();
-    Navcontroller.changePage(0);
-  }
 
   Future<void> fix(String taskId) async {
-    if (PopUpFormKey.currentState!.validate()) {
       Get.find<TaskController>().isLoading.value = true;
       Get.find<TaskController>().update();
       try {
         final request = http.MultipartRequest(
           'POST',
           Uri.parse(
-              ApiConstants.baseUrl + ApiConstants.FixTaskEndpoint + taskId),
+              ApiConstants.baseUrl + ApiConstants.fixTaskEndpoint + taskId),
         );
 
         request.fields['description'] = descController.text;
@@ -104,7 +99,6 @@ class PopupController extends GetxController {
               contentType: MediaType('image', 'jpeg'),
             ),
           );
-          print(file.path);
 
           final response = await request.send();
 
@@ -115,13 +109,11 @@ class PopupController extends GetxController {
             final tasksController = Get.find<TaskController>();
             tasksController.tasks.removeWhere((task) => task.id == taskId);
             tasksController.tasks.add(updatedTask);
-            print('File uploaded successfully');
+            Get.back();
           } else {
-            print('Failed to upload file');
           }
         }
       } catch (err, _) {
-        print("test4");
         Get.snackbar(
           "Error",
           err.toString(),
@@ -136,17 +128,6 @@ class PopupController extends GetxController {
         Get.find<TaskController>().isLoading.value = false;
         Get.find<TaskController>().update();
       }
-    } else {
-      Get.snackbar(
-        "Error",
-        "please fill description",
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red.withOpacity(.75),
-        colorText: Colors.white,
-        icon: const Icon(Icons.error, color: Colors.white),
-        shouldIconPulse: true,
-        barBlur: 20,
-      );
-    }
+
   }
 }

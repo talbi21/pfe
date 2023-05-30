@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../../Controllers/SplashController.dart';
@@ -19,9 +18,10 @@ class SplashScreen extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Image.asset('assets/logo.png',
-                    fit: BoxFit.scaleDown, alignment: Alignment.center,
-                height: 350,
-                width: 350),
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.center,
+                    height: 350,
+                    width: 350),
               ),
             ),
             Expanded(
@@ -37,8 +37,7 @@ class SplashScreen extends StatelessWidget {
               ),
             ),
           ],
-        )
-    );
+        ));
   }
   // Add your properties and methods here
 }

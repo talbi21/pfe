@@ -1,38 +1,36 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled2/Controllers/ArchiveController.dart';
+import 'package:untitled2/Controllers/archiveController.dart';
 
-import '../../shared_components/ApiError.dart';
-import '../../shared_components/appBar.dart';
+import '../../shared_components/api_error.dart';
+import '../../shared_components/app_bar.dart';
 import 'components/ArchiveItem.dart';
 import 'components/Skeleton.dart';
 
-class Archive_screen extends StatelessWidget {
-  //final ArchiveController controller = Get.put(ArchiveController());
+class ArchiveScreen extends StatelessWidget {
+  const ArchiveScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: [Appbar(TitleOn: true), _buildArchiveList(context)],
+        children: [const Appbar(titleOn: true), _buildArchiveList(context)],
       ),
     );
   }
 }
 
 Widget _buildArchiveList(BuildContext context) {
-  // final ArchiveController controller = Get.find<ArchiveController>();
   return GetBuilder<ArchiveController>(builder: (controller) {
     if (controller.isLoading.value) {
-      return ShimmerList();
+      return const ShimmerList();
     } else if (controller.hasError.value) {
       return ApiErrorWidget(
         message: 'Error occurred while loading data.',
         retryCallback: controller.fetchItems,
       );
     } else {
-      return Container(
+      return SizedBox(
         height: MediaQuery.of(context).size.height - 150,
         width: MediaQuery.of(context).size.width,
         child: Padding(

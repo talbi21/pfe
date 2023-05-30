@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import '../data/api_constants.dart';
 import '../model/TaskModel.dart';
 
@@ -18,6 +16,7 @@ class ArchiveController extends GetxController {
   final isLoading = false.obs;
   RxString id = "".obs;
   final hasError = false.obs;
+  RxString error = ''.obs;
 
   @override
   void onInit() {
@@ -36,7 +35,7 @@ class ArchiveController extends GetxController {
 
     try {
       final String url =
-          ApiConstants.baseUrl + ApiConstants.DeleteArchiveTaskEndpoint + id;
+          ApiConstants.baseUrl + ApiConstants.deleteArchiveTaskEndpoint + id;
       final http.Response response = await http.delete(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -44,35 +43,54 @@ class ArchiveController extends GetxController {
 
       if (response.statusCode == 200) {
         // Successful deletion
-        print("Item deleted successfully");
         removeTaskById(id);
-        isLoading.value = false;
-        update();
+        Get.snackbar('Success', 'Task deleted');
         return true;
       } else if (response.statusCode == 500) {
-        final responseData = json.decode(response.body);
-        // Show error message using Get.snackbar or any other appropriate method
-        // ...
-        isLoading.value = false;
-        update();
+        error.value = 'Failed to delete';
+        // Invalid password
+        Get.snackbar(
+          "Error",
+          error.value.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
         return false;
       } else {
-        // Handle other status codes if needed
-        final responseData = json.decode(response.body);
-        // Show error message using Get.snackbar or any other appropriate method
-        // ...
-        isLoading.value = false;
-        update();
+        error.value = 'An error occurred while deleting the task';
+        Get.snackbar(
+          "Error",
+          error.value.toString(),
+          snackPosition: SnackPosition.TOP,
+          backgroundColor: Colors.red.withOpacity(.75),
+          colorText: Colors.white,
+          icon: const Icon(Icons.error, color: Colors.white),
+          shouldIconPulse: true,
+          barBlur: 20,
+        );
         return false;
       }
     } catch (err, _) {
-      // Handle network errors or other exceptions
-      print(err);
-      // Show error message using Get.snackbar or any other appropriate method
-      // ...
+      error.value = 'An error occurred while deleting the task';
+      Get.snackbar(
+        "Error",
+        error.value.toString(),
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.withOpacity(.75),
+        colorText: Colors.white,
+        icon: const Icon(Icons.error, color: Colors.white),
+        shouldIconPulse: true,
+        barBlur: 20,
+      );
+
+      return false;
+    } finally {
       isLoading.value = false;
       update();
-      return false;
     }
   }
 
@@ -84,7 +102,7 @@ class ArchiveController extends GetxController {
     try {
       final String url = ApiConstants.baseUrl +
           ApiConstants.findArchiveTasksEndpoint +
-          id.value; // Replace with your backend URL
+          id.value;
       final http.Response response = await http.get(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -98,7 +116,6 @@ class ArchiveController extends GetxController {
             .toList();
         tasks.value.clear();
         tasks.value.addAll(taskList);
-        print(taskList);
       } else if (response.statusCode == 401) {
         final responseData = json.decode(response.body);
         Get.snackbar(
@@ -113,8 +130,6 @@ class ArchiveController extends GetxController {
         );
       } else {
         final responseData = json.decode(response.body);
-        // error.value = responseData['message'];
-        print(responseData);
         Get.snackbar(
           "Error",
           responseData['message'].toString(),
@@ -127,7 +142,6 @@ class ArchiveController extends GetxController {
         );
       }
     } catch (err, _) {
-      print(err);
       Get.snackbar(
         "Error",
         err.toString(),
@@ -156,8 +170,7 @@ class ArchiveController extends GetxController {
         // Request storage permission
         status = await Permission.storage.request();
         if (!status.isGranted) {
-          // Permission denied, handle accordingly (show error message, etc.)
-          print('Storage permission denied');
+          // Permission denied, handle accordingly
           return;
         }
       }
@@ -171,12 +184,9 @@ class ArchiveController extends GetxController {
         directory.createSync(recursive: true);
       }
 
-
-
       final taskId = await FlutterDownloader.enqueue(
-        url: ApiConstants.baseUrl +
-            ApiConstants.downloadAttachmentEndpoint +
-            id,
+        url:
+            ApiConstants.baseUrl + ApiConstants.downloadAttachmentEndpoint + id,
         savedDir: downloadDir,
         fileName: fileName,
         showNotification: true,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled2/Controllers/BottomNavigationController.dart';
+import 'package:untitled2/Controllers/bottomNavigationController.dart';
 import '../shared_components/NavigationBar.dart';
 import 'Archive/Archive_screen.dart';
 import 'Home/Home_screen.dart';
 import 'Profile/Profile_screen.dart';
-import 'Task/Tasks_screen.dart';
+import 'Task/tasks_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+   HomeScreen({super.key});
+
   final controller = Get.put(BottomNavigationController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +24,9 @@ class HomeScreen extends StatelessWidget {
                 right: 0,
                 left: 0,
                 child: CustomBottomNavigationBar(
-                    selectedIndex: controller.currentIndex.value,
-                    controller: controller,
-                    ),
+                  selectedIndex: controller.currentIndex.value,
+                  controller: controller,
+                ),
               )),
         ],
       ),
@@ -34,15 +37,15 @@ class HomeScreen extends StatelessWidget {
   Widget _buildPage(int index) {
     switch (index) {
       case 0:
-        return Archive_screen();
+        return const ArchiveScreen();
       case 1:
-        return HomePage();
+        return const HomePage();
       case 2:
         return ProfilePage();
       case 3:
         return TaskPage();
       default:
-        return Center(
+        return const Center(
           child: CircularProgressIndicator(),
         );
     }

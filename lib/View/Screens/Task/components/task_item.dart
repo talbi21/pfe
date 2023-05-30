@@ -1,32 +1,28 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:untitled2/Controllers/PopupController.dart';
 import 'package:untitled2/model/TaskModel.dart';
 
 import '../../../../Controllers/TaskController.dart';
 import 'Category_Icon.dart';
 
-class Taskitem extends StatelessWidget {
+class TaskItem extends StatelessWidget {
   final Color secColor;
-  final Color PrimaryColor;
+  final Color primaryColor;
   final TaskController controller;
   final VoidCallback  onSubmit;
-  final VoidCallback  ShowDetails;
-  final VoidCallback  ShowHistory;
+  final VoidCallback  showDetails;
+  final VoidCallback  showHistory;
   final bool isDetailsVisible;
   final Task task;
   final bool isHistoryVisible;
 
 
-  const  Taskitem({
+  const  TaskItem({
     Key? key,
     this.secColor = Colors.indigo,
-    this.PrimaryColor = Colors.amber,
+    this.primaryColor = Colors.amber,
     required this.controller,
     required this.onSubmit,
-    required this.isDetailsVisible, required this.ShowDetails, required this.task, required this.isHistoryVisible, required this.ShowHistory,
+    required this.isDetailsVisible, required this.showDetails, required this.task, required this.isHistoryVisible, required this.showHistory,
   }) : super(key: key);
 
   @override
@@ -35,18 +31,18 @@ class Taskitem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20,right: 20,bottom: 10,top: 10),
       child: GestureDetector(
-        onTap:isDetailsVisible? ()=>{}: ShowDetails ,
+        onTap:isDetailsVisible? ()=>{}: showDetails ,
         child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            color: Color.fromRGBO(241, 241, 241, 1),
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            color: const Color.fromRGBO(241, 241, 241, 1),
             boxShadow: [
               BoxShadow(
                   color: Colors.black.withOpacity(0.25),
                   blurRadius: 4,
                   blurStyle: BlurStyle.solid,
-                  offset: Offset(0, 4)
+                  offset: const Offset(0, 4)
               ),
             ],
           ),
@@ -63,7 +59,7 @@ class Taskitem extends StatelessWidget {
                         Container(
                           height: 60,
                           width: 60,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(100)),
                             color: Color.fromRGBO(248, 245, 245, 1),
                             boxShadow: [
@@ -129,7 +125,7 @@ class Taskitem extends StatelessWidget {
                     ),
 
                       GestureDetector(
-                        onTap: ShowDetails,
+                        onTap: showDetails,
                         child: Container(
                           height: 30,
                           width: 70,
@@ -207,7 +203,7 @@ class Taskitem extends StatelessWidget {
                             children: [
                               Text("History"),
                               GestureDetector(
-                                onTap: ShowHistory,
+                                onTap: showHistory,
                                   child: Icon(
                                       isHistoryVisible?
                                       Icons.arrow_drop_up:

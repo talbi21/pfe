@@ -1,11 +1,3 @@
-
-import 'dart:io';
-import 'dart:ui';
-
-import 'UserModel.dart';
-
-
-
 class Task {
   final String id;
   final String title;
@@ -17,17 +9,16 @@ class Task {
   final Map<String, dynamic>? attachment;
   final bool isArchived;
   Task({
-     required this.id,
+    required this.id,
     required this.title,
     required this.date,
     required this.description,
     required this.status,
     required this.type,
-     required this.collaborators,
+    required this.collaborators,
     this.attachment,
     required this.isArchived,
   });
-
 
   factory Task.fromJson(Map<String, dynamic> json) {
     return Task(
@@ -37,15 +28,16 @@ class Task {
       description: json['description'],
       status: json['status'],
       type: json['type'],
-      collaborators: List<String>.from(json['collaborators']), // Handle null values with default value
-        attachment: json['attachment'],
+      collaborators: List<String>.from(
+          json['collaborators']), // Handle null values with default value
+      attachment: json['attachment'],
       isArchived: json['isArchived'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      '_id':id,
+      '_id': id,
       'title': title,
       'date': date,
       'description': description,

@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
 class  Appbar extends StatelessWidget {
-  const Appbar({Key? key, required this.TitleOn}) : super(key: key);
-  final bool TitleOn;
+  const Appbar({Key? key, required this.titleOn}) : super(key: key);
+  final bool titleOn;
 
 
 
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 150,
       width: MediaQuery
           .of(context)
@@ -29,7 +29,7 @@ class  Appbar extends StatelessWidget {
                           .of(context)
                           .size
                           .width / 2,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromRGBO(229, 229, 229, 1),
                         borderRadius: BorderRadius.all(
                             Radius.elliptical(508, 203)),
@@ -50,7 +50,7 @@ class  Appbar extends StatelessWidget {
                           .of(context)
                           .size
                           .width / 2,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color.fromRGBO(12, 62, 117, 1),
                         borderRadius: BorderRadius.all(
                             Radius.elliptical(375, 167)),
@@ -58,14 +58,14 @@ class  Appbar extends StatelessWidget {
                   ),
                 )
             ), Visibility(
-              visible: TitleOn,
+              visible: titleOn,
               child: Positioned(
                   top: MediaQuery
                       .of(context)
                       .size
                       .width / 8,
                   left: 120,
-                  child: Text(
+                  child: const Text(
                     'TaskPulse', textAlign: TextAlign.center, style: TextStyle(
                       color: Color.fromRGBO(255, 255, 255, 1),
                       fontFamily: 'Concert One',

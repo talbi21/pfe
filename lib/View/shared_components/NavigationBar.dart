@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled2/Controllers/BottomNavigationController.dart';
+import 'package:untitled2/Controllers/bottomNavigationController.dart';
 
-import '../Screens/Home/Home_screen.dart';
-import '../Screens/Login/Otp_screen.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int selectedIndex;
@@ -20,21 +17,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 85,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [Colors.transparent, Colors.white],
           stops: [0.3, 0.2],
         ),
-        //  color: Colors.white.withOpacity(0.5),
-        /*boxShadow: [
-          BoxShadow(
-            color: Colors.white54,
-            blurRadius: 2.0,
-            spreadRadius: 2.0,
-          ),
-        ],*/
       ),
       child: Stack(
         children: [
@@ -46,7 +35,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _buildNavItem(
-                    AssetImage('assets/iconArchieve.png'),
+                    const AssetImage('assets/iconArchieve.png'),
                     selectedIndex == 1
                         ? 'Archive'
                         : selectedIndex == 2
@@ -56,7 +45,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : '',
                     0),
                 _buildNavItem(
-                    AssetImage('assets/iconHome.png'),
+                    const AssetImage('assets/iconHome.png'),
                     selectedIndex == 1
                         ? ''
                         : selectedIndex == 2
@@ -64,7 +53,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                             : 'Home',
                     1),
                 _buildNavItem(
-                    AssetImage('assets/iconProfile.png'),
+                    const AssetImage('assets/iconProfile.png'),
                     selectedIndex == 1
                         ? 'Profile'
                         : selectedIndex == 2
@@ -85,12 +74,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         : selectedIndex == 2
                             ? Alignment.bottomRight
                             : Alignment.bottomLeft,
-                    duration: Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 300),
                     curve: Curves.easeOut,
                     child: Container(
                         height: 60.0,
                         width: 60.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Color.fromRGBO(12, 62, 117, 1),
                         ),
@@ -106,7 +95,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                         )),
                   ),
                 )
-              : SizedBox()
+              : const SizedBox()
         ],
       ),
     );
@@ -123,7 +112,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
               size: 50,
               color: selectedIndex == index
                   ? Colors.blue
-                  : Color.fromRGBO(12, 62, 117, 1),
+                  : const Color.fromRGBO(12, 62, 117, 1),
             ),
             Text(
               label,
@@ -131,7 +120,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: selectedIndex == index
                       ? Colors.blue
-                      : Color.fromRGBO(12, 62, 117, 1)),
+                      : const Color.fromRGBO(12, 62, 117, 1)),
             ),
           ],
         ));
